@@ -35,25 +35,25 @@ header {
   text-align: center;
 }
 
-#logo {
+.logo {
   color: #fff;
   font-weight: 100;
 }
 
 /* Balance ======================== */
 
-#balance {
+.container__balance {
   margin-top: -8rem;
 }
 
-#balance h2 {
+.container__balance h2 {
   color: white;
   margin-top: 0;
 }
 
 /* cards ======================== */
 
-.card {
+.container__card {
   background: white;
   padding: 1.5rem 2rem;
   border-radius: 0.25rem;
@@ -61,25 +61,25 @@ header {
   color: var(--dark-blue);
 }
 
-.card h3 {
+.container__card h3 {
   font-weight: normal;
   font-size: 1rem;
 }
 
-.card p {
+.container__card p {
   font-size: 2rem;
   line-height: 3rem;
   margin-top: 1rem;
 }
 
-.card.total {
+.container__card.total {
   background: #49aa26;
   color: white;
 }
 
 /* Table ======================== */
 
-#data-table {
+.transaction__data-table {
   width: 100%;
   border-spacing: 0 0.5rem;
   color: #6a76a5;
@@ -112,15 +112,15 @@ table td {
   font-weight: 600;
 }
 
-td.description {
+td.table__description {
   color: var(--dark-blue);
 }
 
-td.income {
+td.table_income {
   color: #12a454;
 }
 
-td.expense {
+td.table__expense {
   color: #e92929;
 }
 
