@@ -32,28 +32,28 @@
  ##Tarefa Assistir aos cursos/aulas.
     ##Revisão
     * HTML
-        [] o guia estelar de HTML
-        [] HTML que faz sentido para todos
+        [X] o guia estelar de HTML
+        [X] HTML que faz sentido para todos
     
     * CSS 
-        [] O guia estelar de CSS
-        [] Nem tudo são pixels
-        [] Uma caixa dentro da outra
-        [] App bonito até nos textos
+        [X] O guia estelar de CSS
+        [X] Nem tudo são pixels
+        [X] Uma caixa dentro da outra
+        [X] App bonito até nos textos
     
     * Guia estelar de HTTP
-        [] 1. Entendendo
-            [] Visão geral
-            [] Visualizando a comunicação
-        [] 2. Conceitos ( com exceção da aula de proxies)
-        [] 3. URI (com exceção da aula de URN)
+        [x] 1. Entendendo
+            [X] Visão geral
+            [X] Visualizando a comunicação
+        [X] 2. Conceitos ( com exceção da aula de proxies)
+        [X] 3. URI (com exceção da aula de URN)
     
     ###Preparação para próxima aula
     *HTML
-        [] Posso ver e ouvir HTML
-        [] Formulário de outro planeta
+        [X] Posso ver e ouvir HTML
+        [x] Formulário de outro planeta
     * CSS estelar
-    [] Nem só de classes ou ID's
+    [X] Nem só de classes ou ID's
 
 
 
