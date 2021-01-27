@@ -12,10 +12,13 @@
       />
    </head>
    <body>
+      <!-- Logo -->
       <header>
          <img src="./assets/logo.svg" alt="Logo Dev Finance" />
       </header>
+
       <main id="container" class="container">
+         <!-- Primeiras 3 caixas: Entrada, Saída e Total -->
          <section class="container__balance">
             <h2 class="sr-only">Balanço</h2>
             <div class="container__card">
@@ -41,10 +44,14 @@
                <p>R$ 3.000,00</p>
             </div>
          </section>
+
+         <!-- Tabela com as transações -->
          <section id="transaction" class="transaction">
             <h2 class="sr-only">Transações</h2>
 
-            <a href="#" class="button new">Novas Transações</a>
+            <a href="#" onclick="Modal.open()" class="button new"
+               >Novas Transações</a
+            >
             <table class="transaction__data-table">
                <thead>
                   <tr>
@@ -84,7 +91,61 @@
          </section>
       </main>
 
+      <!-- Modal para adicionar novo transação -->
+      <div class="modal-overlay">
+         <div class="modal">
+            <div class="form">
+               <h2>Nova Transação</h2>
+               <form action="">
+                  <!-- Descrição -->
+                  <div class="input-group">
+                     <label for="description" class="sr-only">Descrição</label>
+                     <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        placeholder="Descrição"
+                     />
+                  </div>
+                  <!-- Valor -->
+                  <div class="input-group">
+                     <label for="amount" class="sr-only">Valor</label>
+                     <input
+                        type="number"
+                        step="0.01"
+                        id="amount"
+                        name="amount"
+                        placeholder="0,00"
+                     />
+                     <small class="help">
+                        Use o sinal - (negativo) para despesas e , (vírgula)
+                        para casas decimais
+                     </small>
+                  </div>
+                  <!-- Date -->
+                  <div class="input-group">
+                     <label for="date" class="sr-only">Data</label>
+                     <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        placeholder="01/01/2021"
+                     />
+                  </div>
+
+                  <div class="input-group actions">
+                     <a href="#" onclick="Modal.close()" class="button cancel"
+                        >Cancel</a
+                     >
+                     <button>Salvar</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+
       <footer id="footer"><p>dev.finance$</p></footer>
-      <script></script>
+
+      <script src="script.js"></script>
    </body>
 </html>
