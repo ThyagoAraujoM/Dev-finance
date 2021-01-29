@@ -1,5 +1,3 @@
-# Maratona-Discover
-Repositório criado com o projeto da maratona discovery. 
 <h1 align="center">
      🕹️ <a href="#" alt="Dev.Finances$ (Maratona Discover)"> Dev.Finances$ (Maratona Discover) </a>
 </h1>
