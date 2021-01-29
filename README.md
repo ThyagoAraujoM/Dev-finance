@@ -76,14 +76,14 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 <h4> Mobile </h4>
 
   <p align="center";>
-   <img alt="Header/Main" title="Header/Main" src="./readme-images/página-captura/home-mobile.png" width="200px">
+   <img alt="Header/Main" title="Header/Main" src="./assets/mobile.png" width="200px">
 	<img alt="Footer" title="Footer" src="./readme-images/página-captura/footer-mobile.png" width="200px">
   </p> 
 		
 <h4> Web </h4>
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./readme-images/página-captura/web.png" width="600px">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web.png" width="600px">
 </p>
 
 ## Autor
