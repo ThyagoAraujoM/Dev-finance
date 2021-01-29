@@ -81,9 +81,9 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
   </p> 
 		
 
-
+<h4 margin="auto"> Web </h4>
 <p margin="auto" text-align="center">
-	<h4> Web </h4>
+	
   <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web.png" width="900px">
 </p>
 
