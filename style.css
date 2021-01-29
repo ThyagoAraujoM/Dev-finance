@@ -200,7 +200,7 @@ td.table__description {
    color: var(--dark-blue);
 }
 
-td.table_income {
+td.table__income {
    color: #12a454;
 }
 
@@ -245,6 +245,7 @@ td.table__expense {
 
 small {
    font-weight: bold;
+   opacity: 0.4;
 }
 
 /* ======================== Form ======================== */
