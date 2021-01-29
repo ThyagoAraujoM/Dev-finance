@@ -9,22 +9,18 @@ Repositório criado com o projeto da maratona discovery.
 </h3>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Pluto-ty/Ao-caminho-do-Full-Stack?style=flat-square">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Pluto-ty/Maratona-Discover?style=flat-square">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Pluto-ty/Ao-caminho-do-Full-Stack">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Pluto-ty/Maratona-Discover">
   
   <a href="https://github.com/Pluto-ty/README/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Pluto-ty/Ao-caminho-do-Full-Stack">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Pluto-ty/Maratona-Discover">
   </a>
     
    <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
-   <a href="https://github.com/Pluto-ty/Ao-caminho-do-Full-Stack/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/Pluto-ty/Ao-caminho-do-Full-Stack?style=social">
+   <a href="https://github.com/Pluto-ty/Maratona-Discover/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/Pluto-ty/Maratona-Discover?style=social">
   </a>
- 
-  <a href="https://github.com/Pluto-ty">
-    <img alt="Stargazers" src="https://img.shields.io/badge/Feito por- Thyago Araujo-%237159c1?style=flat&logo=ghost">
-    </a>
   
  
 </p>
@@ -36,15 +32,13 @@ Repositório criado com o projeto da maratona discovery.
 <p align="center">
  <a href="#---sobre-o-repositório-">Sobre o projeto</a> •
  <a href="#--como-executar-o-projeto-">Como executar o projeto</a> •
- <a href="#-projetos-">Projetos</a> • 
- <a href="#-como-contribuir-no-projeto">Como contribuir no projeto</a> • 
  <a href="#-autor">Autor</a> • 
  <a href="#user-content--licença">Licença</a>
 </p>
 
 ---
 
-<h2> 💻  Sobre o repositório </h2>
+<h2 id="---sobre-o-repositório-"> 💻  Sobre o repositório </h2>
 
 Esse repositório é totalmente baseado na Maratona Discover com Mayk Brito.
 
@@ -56,7 +50,7 @@ Códigos comentados para minha própria revisão se precisar, se houver algo que
 
 ---
 
-<h2> 🚀 Como executar o projeto </h2>
+<h2 id="--como-executar-o-projeto-"> 🚀 Como executar o projeto </h2>
 
 Este projeto só usa de tem Front-end.
 
@@ -89,7 +83,7 @@ $ git clone https://github.com/Pluto-ty/Maratona-Discover.git
   <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web.png" width="900px">
 </p>
 
-## Autor
+<h2 id="-autor">Autor</h2>
 
 <a href="https://github.com/Pluto-ty">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/51569984" width="100px;" alt=""/>
@@ -102,7 +96,7 @@ $ git clone https://github.com/Pluto-ty/Maratona-Discover.git
 
 ---
 
-## 📝 Licença
+<h2 id="user-content--licença"> 📝 Licença </h2>
 
 Este projeto esta sobe a licença [MIT](./LICENSE.md).
 
