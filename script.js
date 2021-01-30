@@ -1,32 +1,24 @@
-// Objeto Construtor ?
 // control a +  control k +  control 1 ( deixa todas as abas no nível minimizado 1)
-// [
-//    {
-//       description: "Luz",
-//       amount: -50000,
-//       date: "23/01/2021",
-//    },
-//    {
-//       description: "Website",
-//       amount: 500000,
-//       date: "23/01/2021",
-//    },
-//    {
-//       description: "Internet",
-//       amount: -20000,
-//       date: "23/01/2021",
-//    },
-// ],
 
+// Abre e fecha o modal para adicionar um novo valor
 const Modal = {
    open() {
       document.querySelector(".modal-overlay").classList.add("active");
    },
    close() {
       document.querySelector(".modal-overlay").classList.remove("active");
+      Form.clearFields();
+   },
+
+   closeOut() {
+      let modal = document.getElementById("modal-overlay");
+      modal.addEventListener("click", function (e) {
+         if (e.target == this) Modal.close();
+      });
    },
 };
 
+// Sistema de Storage
 const Storage = {
    get() {
       return (
@@ -41,22 +33,25 @@ const Storage = {
    },
 };
 
-const transactions = [];
-
+// Sistema das transações
 const Transaction = {
    all: Storage.get(),
+
+   //Adicionar as transações na tabela e salvar
    add(transaction) {
       Transaction.all.push(transaction);
 
       App.reload();
    },
 
+   //função de remover os valores ao clicar no botam de - na tabela pelo usuário.
    remove(index) {
       Transaction.all.splice(index, 1);
 
       App.reload();
    },
 
+   //Soma as entradas
    incomes() {
       // somar as entradas
       let income = 0;
@@ -73,6 +68,7 @@ const Transaction = {
       return income;
    },
 
+   //Soma as despesas
    expenses() {
       //somar as saídas
       let expenses = 0;
@@ -85,6 +81,7 @@ const Transaction = {
       return expenses;
    },
 
+   //Soma o total das duas
    total() {
       //entradas -  saídas
       return Transaction.incomes() + Transaction.expenses();
@@ -98,6 +95,7 @@ const DOM = {
       ".transaction__data-table tbody"
    ),
 
+   //Função para adicionar um elemento a tabela.
    addTransaction(transaction, index) {
       // console.log("Funcionando até aqui");
       const tr = document.createElement("tr");
@@ -107,6 +105,7 @@ const DOM = {
       DOM.transactionsContainer.appendChild(tr);
    },
 
+   //criação da transação
    innerHTMLTransaction(transaction, index) {
       const CSSClass =
          transaction.amount > 0 ? "table__income" : "table__expense";
@@ -124,6 +123,7 @@ const DOM = {
       return html;
    },
 
+   //Atualiza as caixas de entrada, saída e total
    updateBalance() {
       document.getElementById("incomeDisplay").innerHTML = Utils.formatCurrency(
          Transaction.incomes()
@@ -136,11 +136,13 @@ const DOM = {
       );
    },
 
+   //limpa  a tabela
    clearTransactions() {
       DOM.transactionsContainer.innerHTML = "";
    },
 };
 
+//Formatação dos valores dos inputs
 const Utils = {
    formatAmount(value) {
       // value = Number(value) * 100;
@@ -170,6 +172,7 @@ const Utils = {
    },
 };
 
+//Formatação, criação e limpeza das transações da tabela
 const Form = {
    description: document.querySelector("input#description"),
    amount: document.querySelector("input#amount"),
@@ -210,7 +213,7 @@ const Form = {
    },
 
    saveTransaction(transaction) {
-      transaction.add(transaction);
+      Transaction.add(transaction);
    },
 
    clearFields() {
@@ -242,7 +245,9 @@ const Form = {
 
 Storage.get();
 
+//Inicialização da aplicação
 const App = {
+   //Inicia o app
    init() {
       // Transaction.all.forEach((transaction, index) => {
       //    DOM.addTransaction(transaction, index);
@@ -256,9 +261,16 @@ const App = {
 
       Storage.set(Transaction.all);
    },
+   //recarrega apagando a tabela antiga e carregando com a nova
    reload() {
       DOM.clearTransactions();
       App.init();
+   },
+
+   darkMode() {
+      // alert("test");
+      let $html = document.querySelector("html");
+      $html.classList.toggle("dark-mode");
    },
 };
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="">
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,13 +14,25 @@
    <body>
       <!-- Logo -->
       <header>
-         <img src="./assets/logo.svg" alt="Logo Dev Finance" />
+         <nav class="navbar">
+            <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finance" />
+            <div class="toggle">
+               <input
+                  onclick="App.darkMode()"
+                  type="checkbox"
+                  name="theme"
+                  id="switch"
+               />
+               <label for="switch">Toggle</label>
+            </div>
+         </nav>
       </header>
 
       <main id="container" class="container">
          <!-- Primeiras 3 caixas: Entrada, Saída e Total -->
          <section class="container__balance">
             <h2 class="sr-only">Balanço</h2>
+            <!-- Entradas -->
             <div class="container__card">
                <h3>
                   <span> Entradas </span>
@@ -28,7 +40,7 @@
                </h3>
                <p id="incomeDisplay">R$ 0,00</p>
             </div>
-
+            <!-- Saídas -->
             <div class="container__card">
                <h3>
                   <span> Saídas </span>
@@ -36,6 +48,7 @@
                </h3>
                <p id="expensesDisplay">R$ 0,00</p>
             </div>
+            <!-- Total -->
             <div class="container__card total">
                <h3>
                   <span> Total </span>
@@ -92,7 +105,7 @@
       </main>
 
       <!-- Modal para adicionar novo transação -->
-      <div class="modal-overlay">
+      <div onclick="Modal.closeOut()" id="modal-overlay" class="modal-overlay">
          <div class="modal">
             <div class="form">
                <h2>Nova Transação</h2>
@@ -105,6 +118,7 @@
                         id="description"
                         name="description"
                         placeholder="Descrição"
+                        required
                      />
                   </div>
                   <!-- Valor -->
@@ -116,6 +130,7 @@
                         id="amount"
                         name="amount"
                         placeholder="0,00"
+                        required
                      />
                      <small class="help">
                         Use o sinal - (negativo) para despesas e , (vírgula)
@@ -130,6 +145,7 @@
                         id="date"
                         name="date"
                         placeholder="01/01/2021"
+                        required
                      />
                   </div>
 

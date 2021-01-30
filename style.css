@@ -1,7 +1,27 @@
 /* ======================== Global ======================== */
 
 :root {
-   --dark-blue: #363f5f;
+   --bg-color: #dbe1eb;
+   --header: #2d4a22;
+   --table-head: #6a76a5;
+   --table-income: #12a454;
+   --cards: white;
+   --toggle: #fff;
+   --toggle-bg: rgb(65, 55, 55);
+   --letters: #363f5f;
+   --green: #49aa26;
+   --light-green: #3dd705;
+   --red: #e92929;
+}
+.dark-mode:root {
+   --bg-color: #242121;
+   --header: #19151b;
+   --table-head: #d6cfcf;
+   --table-income: #12a454;
+   --cards: rgb(29, 25, 34);
+   --toggle: rgb(58, 50, 50);
+   --toggle-bg: rgb(255, 255, 255);
+   --letters: #d8d1d1;
    --green: #49aa26;
    --light-green: #3dd705;
    --red: #e92929;
@@ -17,7 +37,7 @@ html {
 }
 
 body {
-   background: #dbe1eb;
+   background: var(--bg-color);
    font-family: "Poppins", sans-serif;
 }
 
@@ -92,22 +112,70 @@ button:hover {
 h2 {
    margin-top: 3.2rem;
    margin-bottom: 0.8rem;
-   color: var(--dark-blue);
+   color: var(--letters);
 
    font-weight: normal;
 }
 
-/* ======================== Header ======================== */
+/* ======================== Header & Dark-Mode ======================== */
 header {
-   background: #2d4a22;
+   background: var(--header);
    padding: 2rem 0 13rem;
    text-align: center;
    margin-bottom: 0rem;
 }
 
+.navbar {
+   display: flex;
+}
 .logo {
-   color: #fff;
-   font-weight: 100;
+   margin: auto;
+}
+
+.toggle {
+   margin-right: 1rem;
+}
+
+input[type="checkbox"] {
+   height: 0;
+   width: 0;
+   visibility: hidden;
+}
+
+label {
+   cursor: pointer;
+   text-indent: -9999px;
+   width: 52px;
+   height: 27px;
+   background: grey;
+   float: right;
+   border-radius: 100px;
+   position: relative;
+}
+
+label::after {
+   content: "";
+   position: absolute;
+   top: 3px;
+   left: 3px;
+   width: 20px;
+   height: 20px;
+   background-color: var(--toggle);
+   border-radius: 90px;
+   transition: 0.3s;
+}
+
+input:checked + label {
+   background-color: var(--toggle-bg);
+}
+
+input:checked + label::after {
+   left: calc(100% - 5px);
+   transform: translateX(-100%);
+}
+
+label:active:after {
+   width: 45px;
 }
 
 /* ======================== Balance ======================== */
@@ -124,11 +192,11 @@ header {
 /* ======================== cards ======================== */
 
 .container__card {
-   background: white;
+   background: var(--cards);
    padding: 1.5rem 2rem;
    border-radius: 0.25rem;
    margin-bottom: 2rem;
-   color: var(--dark-blue);
+   color: var(--letters);
 }
 
 .container__card h3 {
@@ -161,7 +229,7 @@ header {
 .transaction__data-table {
    width: 100%;
    border-spacing: 0 0.5rem;
-   color: #6a76a5;
+   color: var(--table-head);
 }
 
 table thead tr th:first-child,
@@ -176,13 +244,15 @@ table tbody tr td:last-child {
 
 table th {
    font-weight: normal;
-   background: white;
+   background: var(--cards);
    text-align: left;
    padding: 1rem 2rem;
 }
 
 table tbody tr {
    opacity: 0.7;
+   -webkit-overflow-scrolling: touch;
+   scroll-behavior: smooth;
 }
 
 table tbody tr:hover {
@@ -190,18 +260,18 @@ table tbody tr:hover {
 }
 
 table td {
-   background: white;
+   background: var(--cards);
 
    padding: 1rem 2rem;
    font-weight: 600;
 }
 
 td.table__description {
-   color: var(--dark-blue);
+   color: var(--letters);
 }
 
 td.table__income {
-   color: #12a454;
+   color: var(--table-income);
 }
 
 td.table__expense {
@@ -235,7 +305,7 @@ td.table__expense {
 }
 
 .modal {
-   background: #f0f2f5;
+   background: var(--cards);
    padding: 2.4rem;
    width: 90%;
    max-width: 500px;
@@ -244,6 +314,7 @@ td.table__expense {
 }
 
 small {
+   color: var(--letters);
    font-weight: bold;
    opacity: 0.4;
 }
@@ -263,6 +334,14 @@ small {
    border-radius: 0.2rem;
    padding: 0.8rem;
    width: 100%;
+}
+
+.form input:focus {
+   border: 1px solid rgba(0, 0, 0, 0.116);
+   outline: 0;
+}
+.form input:valid {
+   background-color: rgba(145, 255, 102, 0.13);
 }
 
 .input-group {
@@ -289,8 +368,9 @@ small {
 footer {
    text-align: center;
    padding: 4rem 0 2rem;
-   color: var(--dark-blue);
+   color: var(--lettersletters);
    opacity: 0.6;
+   color: var(--letters);
 }
 
 /* ======================== Responsive ======================== */

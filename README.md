@@ -57,28 +57,32 @@ Este projeto só usa de tem Front-end.
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com) e um bom editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
+1. Faça clone do projeto:
 
-1. Faça clone do projeto: 
 ```bash
 $ git clone https://github.com/Pluto-ty/Maratona-Discover.git
 
 ```
+
 2. Abra com o editor de escolha e modifique,brinque a vontade.
 
 ---
 
 <h2> Projeto </h2>
 
-
 <h4 align="center"> Mobile </h4>
   <p align="center";>
    <img alt="Header/Main" title="Header/Main" src="./assets/mobile.png" width="400px">
-  </p> 
-		
+  </p>
 
 <h4 align="center"> Web </h4>
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
   <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web.png" width="900px">
+</p>
+
+<h4 align="center"> Web - Dark Mode </h4>
+<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web-dm.png" width="900px">
 </p>
 
 <h2 id="-autor">Autor</h2>
@@ -101,4 +105,3 @@ Este projeto esta sobe a licença [MIT](./LICENSE.md).
 Feito com ❤️ por Thyago Araujo 👋🏽 [Entre em contato!](https://www.linkedin.com/in/thyago-araujo-m/)
 
 ---
-
