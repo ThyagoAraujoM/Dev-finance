@@ -38,7 +38,7 @@
 
 <h2 id="---sobre-o-repositório-"> 💻  Sobre o repositório </h2>
 
-Esse repositório é totalmente baseado na Maratona Discover com Mayk Brito.
+Esse repositório é baseado na Maratona Discover com Mayk Brito.
 
 <h4 align="center">🚧 Aviso 🚧</h4>
 
@@ -50,7 +50,9 @@ Códigos comentados para minha própria revisão se precisar, se houver algo que
 
 <h2 id="--como-executar-o-projeto-"> 🚀 Como executar o projeto </h2>
 
-Este projeto só usa de tem Front-end.
+Este projeto só usa de tem Front-end. Clique no link abaixo para ver a aplicação rodando no seu navegador.
+
+<a href="https://pluto-ty.github.io/Maratona-Discover/"> Dev.Finances$</a> 
 
 ### Pré-requisitos
 
