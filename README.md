@@ -52,7 +52,7 @@ Códigos comentados para minha própria revisão se precisar, se houver algo que
 
 Este projeto só usa de tem Front-end. Clique no link abaixo para ver a aplicação rodando no seu navegador.
 
-<a href="https://pluto-ty.github.io/Maratona-Discover/"> Dev.Finances$</a> 
+<a href="https://pluto-ty.github.io/Maratona-Discover/" target="_blank"> Dev.Finances$</a> 
 
 ### Pré-requisitos
 
