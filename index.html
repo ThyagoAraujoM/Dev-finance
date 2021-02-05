@@ -62,9 +62,28 @@
          <section id="transaction" class="transaction">
             <h2 class="sr-only">Transações</h2>
 
-            <a href="#" onclick="Modal.open()" class="button new"
-               >Novas Transações</a
-            >
+            <div class="inputs-tabela">
+               <a href="#" onclick="Modal.open()" class="button new"
+                  >Novas Transações</a
+               >
+               <div>
+                  <select name="Mês" id="mes">
+                     <option value="jan">Janeiro</option>
+                     <option value="fev">Fevereiro</option>
+                     <option value="mar">Março</option>
+                     <option value="abr">Abril</option>
+                     <option value="mai">Maio</option>
+                     <option value="jun">Junho</option>
+                     <option value="jul">Julho</option>
+                     <option value="ago">Agosto</option>
+                     <option value="set">Setembro</option>
+                     <option value="out">Outubro</option>
+                     <option value="nov">Novembro</option>
+                     <option value="dez">Dezembro</option>
+                  </select>
+                  <a href="#" onclick="App.update()">Atualizar</a>
+               </div>
+            </div>
             <table class="transaction__data-table">
                <thead>
                   <tr>

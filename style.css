@@ -278,6 +278,12 @@ td.table__expense {
    color: var(--red);
 }
 
+/* ======================== Input Tabela ======================== */
+.inputs-tabela {
+   display: flex;
+   justify-content: space-between;
+}
+
 /* ======================== Modal ======================== */
 
 .modal-overlay {

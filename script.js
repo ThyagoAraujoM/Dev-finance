@@ -4,6 +4,58 @@
 const Modal = {
    open() {
       document.querySelector(".modal-overlay").classList.add("active");
+      let date = document.getElementById("date");
+      let month = document.getElementById("mes");
+      switch (month.value) {
+         case "jan":
+            date.min = "2021-01-01";
+            date.max = "2021-01-31";
+            break;
+         case "fev":
+            date.min = "2021-02-01";
+            date.max = "2021-02-28";
+            break;
+         case "mar":
+            date.min = "2021-03-01";
+            date.max = "2021-03-31";
+            break;
+         case "abr":
+            date.min = "2021-04-01";
+            date.max = "2021-04-30";
+            break;
+         case "mai":
+            date.min = "2021-05-01";
+            date.max = "2021-05-31";
+            break;
+         case "jun":
+            date.min = "2021-06-01";
+            date.max = "2021-06-30";
+            break;
+         case "jul":
+            date.min = "2021-07-01";
+            date.max = "2021-07-31";
+            break;
+         case "ago":
+            date.min = "2021-08-01";
+            date.max = "2021-08-28";
+            break;
+         case "set":
+            date.min = "2021-09-01";
+            date.max = "2021-09-30";
+            break;
+         case "out":
+            date.min = "2021-10-01";
+            date.max = "2021-10-31";
+            break;
+         case "nov":
+            date.min = "2021-11-01";
+            date.max = "2021-11-30";
+            break;
+         case "dez":
+            date.min = "2021-12-01";
+            date.max = "2021-12-31";
+            break;
+      }
    },
    close() {
       document.querySelector(".modal-overlay").classList.remove("active");
@@ -21,13 +73,18 @@ const Modal = {
 // Sistema de Storage
 const Storage = {
    get() {
+      let meses = document.getElementById("mes");
+
       return (
-         JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
+         JSON.parse(
+            localStorage.getItem(`dev.finances:transactions-${meses.value}`)
+         ) || []
       );
    },
    set(transaction) {
+      let meses = document.getElementById("mes");
       localStorage.setItem(
-         "dev.finances:transactions",
+         `dev.finances:transactions-${meses.value}`,
          JSON.stringify(transaction)
       );
    },
@@ -265,6 +322,13 @@ const App = {
    reload() {
       DOM.clearTransactions();
       App.init();
+   },
+
+   update() {
+      DOM.clearTransactions();
+      Transaction.all = Storage.get();
+      Transaction.all.forEach(DOM.addTransaction);
+      DOM.updateBalance();
    },
 
    darkMode() {
