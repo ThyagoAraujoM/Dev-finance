@@ -3,9 +3,11 @@
 // Abre e fecha o modal para adicionar um novo valor
 const Modal = {
    open() {
-      document.querySelector(".modal-overlay").classList.add("active");
       let date = document.getElementById("date");
       let month = document.getElementById("mes");
+      if (month.value != "total") {
+         document.querySelector(".modal-overlay").classList.add("active");
+      }
       switch (month.value) {
          case "jan":
             date.min = "2021-01-01";
@@ -85,6 +87,10 @@ const Storage = {
       let meses = document.getElementById("mes");
       localStorage.setItem(
          `dev.finances:transactions-${meses.value}`,
+         JSON.stringify(transaction)
+      );
+      localStorage.setItem(
+         "dev.finances:transactions-total",
          JSON.stringify(transaction)
       );
    },
@@ -202,10 +208,9 @@ const DOM = {
 //Formatação dos valores dos inputs
 const Utils = {
    formatAmount(value) {
-      // value = Number(value) * 100;
-      value = Number(value.replace(/\,\./g, "")) * 100;
+      value = value * 100;
 
-      return value;
+      return Math.round(value);
    },
 
    formatDate(date) {
@@ -302,6 +307,92 @@ const Form = {
 
 Storage.get();
 
+// Sistema de sort(ordenar) as tablas pelo valores.
+
+/*
+ * Sorts a HTML table.
+ *
+ * @param {HTMLTableElement} table The table to sort
+ * @param {number} column The index of the column to sort
+ * @param {boolean} asc Determines if the sorting will be in ascending
+ */
+
+function sortTableByColumn(table, column, asc = true) {
+   const dirModifier = asc ? 1 : -1;
+   const tBody = table.tBodies[0];
+   const rows = Array.from(tBody.querySelectorAll("tr"));
+
+   // Sort each row
+   const sortedRows = rows.sort((a, b) => {
+      let aColText = a
+         .querySelector(`td:nth-child(${column + 1})`)
+         .textContent.trim();
+      let bColText = b
+         .querySelector(`td:nth-child(${column + 1})`)
+         .textContent.trim();
+      if (column == 1) {
+         aColText = unFormartCurrency(aColText);
+         bColText = unFormartCurrency(bColText);
+         // console.log(aColText);
+      }
+
+      return aColText > bColText ? 1 * dirModifier : -1 * dirModifier;
+   });
+
+   // Remove all existing TRs from the table
+   while (tBody.firstChild) {
+      tBody.removeChild(tBody.firstChild);
+   }
+
+   // Re-add the newly sorted rows
+   tBody.append(...sortedRows);
+
+   // Remember how the column is currently sorted
+   table
+      .querySelectorAll("th")
+      .forEach((th) => th.classList.remove("th-sort-asc", "th-sort-desc"));
+   table
+      .querySelector(`th:nth-child(${column + 1})`)
+      .classList.toggle("th-sort-asc", asc);
+   table
+      .querySelector(`th:nth-child(${column + 1})`)
+      .classList.toggle("th-sort-desc", !asc);
+}
+
+document.querySelectorAll(".table-sortable th").forEach((headerCell) => {
+   headerCell.addEventListener("click", () => {
+      const tableElement = headerCell.parentElement.parentElement.parentElement;
+      const headerIndex = Array.prototype.indexOf.call(
+         headerCell.parentElement.children,
+         headerCell
+      );
+      const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+
+      sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+   });
+});
+
+// Organiza a data automaticamente ao implementar algo ou atualizar a página
+function organize() {
+   var date = document.querySelector(".date");
+
+   const tableElement = date.parentElement.parentElement.parentElement;
+   const headerIndex = Array.prototype.indexOf.call(
+      date.parentElement.children,
+      date
+   );
+   // const currentIsAscending = date.classList.contains("th-sort-asc");
+   const currentIsAscending = false;
+
+   sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+}
+
+function unFormartCurrency(value) {
+   value = String(value);
+   const prefix = /^-/gi.test(value) ? "-" : "";
+   return Number(`${prefix}${Number(value.replace(/\D/g, "")) / 100}`);
+}
+
 //Inicialização da aplicação
 const App = {
    //Inicia o app
@@ -313,7 +404,7 @@ const App = {
       Transaction.all.forEach(DOM.addTransaction);
       // Resumo pq a função esta recebendo os mesmos parâmetros e não está acontecendo mais nada
       // pode se resumir assim. Passando a função como um atalho ( pesquisar se quiser entender mais).
-
+      organize();
       DOM.updateBalance();
 
       Storage.set(Transaction.all);
@@ -340,6 +431,7 @@ const App = {
 
 App.init();
 
+// Comentários avulsos.
 /*
    Transaction.add({
       id: 39,
@@ -350,71 +442,22 @@ App.init();
 
  Transaction.remove(0); */
 
-// Sistema de sort(ordenar) as tablas pelo valores.
-
+// Sort each row. (Para resolver problema dos números de uma lista pq podem ser vistas como string)
 /*
- * Sorts a HTML table.
- *
- * @param {HTMLTableElement} table The table to sort
- * @param {number} column The index of the column to sort
- * @param {boolean} asc Determines if the sorting will be in ascending
- */
+ const sortedRows = rows.sort((a, b) => {
+   let aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+   let bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
 
-function sortTableByColumn(table, column, asc = true) {
-   const dirModifier = asc ? 1 : -1;
-   const tBody = table.tBodies[0];
-   const rows = Array.from(tBody.querySelectorAll("tr"));
-
-   // Sort each row
-   const sortedRows = rows.sort((a, b) => {
-      const aColText = a
-         .querySelector(`td:nth-child(${column + 1})`)
-         .textContent.trim();
-      const bColText = b
-         .querySelector(`td:nth-child(${column + 1})`)
-         .textContent.trim();
-      return aColText > bColText ? 1 * dirModifier : -1 * dirModifier;
-   });
-
-   // Remove all existing TRs from the table
-   while (tBody.firstChild) {
-      tBody.removeChild(tBody.firstChild);
+   if (!isNaN(parseFloat(aColText)) && !isNaN(parseFloat(bColText))) {
+       aColText = parseFloat(aColText)
+       bColText = parseFloat(bColText)
    }
 
-   //Re-add the newly sorted rows
-   tBody.append(...sortedRows);
-
-   //Remember how the column is currently sorted
-   table
-      .querySelectorAll("th")
-      .forEach((th) => th.classList.remove("th-sort-asc", "th-sort-desc"));
-   table
-      .querySelector(`th:nth-child(${column + 1})`)
-      .classList.toggle("th-sort-asc", asc);
-   table
-      .querySelector(`th:nth-child(${column + 1})`)
-      .classList.toggle("th-sort-desc", !asc);
+   return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
 }
+ */
 
-// document.querySelectorAll(".table-sortable th").forEach((headerCell) => {
-//    headerCell.addEventListener("click", () => {
-//       const tableElement = headerCell.parentElement.parentElement.parentElement;
-//       const headerIndex = Array.prototype.indexOf.call(
-//          headerCell.parentElement.children,
-//          headerCell
-//       );
-//       const currentIsAscending = headerCell.classList.contains("th-sort-asc");
-
-//       sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
-//    });
-// });
-
-onload = () => {
-   var date = document.querySelector(".date");
-   date.addEventListener("click", () => {
-      const tableElement = date.parentElement.parentElement.parentElement;
-      const currentIsAscending = date.classList.contains("th-sort-asc");
-
-      sortTableByColumn(tableElement, 2, !currentIsAscending);
-   });
-};
+// // if (!isNaN(parseFloat(aColText)) && !isNaN(parseFloat(bColText))) {
+// aColText = aColText.replace(/(R\$|\ +)/gi, "");
+// bColText = bColText.replace(/(R\$|\ +)/gi, "");
+// // }
