@@ -75,18 +75,53 @@ const Modal = {
 // Sistema de Storage
 const Storage = {
    get() {
-      let meses = document.getElementById("mes");
+      let inputMonths = document.getElementById("mes");
 
-      return (
-         JSON.parse(
-            localStorage.getItem(`dev.finances:transactions-${meses.value}`)
-         ) || []
-      );
+      if (inputMonths.value == "total") {
+         const months = [
+            "jan",
+            "fev",
+            "mar",
+            "abr",
+            "mai",
+            "jun",
+            "jul",
+            "ago",
+            "set",
+            "out",
+            "nov",
+            "dez",
+         ];
+         let total = [];
+         for (let i = 0; i < months.length - 1; i++) {
+            let month =
+               JSON.parse(
+                  localStorage.getItem(`dev.finances:transactions-${months[i]}`)
+               ) || [];
+
+            if (month[0] != "") {
+               // alert("Funcionando");
+               for (let n = 0; n < month.length; n++) {
+                  total.push(month[n]);
+               }
+            }
+         }
+         console.log(total);
+         return total;
+      } else {
+         return (
+            JSON.parse(
+               localStorage.getItem(
+                  `dev.finances:transactions-${inputMonths.value}`
+               )
+            ) || []
+         );
+      }
    },
    set(transaction) {
-      let meses = document.getElementById("mes");
+      let inputMonths = document.getElementById("mes");
       localStorage.setItem(
-         `dev.finances:transactions-${meses.value}`,
+         `dev.finances:transactions-${inputMonths.value}`,
          JSON.stringify(transaction)
       );
       localStorage.setItem(
@@ -334,6 +369,11 @@ function sortTableByColumn(table, column, asc = true) {
          aColText = unFormartCurrency(aColText);
          bColText = unFormartCurrency(bColText);
          // console.log(aColText);
+      }
+
+      if (column == 2) {
+         // return new Date(a.Data) - new Date(a.Data);
+         console.log(aColText);
       }
 
       return aColText > bColText ? 1 * dirModifier : -1 * dirModifier;
