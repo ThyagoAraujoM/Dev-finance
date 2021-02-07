@@ -38,7 +38,7 @@
 
 <h2 id="---sobre-o-repositório-"> 💻  Sobre o repositório </h2>
 
-Esse repositório é baseado na Maratona Discover com Mayk Brito.
+Esse repositório é baseado na Maratona Discover com Mayk Brito, utilizando o básico de HTML, CSS e Javascript para fazer a base do projeto porém estou implementando várias funcionalidades e deixar essa aplicação bem melhor, e aprendendo bastante com isso.
 
 <h4 align="center">🚧 Aviso 🚧</h4>
 
