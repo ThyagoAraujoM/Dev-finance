@@ -250,7 +250,11 @@ const Utils = {
 
    formatDate(date) {
       const splittedDate = date.split("-");
-      return ` ${splittedDate[2]} / ${splittedDate[1]}/ ${splittedDate[0]}`;
+      return ` ${splittedDate[2]} / ${splittedDate[1]} / ${splittedDate[0]}`;
+   },
+   formatDate2(date) {
+      const splittedDate = date.split("/");
+      return `${splittedDate[2]}${splittedDate[1]}${splittedDate[0]}`;
    },
 
    formatCurrency(value) {
@@ -372,7 +376,8 @@ function sortTableByColumn(table, column, asc = true) {
       }
 
       if (column == 2) {
-         // return new Date(a.Data) - new Date(a.Data);
+         aColText = Utils.formatDate2(aColText).replace(/\s/g, "");
+         bColText = Utils.formatDate2(bColText).replace(/\s/g, "");
          console.log(aColText);
       }
 
