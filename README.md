@@ -70,7 +70,7 @@ $ git clone https://github.com/Pluto-ty/Maratona-Discover.git
 
 ---
 
-<h2> Projeto </h2>
+<h2 align="center"> Projeto </h2>
 
 <h4 align="center"> Mobile </h4>
   <p align="center";>
