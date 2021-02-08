@@ -1,13 +1,9 @@
-// control a +  control k +  control 1 ( deixa todas as abas no nível minimizado 1)
-
-// Abre e fecha o modal para adicionar um novo valor
+// Abre e fecha o modal para adicionar uma nova transação
 const Modal = {
    open() {
+      // Abre o modal se não estiver na "aba" total e modifica o min max do date dependendo do mês para n colocar o mês errado.
       let date = document.getElementById("date");
       let month = document.getElementById("mes");
-      if (month.value != "total") {
-         document.querySelector(".modal-overlay").classList.add("active");
-      }
       switch (month.value) {
          case "jan":
             date.min = "2021-01-01";
@@ -58,13 +54,18 @@ const Modal = {
             date.max = "2021-12-31";
             break;
       }
+      if (month.value != "total") {
+         document.querySelector(".modal-overlay").classList.add("active");
+      }
    },
    close() {
+      // Fecha o modal e limpa os valores nele inseridos.
       document.querySelector(".modal-overlay").classList.remove("active");
       Form.clearFields();
    },
 
    closeOut() {
+      // Fecha se clicar fora do moda.
       let modal = document.getElementById("modal-overlay");
       modal.addEventListener("click", function (e) {
          if (e.target == this) Modal.close();
@@ -75,8 +76,12 @@ const Modal = {
 // Sistema de Storage
 const Storage = {
    get() {
+      // pega o mês atual que está selecionado (padrão é janeiro) e assim pega o localStorage desse mês.
       let inputMonths = document.getElementById("mes");
 
+      // Se for o total selecionado ele cria um loop baseado em um array com os 12 meses do ano. E em cada loop verifica se tem um LocalStorage desse mês, se houver ele cria um loop para
+      // adicionar todos os valores desse mês no total. E faz isso em cada mês para no final retornar para a tabela uma lista com todos os valores dos meses para uma visão mais geral.
+      // Se não for o total ele simplesmente vai pegar o LocalStorage do mês selecionado e entregar para a lista.
       if (inputMonths.value == "total") {
          const months = [
             "jan",
@@ -106,7 +111,7 @@ const Storage = {
                }
             }
          }
-         console.log(total);
+         // console.log(total);
          return total;
       } else {
          return (
@@ -119,58 +124,51 @@ const Storage = {
       }
    },
    set(transaction) {
+      // Cria um LocalStorage ou reescreve um existente com os valores do mês em questão.
       let inputMonths = document.getElementById("mes");
       localStorage.setItem(
          `dev.finances:transactions-${inputMonths.value}`,
          JSON.stringify(transaction)
       );
-      localStorage.setItem(
-         "dev.finances:transactions-total",
-         JSON.stringify(transaction)
-      );
    },
 };
 
-// Sistema das transações
+// Sistema das transações ( add, remove, incomes, expenses, total)
 const Transaction = {
+   // pega o LocalStorage do mês selecionado e deposita no objeto para depois colocar na tabela no HTML.
    all: Storage.get(),
 
-   //Adicionar as transações na tabela e salvar
    add(transaction) {
+      //Adiciona a transação no objeto e depois recarrega a tabela com os novos valores.
       Transaction.all.push(transaction);
-
       App.reload();
    },
 
-   //função de remover os valores ao clicar no botam de - na tabela pelo usuário.
    remove(index) {
+      //função de remover os valores ao clicar no botam de - na tabela pelo usuário. E reinicia a aplicação.
       Transaction.all.splice(index, 1);
-
       App.reload();
    },
 
-   //Soma as entradas
    incomes() {
-      // somar as entradas
+      //Soma as entradas
+      // Devolvem o total de income que tem a partir de um loop que verifica todos as transações com saldo positivo e soma para dentro de income
       let income = 0;
-      //pegar todas as transações
-      // para cada transação,
 
+      // Para cara transação se ela for maior que zero, somar ao valor atual de income.
       Transaction.all.forEach((transaction) => {
-         // se ela for maior que zero
          if (transaction.amount > 0) {
-            // somar a uma variável e retornar a variável
             income += transaction.amount;
          }
       });
       return income;
    },
 
-   //Soma as despesas
    expenses() {
-      //somar as saídas
+      //Soma as despesas, devolve o valor total de despesas do mês.
       let expenses = 0;
 
+      // Para cara transação se ela for menor que zero, somar ao valor atual de expenses.
       Transaction.all.forEach((transaction) => {
          if (transaction.amount < 0) {
             expenses += transaction.amount;
@@ -179,15 +177,22 @@ const Transaction = {
       return expenses;
    },
 
-   //Soma o total das duas
    total() {
+      //Soma o total das duas
+      // Retorna a soma dos incomes e expenses e devolve o valor desse mês. Dependendo do valor positivo ou negativo o bg muda de cor.
+      if (Transaction.incomes() + Transaction.expenses() < 0) {
+         document.getElementById("container__total").style.backgroundColor =
+            "#e92929";
+      } else {
+         document.getElementById("container__total").style.backgroundColor =
+            "#49aa26";
+      }
       //entradas -  saídas
       return Transaction.incomes() + Transaction.expenses();
    },
 };
 
 //Substituir os dados do html com os dados do js
-
 const DOM = {
    transactionsContainer: document.querySelector(
       ".transaction__data-table tbody"
@@ -502,7 +507,7 @@ App.init();
 }
  */
 
-// // if (!isNaN(parseFloat(aColText)) && !isNaN(parseFloat(bColText))) {
+// //Tirar o R$ para o sort conseguir ordenar corretamente
 // aColText = aColText.replace(/(R\$|\ +)/gi, "");
 // bColText = bColText.replace(/(R\$|\ +)/gi, "");
-// // }
+//

@@ -25,6 +25,7 @@
    --green: #49aa26;
    --light-green: #3dd705;
    --red: #e92929;
+   transition: 0.3s;
 }
 * {
    margin: 0;
@@ -39,6 +40,11 @@ html {
 body {
    background: var(--bg-color);
    font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+   transition: all 500ms ease 0s !important;
 }
 
 .sr-only {
@@ -123,6 +129,7 @@ header {
    padding: 2rem 0 13rem;
    text-align: center;
    margin-bottom: 0rem;
+   transition: all 500ms ease 0s;
 }
 
 .navbar {
@@ -197,6 +204,7 @@ label:active:after {
    border-radius: 0.25rem;
    margin-bottom: 2rem;
    color: var(--letters);
+   transition: all 500ms ease 0s;
 }
 
 .container__card h3 {
@@ -364,6 +372,14 @@ small {
    width: 100%;
 }
 
+.form input {
+   background-color: var(--bg-color);
+   color: var(--letters);
+}
+.form input::placeholder {
+   color: var(--letters);
+}
+
 .form input:focus {
    border: 1px solid rgba(0, 0, 0, 0.116);
    outline: 0;
@@ -376,7 +392,8 @@ small {
    margin-top: 0.8rem;
 }
 
-.input-group small {
+.input-group .help {
+   color: var(--letters);
    opacity: 0.4;
 }
 
