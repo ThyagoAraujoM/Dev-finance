@@ -80,7 +80,39 @@ body {
    border: 1px solid;
  }
 
+ .wallet-overlay{
+   width: 100%;
+   height: 100%;
 
+   background-color: rgba(0, 0, 0, 0.7);
+
+   position: fixed;
+   top: 0;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   opacity: 0;
+   visibility: hidden;
+
+   z-index: 999;
+ }
+
+ 
+.wallet-overlay.active {
+   opacity: 1;
+   visibility: visible;
+}
+
+.wallet-modal {
+   background: var(--cards);
+   padding: 2.4rem;
+   width: 90%;
+   max-width: 500px;
+   position: relative;
+   z-index: 1;
+}
 
 /* ======================== Links & Buttons ======================== */
 a {

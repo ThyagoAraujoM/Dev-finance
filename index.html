@@ -25,21 +25,20 @@
           />
           <label for="switch">Toggle</label>
         </div>
-      
       </nav>
     </header>
 
     <main id="container" class="container">
       <div onclick="Modal.open()" id="wallet-selected" class="wallet-selected">
-         <span>Carteira :</span>
-         <a
-           href="#"
-           class="button wallet"
-           id="wallet-selected-name"
-           onclick="Modal.toggle('modal-wallets')"
-           >Nome</a
-         >
-       </div>
+        <span>Carteira :</span>
+        <a
+          href="#"
+          class="button wallet"
+          id="wallet-selected-name"
+          onclick="Modal.toggle('modal-wallets')"
+          >Nome</a
+        >
+      </div>
       <!-- Primeiras 3 caixas: Entrada, Saída e Total -->
       <section class="container__balance">
         <h2 class="sr-only">Balanço</h2>
@@ -168,8 +167,34 @@
 
     <!-- Modal Wallet adicionar trocar de carteira -->
     <div onclick="Modal.closeOut()" id="wallet-overlay" class="wallet-overlay">
-       <h2>Carteiras</h2>
-       <input type="text"> <a href="">Adicionar</a>
+      <div class="wallet-modal">
+        <div class="form-wallets">
+          <h2>Carteiras</h2>
+          <form action="">
+          <label for="wallet-name" class="sr-only">Nome da carteira</label>
+          <input
+            type="text"
+            id="wallet-name"
+            placeholder="Nome para Carteira"
+          />
+          <button>Adicionar</button>
+         </form>
+        </div>
+        <hr />
+        <div id="wallets">
+         <table id="wallets-table">
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Total</th>
+               <th class="remove-wallet"></th>
+             </tr>
+           </thead>
+           <tbody>
+           </tbody>
+         </table>
+       </div>
+      </div>
     </div>
     <footer id="footer">
       <a href="https://github.com/Pluto-ty/Maratona-Discover"> dev.finance$</a>
