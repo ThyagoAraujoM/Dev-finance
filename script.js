@@ -1,3 +1,10 @@
+oScript = document.createElement("script");
+oScript.src = "funções.js";
+oScript.type = "text/javascript";
+document.body.appendChild(oScript);
+
+
+
 // Abre e fecha o modal para adicionar uma nova transação
 const Modal = {
    open() {

@@ -59,12 +59,30 @@ body {
    border-width: 0;
 }
 .container {
+   position: relative;
    width: min(90vw, 800px);
    margin: auto;
 }
 
-/* ======================== Links & Buttons ======================== */
+/* ======================== Wallet ======================== */
 
+.wallet-selected {
+   position: absolute;
+   top: -30px;
+   font-size: 20px;
+ }
+
+ .wallet-selected span {
+   color: var(--letters);
+ } 
+
+ .wallet-selected .button{
+   border: 1px solid;
+ }
+
+
+
+/* ======================== Links & Buttons ======================== */
 a {
    color: var(--green);
    text-decoration: none;
