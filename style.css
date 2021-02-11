@@ -1,483 +1,505 @@
 /* ======================== Global ======================== */
 
 :root {
-   --bg-color: #dbe1eb;
-   --header: #2d4a22;
-   --table-head: #6a76a5;
-   --table-income: #12a454;
-   --cards: white;
-   --toggle: #fff;
-   --toggle-bg: rgb(65, 55, 55);
-   --letters: #363f5f;
-   --green: #49aa26;
-   --light-green: #3dd705;
-   --red: #e92929;
+  --bg-color: #dbe1eb;
+  --header: #2d4a22;
+  --table-head: #6a76a5;
+  --table-income: #12a454;
+  --cards: white;
+  --toggle: #fff;
+  --toggle-bg: rgb(65, 55, 55);
+  --letters: #363f5f;
+  --green: #49aa26;
+  --light-green: #3dd705;
+  --red: #e92929;
 }
 .dark-mode:root {
-   --bg-color: #242121;
-   --header: #19151b;
-   --table-head: #d6cfcf;
-   --table-income: #12a454;
-   --cards: rgb(29, 25, 34);
-   --toggle: rgb(58, 50, 50);
-   --toggle-bg: rgb(255, 255, 255);
-   --letters: #d8d1d1;
-   --green: #49aa26;
-   --light-green: #3dd705;
-   --red: #e92929;
-   transition: 0.3s;
+  --bg-color: #242121;
+  --header: #19151b;
+  --table-head: #d6cfcf;
+  --table-income: #12a454;
+  --cards: rgb(29, 25, 34);
+  --toggle: rgb(58, 50, 50);
+  --toggle-bg: rgb(255, 255, 255);
+  --letters: #d8d1d1;
+  --green: #49aa26;
+  --light-green: #3dd705;
+  --red: #e92929;
+  transition: 0.3s;
 }
 * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-   font-size: 93.75%; /* 15px*/
+  font-size: 93.75%; /* 15px*/
 }
 
 body {
-   background: var(--bg-color);
-   font-family: "Poppins", sans-serif;
+  background: var(--bg-color);
+  font-family: "Poppins", sans-serif;
 }
 
 html,
 body {
-   transition: all 500ms ease 0s !important;
+  transition: all 500ms ease 0s !important;
 }
 
 .sr-only {
-   position: absolute;
-   width: 1px;
-   height: 1px;
-   padding: 0px;
-   margin: -1;
-   overflow: hidden;
-   clip: rect(0, 0, 0, 0);
-   white-space: nowrap;
-   border-width: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0px;
+  margin: -1;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 .container {
-   position: relative;
-   width: min(90vw, 800px);
-   margin: auto;
+  position: relative;
+  width: min(90vw, 800px);
+  margin: auto;
 }
 
 /* ======================== Wallet ======================== */
 
 .wallet-selected {
-   position: absolute;
-   top: -30px;
-   font-size: 20px;
- }
+  position: absolute;
+  top: -30px;
+  font-size: 20px;
+}
 
- .wallet-selected span {
-   color: var(--letters);
- } 
+.wallet-selected span {
+  color: var(--letters);
+}
 
- .wallet-selected .button{
-   border: 1px solid;
- }
+.wallet-selected .button {
+  border: 1px solid;
+}
 
- .wallet-overlay{
-   width: 100%;
-   height: 100%;
+.wallet-overlay {
+  width: 100%;
+  height: 100%;
 
-   background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 
-   position: fixed;
-   top: 0;
+  position: fixed;
+  top: 0;
 
-   display: flex;
-   align-items: center;
-   justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-   opacity: 0;
-   visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
 
-   z-index: 999;
- }
+  z-index: 999;
+}
 
- 
 .wallet-overlay.active {
-   opacity: 1;
-   visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .wallet-modal {
-   background: var(--cards);
-   padding: 2.4rem;
-   width: 90%;
-   max-width: 500px;
-   position: relative;
-   z-index: 1;
+  background: var(--cards);
+  padding: 2.4rem;
+  width: 90%;
+  max-width: 750px;
+  position: relative;
+}
+.form-wallets form {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.form-wallets input {
+  width: 65%;
+}
+.form-wallets button {
+  width: 30%;
+  height: 50px;
+  border: none;
+  color: white;
+  background: var(--green);
+  padding: 0;
+
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+.form-wallets h2 {
+  padding: 10px;
+  margin: 0;
 }
 
 /* ======================== Links & Buttons ======================== */
 a {
-   color: var(--green);
-   text-decoration: none;
+  color: var(--green);
+  text-decoration: none;
 }
 
 a:hover {
-   color: var(--light-green);
+  color: var(--light-green);
 }
 
-button {
-   width: 100%;
-   height: 50px;
-   border: none;
-   color: white;
-   background: var(--green);
-   padding: 0;
+.modal button {
+  width: 100%;
+  height: 50px;
+  border: none;
+  color: white;
+  background: var(--green);
+  padding: 0;
 
-   border-radius: 0.25rem;
-   cursor: pointer;
+  border-radius: 0.25rem;
+  cursor: pointer;
 }
 
 button:hover {
-   background: var(--light-green);
+  background: var(--light-green);
 }
 
 .button.new {
-   display: inline-block;
-   margin-bottom: 0.8rem;
+  display: inline-block;
+  margin-bottom: 0.8rem;
 }
 
 .button.cancel {
-   color: var(--red);
-   border: 2px var(--red) solid;
+  color: var(--red);
+  border: 2px var(--red) solid;
 
-   border-radius: 0.25rem;
+  border-radius: 0.25rem;
 
-   height: 50px;
+  height: 50px;
 
-   display: flex;
-   align-items: center;
-   justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-   opacity: 0.6;
+  opacity: 0.6;
 }
 
 .button.cancel:hover {
-   opacity: 1;
+  opacity: 1;
 }
 
 /* ======================== Title ======================== */
-h2 {
-   margin-top: 3.2rem;
-   margin-bottom: 0.8rem;
-   color: var(--letters);
+.form h2 {
+  margin-top: 3.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--letters);
 
-   font-weight: normal;
+  font-weight: normal;
 }
 
 /* ======================== Header & Dark-Mode ======================== */
 header {
-   background: var(--header);
-   padding: 2rem 0 13rem;
-   text-align: center;
-   margin-bottom: 0rem;
-   transition: all 500ms ease 0s;
+  background: var(--header);
+  padding: 2rem 0 13rem;
+  text-align: center;
+  margin-bottom: 0rem;
+  transition: all 500ms ease 0s;
 }
 
 .navbar {
-   display: flex;
+  display: flex;
 }
 .logo {
-   margin: auto;
+  margin: auto;
 }
 
 .toggle {
-   margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 input[type="checkbox"] {
-   height: 0;
-   width: 0;
-   visibility: hidden;
+  height: 0;
+  width: 0;
+  visibility: hidden;
 }
 
 label {
-   cursor: pointer;
-   text-indent: -9999px;
-   width: 52px;
-   height: 27px;
-   background: grey;
-   float: right;
-   border-radius: 100px;
-   position: relative;
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 52px;
+  height: 27px;
+  background: grey;
+  float: right;
+  border-radius: 100px;
+  position: relative;
 }
 
 label::after {
-   content: "";
-   position: absolute;
-   top: 3px;
-   left: 3px;
-   width: 20px;
-   height: 20px;
-   background-color: var(--toggle);
-   border-radius: 90px;
-   transition: 0.3s;
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--toggle);
+  border-radius: 90px;
+  transition: 0.3s;
 }
 
 input:checked + label {
-   background-color: var(--toggle-bg);
+  background-color: var(--toggle-bg);
 }
 
 input:checked + label::after {
-   left: calc(100% - 5px);
-   transform: translateX(-100%);
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
 }
 
 label:active:after {
-   width: 45px;
+  width: 45px;
 }
 
 /* ======================== Balance ======================== */
 
 .container__balance {
-   margin-top: -8rem;
+  margin-top: -8rem;
 }
 
 .container__balance h2 {
-   color: white;
-   margin-top: 0;
+  color: white;
+  margin-top: 0;
 }
 
 /* ======================== cards ======================== */
 
 .container__card {
-   background: var(--cards);
-   padding: 1.5rem 2rem;
-   border-radius: 0.25rem;
-   margin-bottom: 2rem;
-   color: var(--letters);
-   transition: all 500ms ease 0s;
+  background: var(--cards);
+  padding: 1.5rem 2rem;
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
+  color: var(--letters);
+  transition: all 500ms ease 0s;
 }
 
 .container__card h3 {
-   font-weight: normal;
-   font-size: 1rem;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
+  font-weight: normal;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .container__card p {
-   font-size: 2rem;
-   line-height: 3rem;
-   margin-top: 1rem;
+  font-size: 2rem;
+  line-height: 3rem;
+  margin-top: 1rem;
 }
 
 .container__card.total {
-   background: var(--green);
-   color: white;
+  background: var(--green);
+  color: white;
 }
 
 /* ======================== Table ======================== */
 
 .transaction {
-   display: block;
-   width: 100%;
-   overflow-x: auto;
+  display: block;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .transaction__data-table {
-   width: 100%;
-   border-spacing: 0 0.5rem;
-   color: var(--table-head);
+  width: 100%;
+  border-spacing: 0 0.5rem;
+  color: var(--table-head);
 }
 
 table thead tr th:first-child,
 table tbody tr td:first-child {
-   border-radius: 0.25rem 0 0 0.25rem;
+  border-radius: 0.25rem 0 0 0.25rem;
 }
 
 table thead tr th:last-child,
 table tbody tr td:last-child {
-   border-radius: 0 0.25rem 0.25rem 0;
+  border-radius: 0 0.25rem 0.25rem 0;
 }
 
 table th {
-   font-weight: normal;
-   background: var(--cards);
-   text-align: left;
-   padding: 1rem 2rem;
+  font-weight: normal;
+  background: var(--cards);
+  text-align: left;
+  padding: 1rem 2rem;
 }
 
 .table-sortable th {
-   cursor: pointer;
+  cursor: pointer;
 }
 
 .table-sortable .th-sort-asc::after {
-   content: "\25b4";
+  content: "\25b4";
 }
 
 .table-sortable .th-sort-desc::after {
-   content: "\25be";
+  content: "\25be";
 }
 
 .table-sortable .th-sort-asc::after,
 .table-sortable .th-sort-desc::after {
-   margin-left: 5px;
+  margin-left: 5px;
 }
 
 .table-sortable .th-sort-asc,
 .table-sortable .th-sort-desc {
-   background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 table tbody tr {
-   opacity: 0.7;
-   -webkit-overflow-scrolling: touch;
-   scroll-behavior: smooth;
+  opacity: 0.7;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 table tbody tr:hover {
-   opacity: 1;
+  opacity: 1;
 }
 
 table td {
-   background: var(--cards);
+  background: var(--cards);
 
-   padding: 1rem 2rem;
-   font-weight: 600;
+  padding: 1rem 2rem;
+  font-weight: 600;
 }
 
 td.table__description {
-   color: var(--letters);
+  color: var(--letters);
 }
 
 td.table__income {
-   color: var(--table-income);
+  color: var(--table-income);
 }
 
 td.table__expense {
-   color: var(--red);
+  color: var(--red);
 }
 
 /* ======================== Input Tabela ======================== */
 .inputs-tabela {
-   display: flex;
-   justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* ======================== Modal ======================== */
 
 .modal-overlay {
-   width: 100%;
-   height: 100%;
+  width: 100%;
+  height: 100%;
 
-   background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 
-   position: fixed;
-   top: 0;
+  position: fixed;
+  top: 0;
 
-   display: flex;
-   align-items: center;
-   justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-   opacity: 0;
-   visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
 
-   z-index: 999;
+  z-index: 999;
 }
 
 .modal-overlay.active {
-   opacity: 1;
-   visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .modal {
-   background: var(--cards);
-   padding: 2.4rem;
-   width: 90%;
-   max-width: 500px;
-   position: relative;
-   z-index: 1;
+  background: var(--cards);
+  padding: 2.4rem;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  z-index: 1;
 }
 
 small {
-   color: var(--letters);
-   font-weight: bold;
-   opacity: 0.4;
+  color: var(--letters);
+  font-weight: bold;
+  opacity: 0.4;
 }
 
 /* ======================== Form ======================== */
 
 .form {
-   max-width: 500px;
+  max-width: 500px;
 }
 
 .form h2 {
-   margin-top: 0;
+  margin-top: 0;
 }
 
 .form form input {
-   border: none;
-   border-radius: 0.2rem;
-   padding: 0.8rem;
-   width: 100%;
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.8rem;
+  width: 100%;
 }
 
 .form input {
-   background-color: var(--bg-color);
-   color: var(--letters);
+  background-color: var(--bg-color);
+  color: var(--letters);
 }
 .form input::placeholder {
-   color: var(--letters);
+  color: var(--letters);
 }
 
 .form input:focus {
-   border: 1px solid rgba(0, 0, 0, 0.116);
-   outline: 0;
+  border: 1px solid rgba(0, 0, 0, 0.116);
+  outline: 0;
 }
 .form input:valid {
-   background-color: rgba(145, 255, 102, 0.13);
+  background-color: rgba(145, 255, 102, 0.13);
 }
 
 .input-group {
-   margin-top: 0.8rem;
+  margin-top: 0.8rem;
 }
 
 .input-group .help {
-   color: var(--letters);
-   opacity: 0.4;
+  color: var(--letters);
+  opacity: 0.4;
 }
 
 .input-group.actions {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .input-group.actions .button,
 .input-group.actions button {
-   width: 48%;
+  width: 48%;
 }
 
 /* ======================== Footer ======================== */
 
 footer {
-   text-align: center;
-   padding: 4rem 0 2rem;
-   color: var(--lettersletters);
-   opacity: 0.6;
-   color: var(--letters);
+  text-align: center;
+  padding: 4rem 0 2rem;
+  color: var(--lettersletters);
+  opacity: 0.6;
+  color: var(--letters);
 }
 
 /* ======================== Responsive ======================== */
 
 @media (min-width: 800px) {
-   html {
-      font-size: 87.5%;
-   }
+  html {
+    font-size: 87.5%;
+  }
 
-   .container__balance {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-   }
+  .container__balance {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
 }

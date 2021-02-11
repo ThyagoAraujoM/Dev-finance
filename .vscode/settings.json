@@ -1,5 +1,6 @@
 {
     "sync.gist": "a7fd9ba3bc262d7053d423a8e8c1d317f05a3b7e",
     "sync.autoDownload": true,
-    "sync.autoUpload": true
+    "sync.autoUpload": true,
+    "editor.formatOnSave": true
 }
