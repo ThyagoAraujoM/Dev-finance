@@ -58,82 +58,10 @@ body {
   white-space: nowrap;
   border-width: 0;
 }
-.container {
+.c-container {
   position: relative;
   width: min(90vw, 800px);
   margin: auto;
-}
-
-/* ======================== Wallet ======================== */
-
-.wallet-selected {
-  position: absolute;
-  top: -30px;
-  font-size: 20px;
-}
-
-.wallet-selected span {
-  color: var(--letters);
-}
-
-.wallet-selected .button {
-  border: 1px solid;
-}
-
-.wallet-overlay {
-  width: 100%;
-  height: 100%;
-
-  background-color: rgba(0, 0, 0, 0.7);
-
-  position: fixed;
-  top: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  opacity: 0;
-  visibility: hidden;
-
-  z-index: 999;
-}
-
-.wallet-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.wallet-modal {
-  background: var(--cards);
-  padding: 2.4rem;
-  width: 90%;
-  max-width: 750px;
-  position: relative;
-}
-.form-wallets form {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 20px;
-}
-
-.form-wallets input {
-  width: 65%;
-}
-.form-wallets button {
-  width: 30%;
-  height: 50px;
-  border: none;
-  color: white;
-  background: var(--green);
-  padding: 0;
-
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
-.form-wallets h2 {
-  padding: 10px;
-  margin: 0;
 }
 
 /* ======================== Links & Buttons ======================== */
@@ -204,14 +132,14 @@ header {
   transition: all 500ms ease 0s;
 }
 
-.navbar {
+.c-navbar {
   display: flex;
 }
-.logo {
+.c-logo {
   margin: auto;
 }
 
-.toggle {
+.c-toggle {
   margin-right: 1rem;
 }
 
@@ -259,18 +187,18 @@ label:active:after {
 
 /* ======================== Balance ======================== */
 
-.container__balance {
+.c-container__balance {
   margin-top: -8rem;
 }
 
-.container__balance h2 {
+.c-container__balance h2 {
   color: white;
   margin-top: 0;
 }
 
 /* ======================== cards ======================== */
 
-.container__card {
+.c-container__card {
   background: var(--cards);
   padding: 1.5rem 2rem;
   border-radius: 0.25rem;
@@ -279,7 +207,7 @@ label:active:after {
   transition: all 500ms ease 0s;
 }
 
-.container__card h3 {
+.c-container__card h3 {
   font-weight: normal;
   font-size: 1rem;
   display: flex;
@@ -287,26 +215,26 @@ label:active:after {
   justify-content: space-between;
 }
 
-.container__card p {
+.c-container__card p {
   font-size: 2rem;
   line-height: 3rem;
   margin-top: 1rem;
 }
 
-.container__card.total {
+.c-container__card.total {
   background: var(--green);
   color: white;
 }
 
 /* ======================== Table ======================== */
 
-.transaction {
+.c-transaction {
   display: block;
   width: 100%;
   overflow-x: auto;
 }
 
-.transaction__data-table {
+.c-transaction__data-table {
   width: 100%;
   border-spacing: 0 0.5rem;
   color: var(--table-head);
@@ -329,25 +257,25 @@ table th {
   padding: 1rem 2rem;
 }
 
-.table-sortable th {
+.c-table-sortable th {
   cursor: pointer;
 }
 
-.table-sortable .th-sort-asc::after {
+.c-table-sortable .th-sort-asc::after {
   content: "\25b4";
 }
 
-.table-sortable .th-sort-desc::after {
+.c-table-sortable .th-sort-desc::after {
   content: "\25be";
 }
 
-.table-sortable .th-sort-asc::after,
-.table-sortable .th-sort-desc::after {
+.c-table-sortable .th-sort-asc::after,
+.c-table-sortable .th-sort-desc::after {
   margin-left: 5px;
 }
 
-.table-sortable .th-sort-asc,
-.table-sortable .th-sort-desc {
+.c-table-sortable .th-sort-asc,
+.c-table-sortable .th-sort-desc {
   background: rgba(0, 0, 0, 0.1);
 }
 
@@ -388,7 +316,7 @@ td.table__expense {
 
 /* ======================== Modal ======================== */
 
-.modal-overlay {
+.c-modal-overlay {
   width: 100%;
   height: 100%;
 
@@ -427,49 +355,121 @@ small {
   opacity: 0.4;
 }
 
+/* ======================== Wallet ======================== */
+
+.c-wallet-selected {
+  position: absolute;
+  top: -30px;
+  font-size: 20px;
+}
+
+.c-wallet-selected span {
+  color: var(--letters);
+}
+
+.c-wallet-selected .button {
+  border: 1px solid;
+}
+
+.c-wallet-overlay {
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  position: fixed;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  z-index: 999;
+}
+
+.wallet-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.c-wallet-modal {
+  background: var(--cards);
+  padding: 2.4rem;
+  width: 90%;
+  max-width: 750px;
+  position: relative;
+}
+.c-form-wallets form {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.c-form-wallets input {
+  width: 65%;
+}
+.c-form-wallets button {
+  width: 30%;
+  height: 50px;
+  border: none;
+  color: white;
+  background: var(--green);
+  padding: 0;
+
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+.c-form-wallets h2 {
+  padding: 10px;
+  margin: 0;
+}
+
 /* ======================== Form ======================== */
 
-.form {
+.c-form {
   max-width: 500px;
 }
 
-.form h2 {
+.c-form h2 {
   margin-top: 0;
 }
 
-.form form input {
+.c-form form input {
   border: none;
   border-radius: 0.2rem;
   padding: 0.8rem;
   width: 100%;
 }
 
-.form input {
+.c-form input {
   background-color: var(--bg-color);
   color: var(--letters);
 }
-.form input::placeholder {
+.c-form input::placeholder {
   color: var(--letters);
 }
 
-.form input:focus {
+.c-form input:focus {
   border: 1px solid rgba(0, 0, 0, 0.116);
   outline: 0;
 }
-.form input:valid {
+.c-form input:valid {
   background-color: rgba(145, 255, 102, 0.13);
 }
 
-.input-group {
+.c-input-group {
   margin-top: 0.8rem;
 }
 
-.input-group .help {
+.c-input-group .help {
   color: var(--letters);
   opacity: 0.4;
 }
 
-.input-group.actions {
+.c-input-group.actions {
   display: flex;
   justify-content: space-between;
   align-items: center;

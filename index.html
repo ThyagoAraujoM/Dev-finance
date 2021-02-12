@@ -14,9 +14,9 @@
   <body>
     <!-- Logo -->
     <header>
-      <nav class="navbar">
-        <img class="logo" src="./assets/logo.svg" alt="Logo Dev Finance" />
-        <div class="toggle">
+      <nav class="c-navbar">
+        <img class="c-logo" src="./assets/logo.svg" alt="Logo Dev Finance" />
+        <div class="c-toggle">
           <input
             onclick="App.darkMode()"
             type="checkbox"
@@ -28,16 +28,20 @@
       </nav>
     </header>
 
-    <main id="container" class="container">
-      <div onclick="Wallet.open()" id="wallet-selected" class="wallet-selected">
+    <main id="container" class="c-container">
+      <div
+        onclick="Wallet.open()"
+        id="wallet-selected"
+        class="c-wallet-selected"
+      >
         <span>Carteira :</span>
         <a href="#" class="button wallet" id="wallet-selected-name">Nome</a>
       </div>
       <!-- Primeiras 3 caixas: Entrada, Saída e Total -->
-      <section class="container__balance">
+      <section class="c-container__balance">
         <h2 class="sr-only">Balanço</h2>
         <!-- Entradas -->
-        <div class="container__card">
+        <div class="c-container__card">
           <h3>
             <span> Entradas </span>
             <img src="./assets/income.svg" alt="Image de entradas" />
@@ -45,7 +49,7 @@
           <p id="incomeDisplay">R$ 0,00</p>
         </div>
         <!-- Saídas -->
-        <div class="container__card">
+        <div class="c-container__card">
           <h3>
             <span> Saídas </span>
             <img src="./assets/expense.svg" alt="Image de saída" />
@@ -53,7 +57,7 @@
           <p id="expensesDisplay">R$ 0,00</p>
         </div>
         <!-- Total -->
-        <div id="container__total" class="container__card total">
+        <div id="container__total" class="c-container__card total">
           <h3>
             <span> Total </span>
             <img src="./assets/total.svg" alt="Imagem do total" />
@@ -63,7 +67,7 @@
       </section>
 
       <!-- Tabela com as transações -->
-      <section id="transaction" class="transaction">
+      <section id="transaction" class="c-transaction">
         <h2 class="sr-only">Transações</h2>
 
         <div class="inputs-tabela">
@@ -89,7 +93,7 @@
             <a href="#" onclick="App.update()">Atualizar</a>
           </div>
         </div>
-        <table class="transaction__data-table table-sortable">
+        <table class="c-transaction__data-table table-sortable">
           <thead>
             <tr>
               <th>Descrição</th>
@@ -104,7 +108,7 @@
     </main>
 
     <!-- Modal para adicionar novo transação -->
-    <div onclick="Modal.closeOut()" id="modal-overlay" class="modal-overlay">
+    <div onclick="Modal.closeOut()" id="modal-overlay" class="c-modal-overlay">
       <div class="modal">
         <div class="form">
           <h2>Nova Transação</h2>
@@ -160,9 +164,13 @@
     </div>
 
     <!-- Modal Wallet adicionar trocar de carteira -->
-    <div onclick="Wallet.closeOut()" id="wallet-overlay" class="wallet-overlay">
-      <div class="wallet-modal">
-        <div class="form-wallets">
+    <div
+      onclick="Wallet.closeOut()"
+      id="wallet-overlay"
+      class="c-wallet-overlay"
+    >
+      <div class="c-wallet-modal">
+        <div class="c-form-wallets">
           <h2>Carteiras:</h2>
           <div>
             <form action="">
