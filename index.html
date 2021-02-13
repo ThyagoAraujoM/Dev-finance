@@ -29,13 +29,14 @@
     </header>
 
     <main id="container" class="c-container">
-      <div
-        onclick="Wallet.open()"
-        id="wallet-selected"
-        class="c-wallet-selected"
-      >
+      <div id="wallet-selected" class="c-wallet-selected">
         <span>Carteira :</span>
-        <a href="#" class="button wallet" id="wallet-selected-name">Nome</a>
+        <a
+          class="c-button c-wallet"
+          id="wallet-selected-name"
+          onclick="Wallets.open()"
+          >Nome</a
+        >
       </div>
       <!-- Primeiras 3 caixas: Entrada, Saída e Total -->
       <section class="c-container__balance">
@@ -46,7 +47,7 @@
             <span> Entradas </span>
             <img src="./assets/income.svg" alt="Image de entradas" />
           </h3>
-          <p id="incomeDisplay">R$ 0,00</p>
+          <p id="js-incomeDisplay">R$ 0,00</p>
         </div>
         <!-- Saídas -->
         <div class="c-container__card">
@@ -54,15 +55,15 @@
             <span> Saídas </span>
             <img src="./assets/expense.svg" alt="Image de saída" />
           </h3>
-          <p id="expensesDisplay">R$ 0,00</p>
+          <p id="js-expensesDisplay">R$ 0,00</p>
         </div>
         <!-- Total -->
-        <div id="container__total" class="c-container__card total">
+        <div id="js-container__total" class="c-container__card total">
           <h3>
             <span> Total </span>
             <img src="./assets/total.svg" alt="Imagem do total" />
           </h3>
-          <p id="totalDisplay">R$ 0,00</p>
+          <p id="js-totalDisplay">R$ 0,00</p>
         </div>
       </section>
 
@@ -75,7 +76,7 @@
             >Novas Transações</a
           >
           <div>
-            <select name="Mês" id="mes">
+            <select name="Mês" id="js-month">
               <option value="jan">Janeiro</option>
               <option value="fev">Fevereiro</option>
               <option value="mar">Março</option>
@@ -93,12 +94,14 @@
             <a href="#" onclick="App.update()">Atualizar</a>
           </div>
         </div>
-        <table class="c-transaction__data-table table-sortable">
+        <table
+          class="c-transaction__data-table c-table-sortable js-transaction__data-table js-table-sortable"
+        >
           <thead>
             <tr>
               <th>Descrição</th>
               <th>Valor</th>
-              <th class="date">Data</th>
+              <th class="js-date">Data</th>
               <th></th>
             </tr>
           </thead>
@@ -108,29 +111,33 @@
     </main>
 
     <!-- Modal para adicionar novo transação -->
-    <div onclick="Modal.closeOut()" id="modal-overlay" class="c-modal-overlay">
-      <div class="modal">
-        <div class="form">
+    <div
+      onclick="Modal.closeOut()"
+      id="c-modal-overlay"
+      class="c-modal-overlay js-modal-overlay"
+    >
+      <div class="c-modal">
+        <div class="c-form">
           <h2>Nova Transação</h2>
           <form action="" onsubmit="Form.submit(event)">
             <!-- Descrição -->
-            <div class="input-group">
+            <div class="c-input-group">
               <label for="description" class="sr-only">Descrição</label>
               <input
                 type="text"
-                id="description"
+                id="js-description"
                 name="description"
                 placeholder="Descrição"
                 required
               />
             </div>
             <!-- Valor -->
-            <div class="input-group">
+            <div class="c-input-group">
               <label for="amount" class="sr-only">Valor</label>
               <input
                 type="number"
                 step="0.01"
-                id="amount"
+                id="js-amount"
                 name="amount"
                 placeholder="0,00"
                 required
@@ -141,18 +148,18 @@
               </small>
             </div>
             <!-- Date -->
-            <div class="input-group">
+            <div class="c-input-group">
               <label for="date" class="sr-only">Data</label>
               <input
                 type="date"
-                id="date"
+                id="js-date"
                 name="date"
                 placeholder="01/01/2021"
                 required
               />
             </div>
 
-            <div class="input-group actions">
+            <div class="c-input-group actions">
               <a href="#" onclick="Modal.close()" class="button cancel"
                 >Cancel</a
               >
@@ -165,15 +172,14 @@
 
     <!-- Modal Wallet adicionar trocar de carteira -->
     <div
-      onclick="Wallet.closeOut()"
-      id="wallet-overlay"
-      class="c-wallet-overlay"
+      onclick="WalletModal.closeOut()"
+      class="c-modal-overlay js-wallets-overlay is-active"
     >
-      <div class="c-wallet-modal">
+      <div class="c-modal c-modal-wallets">
         <div class="c-form-wallets">
           <h2>Carteiras:</h2>
           <div>
-            <form action="">
+            <form onsubmit="Form.submit(event)">
               <label for="wallet-name" class="sr-only">Nome da carteira</label>
               <input
                 type="text"
@@ -185,16 +191,49 @@
           </div>
         </div>
         <hr />
-        <div id="wallets">
-          <table id="wallets-table">
+        <div id="js-wallets" class="c-wallets">
+          <table id="js-wallets-table" class="c-wallets-table">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Total</th>
-                <th class="remove-wallet"></th>
+                <th class="c-remove-wallet"></th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              <tr>
+                <td onclick="Wallet.select(1)" class="name button">Dev 1</td>
+                <td onclick="Wallet.select(1)" class="income button">
+                  R$ 3.000,00
+                </td>
+                <td>
+                  <img
+                    class="button"
+                    onclick="Wallet.remove(1)"
+                    src="./assets/minus.svg"
+                    alt="Remover carteira"
+                  />
+                </td>
+              </tr>
+
+              <tr></tr>
+              <tr>
+                <td onclick="Wallet.select(1)" class="name button">Dev 1</td>
+                <td onclick="Wallet.select(1)" class="income button">
+                  R$ 3.000,00
+                </td>
+                <td>
+                  <img
+                    class="button"
+                    onclick="Wallet.remove(1)"
+                    src="./assets/minus.svg"
+                    alt="Remover carteira"
+                  />
+                </td>
+              </tr>
+
+              <tr></tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -204,6 +243,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="funções.js"></script>
   </body>
 </html>
 

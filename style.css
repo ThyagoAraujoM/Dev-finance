@@ -74,7 +74,7 @@ a:hover {
   color: var(--light-green);
 }
 
-.modal button {
+.c-modal button {
   width: 100%;
   height: 50px;
   border: none;
@@ -335,12 +335,12 @@ td.table__expense {
   z-index: 999;
 }
 
-.modal-overlay.active {
+.c-modal-overlay.is-active {
   opacity: 1;
   visibility: visible;
 }
 
-.modal {
+.c-modal {
   background: var(--cards);
   padding: 2.4rem;
   width: 90%;
@@ -359,72 +359,87 @@ small {
 
 .c-wallet-selected {
   position: absolute;
-  top: -30px;
+  top: -35px;
   font-size: 20px;
 }
 
 .c-wallet-selected span {
-  color: var(--letters);
+  color: #fff;
+  margin-right: 5px;
+  font-weight: 200;
 }
 
-.c-wallet-selected .button {
-  border: 1px solid;
+.c-wallet-selected .c-button {
+  font-weight: 700;
+  color: #fff;
+
+  font-size: 16px;
+
+  padding: 0 10px;
+
+  border: 1px solid #fff;
+  border-radius: 0.2rem;
+
+  transition: 0.2s;
 }
 
-.c-wallet-overlay {
+.c-wallet-selected .c-button:hover {
+  color: var(--light-green);
+  border: 1px solid var(--light-green);
+
+  transition: 0.2s;
+}
+
+.c-modal-wallets {
   width: 100%;
-  height: 100%;
+}
 
-  background-color: rgba(0, 0, 0, 0.7);
+.c-modal-wallets hr {
+  margin-top: 20px;
+  border: 2px solid var(--font-color-base);
+  opacity: 0.4;
+}
 
-  position: fixed;
-  top: 0;
+.c-modal.c-modal-wallets {
+  width: min(90vw, 800px);
+}
 
+.c-form-wallets {
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  opacity: 0;
-  visibility: hidden;
-
-  z-index: 999;
-}
-
-.wallet-overlay.is-active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.c-wallet-modal {
-  background: var(--cards);
-  padding: 2.4rem;
-  width: 90%;
-  max-width: 750px;
-  position: relative;
-}
-.c-form-wallets form {
-  display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
 }
 
 .c-form-wallets input {
+  border: none;
+  border-radius: 0.2rem;
+
+  padding: 0.8rem;
+
   width: 65%;
+  height: 50px;
 }
+
 .c-form-wallets button {
   width: 30%;
-  height: 50px;
-  border: none;
-  color: white;
-  background: var(--green);
-  padding: 0;
-
-  border-radius: 0.25rem;
-  cursor: pointer;
 }
-.c-form-wallets h2 {
-  padding: 10px;
-  margin: 0;
+.c-wallets {
+  display: flex;
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.c-wallets-table {
+  width: 100%;
+  border-spacing: 0 0.5rem;
+  color: #969cb3;
+
+  white-space: nowrap;
+}
+
+.c-wallets-table .c-remove-wallet {
+  width: 50px;
 }
 
 /* ======================== Form ======================== */
@@ -475,8 +490,8 @@ small {
   align-items: center;
 }
 
-.input-group.actions .button,
-.input-group.actions button {
+.c-input-group.actions .button,
+.c-input-group.actions button {
   width: 48%;
 }
 
@@ -497,7 +512,7 @@ footer {
     font-size: 87.5%;
   }
 
-  .container__balance {
+  .c-container__balance {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
