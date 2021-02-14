@@ -34,7 +34,7 @@
         <a
           class="c-button c-wallet"
           id="wallet-selected-name"
-          onclick="Wallets.open()"
+          onclick="WalletModal.open()"
           >Nome</a
         >
       </div>
@@ -179,7 +179,7 @@
         <div class="c-form-wallets">
           <h2>Carteiras:</h2>
           <div>
-            <form onsubmit="Form.submit(event)">
+            <form onsubmit="WalletForm.submit(event)">
               <label for="wallet-name" class="u-sr-only"
                 >Nome da carteira</label
               >
@@ -202,40 +202,7 @@
                 <th class="c-remove-wallet"></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td onclick="Wallet.select(1)" class="name button">Dev 1</td>
-                <td onclick="Wallet.select(1)" class="income button">
-                  R$ 3.000,00
-                </td>
-                <td>
-                  <img
-                    class="button"
-                    onclick="Wallet.remove(1)"
-                    src="./assets/minus.svg"
-                    alt="Remover carteira"
-                  />
-                </td>
-              </tr>
-
-              <tr></tr>
-              <tr>
-                <td onclick="Wallet.select(1)" class="name button">Dev 1</td>
-                <td onclick="Wallet.select(1)" class="income button">
-                  R$ 3.000,00
-                </td>
-                <td>
-                  <img
-                    class="button"
-                    onclick="Wallet.remove(1)"
-                    src="./assets/minus.svg"
-                    alt="Remover carteira"
-                  />
-                </td>
-              </tr>
-
-              <tr></tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -245,7 +212,6 @@
     </footer>
 
     <script src="script.js"></script>
-    <script src="funções.js"></script>
   </body>
 </html>
 

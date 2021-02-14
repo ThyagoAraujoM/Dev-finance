@@ -1,10 +1,5 @@
-oScript2 = document.createElement("script");
-oScript2.src = "funções.js";
-oScript2.type = "text/javascript";
-document.body.appendChild(oScript2);
-
-// Abre e fecha o modal para adicionar uma nova transação
 const Modal = {
+  // Abre e fecha o modal para adicionar uma nova transação
   open() {
     // Abre o modal se não estiver na "aba" total e modifica o min max do date dependendo do mês para n colocar o mês errado.
     let date = document.getElementById("js-date");
@@ -78,9 +73,37 @@ const Modal = {
   },
 };
 
-// Sistema de Storage
+const WalletModal = {
+  // Abre e fecha o modal para adicionar e escolher as carteiras
+  open() {
+    // Abre o modal se não estiver na "aba" total e modifica o min max do date dependendo do mês para n colocar o mês errado.
+    document.querySelector(".js-wallets-overlay").classList.add("is-active");
+  },
+  close() {
+    // Fecha o modal e limpa os valores nele inseridos.
+    document.querySelector(".js-wallets-overlay").classList.remove("is-active");
+    Form.clearFields();
+  },
+
+  closeOut() {
+    // Fecha se clicar fora do moda.
+    // alert("test");
+    let modal = document.querySelector(".js-wallets-overlay");
+    modal.addEventListener("click", function (e) {
+      if (e.target == this) WalletModal.close();
+    });
+  },
+};
+
 const Storage = {
-  get() {
+  // Sistema de Storage
+  getWallet() {
+    let test = JSON.parse(
+      localStorage.getItem(`dev.finances:transactions-wallets`)
+    ) || ["Padrão"];
+    return test;
+  },
+  get(wallet) {
     // pega o mês atual que está selecionado (padrão é janeiro) e assim pega o localStorage desse mês.
     let inputMonths = document.getElementById("js-month");
 
@@ -88,45 +111,29 @@ const Storage = {
      adicionar todos os valores desse mês no total. E faz isso em cada mês para no final retornar para a tabela uma lista com todos os valores dos meses para uma visão mais geral.
      Se não for o total ele simplesmente vai pegar o LocalStorage do mês selecionado e entregar para a lista. 
      */
-    if (inputMonths.value == "total") {
-      const months = [
-        "jan",
-        "fev",
-        "mar",
-        "abr",
-        "mai",
-        "jun",
-        "jul",
-        "ago",
-        "set",
-        "out",
-        "nov",
-        "dez",
-      ];
-      let total = [];
-      for (let i = 0; i < months.length - 1; i++) {
-        let month =
-          JSON.parse(
-            localStorage.getItem(`dev.finances:transactions-${months[i]}`)
-          ) || [];
 
-        if (month[0] != "") {
-          // alert("Funcionando");
-          for (let n = 0; n < month.length; n++) {
-            total.push(month[n]);
-          }
-        }
-      }
-      // console.log(total);
-      return total;
+    if (!wallet == "") {
+      let walletName = wallet;
+    }
+    if (!getWallet() == "") {
+      let walletName = getWallet();
+    } else {
+      let walletName = "Padrão";
+    }
+
+    if (inputMonths.value == "total") {
+      calcTotal();
     } else {
       return (
         JSON.parse(
-          localStorage.getItem(`dev.finances:transactions-${inputMonths.value}`)
+          localStorage.getItem(
+            `dev.finances:transactions-${walletName}-${inputMonths.value}`
+          )
         ) || []
       );
     }
   },
+
   set(transaction) {
     // Cria um LocalStorage ou reescreve um existente com os valores do mês em questão.
     let inputMonths = document.getElementById("js-month");
@@ -135,10 +142,16 @@ const Storage = {
       JSON.stringify(transaction)
     );
   },
+  setWallet(transaction) {
+    localStorage.setItem(
+      `dev.finances:transactions-wallets`,
+      JSON.stringify(transaction)
+    );
+  },
 };
 
-// Sistema das transações ( add, remove, incomes, expenses, total)
 const Transaction = {
+  // Sistema das transações ( add, remove, incomes, expenses, total)
   // pega o LocalStorage do mês selecionado e deposita no objeto para depois colocar na tabela no HTML.
   all: Storage.get(),
 
@@ -194,8 +207,73 @@ const Transaction = {
   },
 };
 
-//Substituir os dados do html com os dados do js
+const Wallet = {
+  all: Storage.getWallet(),
+  selected: Storage.getWallet()[0],
+  index: 0,
+
+  // update() {
+  //   Wallet.all[Wallet.index] = Wallet.selected;
+  //   Storage.set(Wallet.all);
+  // },
+
+  add(wallet) {
+    if (!wallet == "") {
+      Wallet.all.push(wallet);
+      Storage.set(Wallet.all);
+    }
+  },
+
+  remove(index) {
+    Wallet.all.splice(index, 1);
+    App.reload();
+  },
+
+  select(index) {
+    // Modal.toggle("modal-wallets");
+
+    Wallet.selected = Wallet.all[index];
+    Transaction.all = Wallet.selected;
+    Wallet.index = index;
+
+    App.reload();
+  },
+};
+
+const TransactionWallet = {
+  all: Wallet.selected || [],
+
+  add(transaction) {
+    Transaction.all.transactions.push(transaction);
+    App.reload();
+  },
+
+  remove(index) {
+    Transaction.all.transactions.splice(index, 1);
+    App.reload();
+  },
+
+  incomes(transactions = Transaction.all.transactions) {
+    return transactions?.reduce(
+      (total, { amount }) => (amount > 0 ? amount + total : total),
+      0
+    );
+  },
+
+  expenses(transactions = Transaction.all.transactions) {
+    return transactions?.reduce(
+      (total, { amount }) => (amount < 0 ? amount + total : total),
+      0
+    );
+  },
+
+  total(transactions = Transaction.all.transactions) {
+    return transactions?.reduce((total, { amount }) => amount + total, 0);
+  },
+};
+
 const DOM = {
+  //Substituir os dados do html com os dados do js
   transactionsContainer: document.querySelector(
     ".js-transaction__data-table tbody"
   ),
@@ -268,7 +346,7 @@ const DOM = {
     const newAmount = Utils.formatCurrency(amount);
 
     const html = `
-    <td onclick="Wallet.select(${index})" class="name button">${name}</td>
+    <td onclick="Wallet.select(${index})" class="name button">${wallet}</td>
     <td onclick="Wallet.select(${index})" class="${CSSClass} button">${newAmount}</td>
     <td>
       <img class="button" onclick="Wallet.remove(${index})" src="./assets/minus.svg" alt="Remover carteira">
@@ -281,8 +359,8 @@ const DOM = {
   },
 };
 
-//Formatação dos valores dos inputs
 const Utils = {
+  //Formatação dos valores dos inputs
   formatAmount(value) {
     value = value * 100;
 
@@ -317,10 +395,46 @@ const Utils = {
     const prefix = /^-/gi.test(value) ? "-" : "";
     return Number(`${prefix}${Number(value.replace(/\D/g, "")) / 100}`);
   },
+
+  calcTotal() {
+    let inputMonths = document.getElementById("js-month");
+    if (inputMonths.value == "total") {
+      const months = [
+        "jan",
+        "fev",
+        "mar",
+        "abr",
+        "mai",
+        "jun",
+        "jul",
+        "ago",
+        "set",
+        "out",
+        "nov",
+        "dez",
+      ];
+      let total = [];
+      for (let i = 0; i < months.length - 1; i++) {
+        let month =
+          JSON.parse(
+            localStorage.getItem(`dev.finances:transactions-${months[i]}`)
+          ) || [];
+
+        if (month[0] != "") {
+          // alert("Funcionando");
+          for (let n = 0; n < month.length; n++) {
+            total.push(month[n]);
+          }
+        }
+      }
+      // console.log(total);
+      return total;
+    }
+  },
 };
 
-//Formatação, salvamento e limpeza das transações enviadas pelo modal.
 const Form = {
+  //Formatação, salvamento e limpeza das transações enviadas pelo modal.
   description: document.querySelector("input#js-description"),
   amount: document.querySelector("input#js-amount"),
   date: document.querySelector("input#js-date"),
@@ -390,9 +504,55 @@ const Form = {
   },
 };
 
-// Sistema de sort(ordenar) as tablas pelo valores.
+const WalletForm = {
+  name: document.querySelector("input#wallet-name"),
+
+  getValues() {
+    return { name: WalletForm.name.value };
+  },
+
+  validadeFields() {
+    const { name } = WalletForm.getValues();
+    if (name === "") {
+      throw new Error("Por favor, preencha todos os campos.");
+    }
+  },
+
+  formatValues() {
+    let { name } = WalletForm.getValues();
+    return {
+      name: name.replace(/ +/g, " ").trim(),
+    };
+  },
+
+  saveWallet(wallet) {
+    Wallet.add(wallet);
+  },
+
+  clearFields() {
+    WalletForm.name.value = "";
+  },
+
+  submit(event) {
+    event.preventDefault();
+    try {
+      WalletForm.validadeFields();
+      const wallet = WalletForm.formatValues();
+      WalletForm.saveWallet(wallet);
+
+      WalletForm.clearFields();
+
+      DOM.clearWallets();
+
+      Wallet.all.forEach(DOM.addWallet);
+    } catch (error) {
+      alert(error.message);
+    }
+  },
+};
 
 const Ordination = {
+  // Sistema de sort(ordenar) as tablas pelo valores.
   /*
    * Sorts a HTML table.
    *
@@ -472,8 +632,8 @@ const Ordination = {
   },
 };
 
-// Ativa a Ordenação da tabela que for clicada
 document.querySelectorAll(".js-table-sortable th").forEach((headerCell) => {
+  // Ativa a Ordenação da tabela que for clicada
   headerCell.addEventListener("click", () => {
     const tableElement = headerCell.parentElement.parentElement.parentElement;
     const headerIndex = Array.prototype.indexOf.call(
@@ -490,8 +650,8 @@ document.querySelectorAll(".js-table-sortable th").forEach((headerCell) => {
   });
 });
 
-//Inicia, recarrega, atualiza e ativa ou desativa o dark-mode da aplicação.
 const App = {
+  //Inicia, recarrega, atualiza e ativa ou desativa o dark-mode da aplicação.
   //Inicia o app
   init() {
     // Transaction.all.forEach((transaction, index) => {
@@ -499,7 +659,7 @@ const App = {
     // });
 
     Transaction.all.forEach(DOM.addTransaction);
-    // Wallet.all.forEach(DOM.addWallet);
+    Wallet.all.forEach(DOM.addWallet);
     // Resumo pq a função esta recebendo os mesmos parâmetros e não está acontecendo mais nada
     // pode se resumir assim. Passando a função como um atalho ( pesquisar se quiser entender mais).
 
