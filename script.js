@@ -95,6 +95,8 @@ const WalletModal = {
   },
 };
 
+let walletName;
+
 const Storage = {
   // Sistema de Storage
 
@@ -107,18 +109,19 @@ const Storage = {
      Se não for o total ele simplesmente vai pegar o LocalStorage do mês selecionado e entregar para a lista. 
      */
 
-    let walletName = "";
-    let walletverification = Storage.getWallet()[0];
+    let walletverification = Storage.getWallet();
     if (wallet != undefined) {
       walletName = wallet;
-    } else if (walletverification != "") {
-      walletName = "Padrão";
+    } else if (walletName != undefined) {
+      walletName = walletName;
+    } else if (walletverification[0] != "") {
+      walletName = walletverification[0];
     } else {
       walletName = "Padrão";
     }
 
     if (inputMonths.value == "total") {
-      calcTotal(walletName);
+      return Utils.calcTotal(walletName);
     } else {
       return (
         JSON.parse(
@@ -137,9 +140,10 @@ const Storage = {
   },
   set(transaction) {
     // Cria um LocalStorage ou reescreve um existente com os valores do mês em questão.
+
     let inputMonths = document.getElementById("js-month");
     localStorage.setItem(
-      `dev.finances:transactions-${inputMonths.value}`,
+      `dev.finances:transactions-${walletName}-${inputMonths.value}`,
       JSON.stringify(transaction)
     );
   },
@@ -151,10 +155,44 @@ const Storage = {
   },
 };
 
+const Wallet = {
+  all: Storage.getWallet(),
+  selected: Storage.get(),
+  index: 0,
+
+  // update() {
+  //   Wallet.all[Wallet.index] = Wallet.selected;
+  //   Storage.set(Wallet.all);
+  // },
+
+  add(wallet) {
+    if (!wallet == "") {
+      Wallet.all.push(wallet);
+      Storage.setWallet(Wallet.all);
+    }
+  },
+
+  remove(index) {
+    Wallet.all.splice(index, 1);
+    App.reload();
+  },
+
+  select(index) {
+    // Modal.toggle("modal-wallets");
+    document.querySelector("#js-month").value = "jan";
+    Wallet.selected = Wallet.all[index];
+    walletName = Wallet.all[index];
+    Transaction.all = Storage.get(Wallet.selected);
+    Wallet.index = index;
+
+    App.reload();
+  },
+};
+
 const Transaction = {
   // Sistema das transações ( add, remove, incomes, expenses, total)
   // pega o LocalStorage do mês selecionado e deposita no objeto para depois colocar na tabela no HTML.
-  all: Storage.get(),
+  all: Wallet.selected,
 
   add(transaction) {
     //Adiciona a transação no objeto e depois recarrega a tabela com os novos valores.
@@ -208,39 +246,6 @@ const Transaction = {
   },
 };
 
-const Wallet = {
-  all: Storage.getWallet(),
-  selected: Storage.getWallet()[0],
-  index: 0,
-
-  // update() {
-  //   Wallet.all[Wallet.index] = Wallet.selected;
-  //   Storage.set(Wallet.all);
-  // },
-
-  add(wallet) {
-    if (!wallet == "") {
-      Wallet.all.push(wallet);
-      Storage.set(Wallet.all);
-    }
-  },
-
-  remove(index) {
-    Wallet.all.splice(index, 1);
-    App.reload();
-  },
-
-  select(index) {
-    // Modal.toggle("modal-wallets");
-
-    Wallet.selected = Wallet.all[index];
-    Transaction.all = Wallet.selected;
-    Wallet.index = index;
-
-    App.reload();
-  },
-};
-
 const TransactionWallet = {
   all: Wallet.selected || [],
 
@@ -268,8 +273,8 @@ const TransactionWallet = {
     );
   },
 
-  total(transactions = Transaction.all.transactions) {
-    return transactions?.reduce((total, { amount }) => amount + total, 0);
+  total(wallet) {
+    return wallet.reduce((total, { amount }) => amount + total, 0);
   },
 };
 
@@ -336,11 +341,11 @@ const DOM = {
 
   innerHTMLWallet(wallet, index) {
     const name = wallet;
+
     let amount = Utils.calcTotal(wallet);
-    amount.forEach((transaction) => {
-      amount += transaction.amount;
-    });
-    const CSSClass = amount > 0 ? "income" : "expense";
+    amount = TransactionWallet.total(amount);
+
+    const CSSClass = amount > 0 ? "table__income" : "table__expense";
 
     const newAmount = Utils.formatCurrency(amount);
 
@@ -396,8 +401,7 @@ const Utils = {
   },
 
   calcTotal(wallet) {
-    let inputMonths = document.getElementById("js-month");
-    if (wallet != "") {
+    if (wallet != " ") {
       const months = [
         "jan",
         "fev",
@@ -427,7 +431,8 @@ const Utils = {
           }
         }
       }
-      // console.log(total);
+
+      console.log(total);
       return total;
     }
   },
@@ -491,7 +496,7 @@ const Form = {
       // formatar os dados para salvar
       const transaction = Form.formatValues();
       // salvar
-      saveTransaction(transaction);
+      Form.saveTransaction(transaction);
       // apagar os dados do Formulário
       Form.clearFields();
       // modal feche
@@ -508,7 +513,7 @@ const WalletForm = {
   name: document.querySelector("input#wallet-name"),
 
   getValues() {
-    return { name: WalletForm.name.value };
+    return WalletForm.name.value;
   },
 
   validadeFields() {
@@ -519,10 +524,8 @@ const WalletForm = {
   },
 
   formatValues() {
-    let { name } = WalletForm.getValues();
-    return {
-      name: name.replace(/ +/g, " ").trim(),
-    };
+    let name = WalletForm.getValues();
+    return name.replace(/ +/g, " ").trim();
   },
 
   saveWallet(wallet) {
@@ -667,6 +670,7 @@ const App = {
     DOM.updateBalance();
 
     Storage.set(Transaction.all);
+    Storage.setWallet(Wallet.all);
   },
 
   //recarrega apagando a tabela antiga e carregando com a nova
@@ -674,6 +678,8 @@ const App = {
     DOM.clearTransactions();
     DOM.clearWallets();
     App.init();
+    DOM.clearWallets();
+    Wallet.all.forEach(DOM.addWallet);
   },
 
   // Atualiza a tabela com o mês selecionado.
