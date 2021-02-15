@@ -87,7 +87,7 @@ const WalletModal = {
 
   closeOut() {
     // Fecha se clicar fora do moda.
-    // alert("test");
+
     let modal = document.querySelector(".js-wallets-overlay");
     modal.addEventListener("click", function (e) {
       if (e.target == this) WalletModal.close();
@@ -97,12 +97,7 @@ const WalletModal = {
 
 const Storage = {
   // Sistema de Storage
-  getWallet() {
-    let test = JSON.parse(
-      localStorage.getItem(`dev.finances:transactions-wallets`)
-    ) || ["Padrão"];
-    return test;
-  },
+
   get(wallet) {
     // pega o mês atual que está selecionado (padrão é janeiro) e assim pega o localStorage desse mês.
     let inputMonths = document.getElementById("js-month");
@@ -112,17 +107,18 @@ const Storage = {
      Se não for o total ele simplesmente vai pegar o LocalStorage do mês selecionado e entregar para a lista. 
      */
 
-    if (!wallet == "") {
-      let walletName = wallet;
-    }
-    if (!getWallet() == "") {
-      let walletName = getWallet();
+    let walletName = "";
+    let walletverification = Storage.getWallet()[0];
+    if (wallet != undefined) {
+      walletName = wallet;
+    } else if (walletverification != "") {
+      walletName = "Padrão";
     } else {
-      let walletName = "Padrão";
+      walletName = "Padrão";
     }
 
     if (inputMonths.value == "total") {
-      calcTotal();
+      calcTotal(walletName);
     } else {
       return (
         JSON.parse(
@@ -133,7 +129,12 @@ const Storage = {
       );
     }
   },
-
+  getWallet() {
+    let test = JSON.parse(
+      localStorage.getItem(`dev.finances:transactions-wallets`)
+    ) || ["Padrão"];
+    return test;
+  },
   set(transaction) {
     // Cria um LocalStorage ou reescreve um existente com os valores do mês em questão.
     let inputMonths = document.getElementById("js-month");
@@ -334,19 +335,17 @@ const DOM = {
   },
 
   innerHTMLWallet(wallet, index) {
-    const { name, transactions } = wallet;
-
-    const amount = transactions?.reduce(
-      (current, next) => current + next.amount,
-      0
-    );
-
+    const name = wallet;
+    let amount = Utils.calcTotal(wallet);
+    amount.forEach((transaction) => {
+      amount += transaction.amount;
+    });
     const CSSClass = amount > 0 ? "income" : "expense";
 
     const newAmount = Utils.formatCurrency(amount);
 
     const html = `
-    <td onclick="Wallet.select(${index})" class="name button">${wallet}</td>
+    <td onclick="Wallet.select(${index})" class="name button">${name}</td>
     <td onclick="Wallet.select(${index})" class="${CSSClass} button">${newAmount}</td>
     <td>
       <img class="button" onclick="Wallet.remove(${index})" src="./assets/minus.svg" alt="Remover carteira">
@@ -396,9 +395,9 @@ const Utils = {
     return Number(`${prefix}${Number(value.replace(/\D/g, "")) / 100}`);
   },
 
-  calcTotal() {
+  calcTotal(wallet) {
     let inputMonths = document.getElementById("js-month");
-    if (inputMonths.value == "total") {
+    if (wallet != "") {
       const months = [
         "jan",
         "fev",
@@ -417,11 +416,12 @@ const Utils = {
       for (let i = 0; i < months.length - 1; i++) {
         let month =
           JSON.parse(
-            localStorage.getItem(`dev.finances:transactions-${months[i]}`)
+            localStorage.getItem(
+              `dev.finances:transactions-${wallet}-${months[i]}`
+            )
           ) || [];
 
         if (month[0] != "") {
-          // alert("Funcionando");
           for (let n = 0; n < month.length; n++) {
             total.push(month[n]);
           }
@@ -686,7 +686,6 @@ const App = {
 
   // Ativa ou desativa o dark-mode
   darkMode() {
-    // alert("test");
     let $html = document.querySelector("html");
     $html.classList.toggle("dark-mode");
   },
