@@ -104,11 +104,6 @@ const Storage = {
     // pega o mês atual que está selecionado (padrão é janeiro) e assim pega o localStorage desse mês.
     let inputMonths = document.getElementById("js-month");
 
-    /* Se for o total selecionado ele cria um loop baseado em um array com os 12 meses do ano. E em cada loop verifica se tem um LocalStorage desse mês, se houver ele cria um loop para
-     adicionar todos os valores desse mês no total. E faz isso em cada mês para no final retornar para a tabela uma lista com todos os valores dos meses para uma visão mais geral.
-     Se não for o total ele simplesmente vai pegar o LocalStorage do mês selecionado e entregar para a lista. 
-     */
-
     let walletverification = Storage.getWallet();
     if (wallet != undefined) {
       walletName = wallet;
@@ -119,6 +114,11 @@ const Storage = {
     } else {
       walletName = "Padrão";
     }
+
+    /*Se for o total selecionado ele cria um loop baseado em um array com os 12 meses do ano. E em cada loop verifica se tem um LocalStorage desse mês, se houver ele cria um loop para
+     adicionar todos os valores desse mês no total. E faz isso em cada mês para no final retornar para a tabela uma lista com todos os valores dos meses para uma visão mais geral.
+     Se não for o total ele simplesmente vai pegar o LocalStorage do mês selecionado e entregar para a lista. 
+     */
 
     if (inputMonths.value == "total") {
       return Utils.calcTotal(walletName);
@@ -160,11 +160,6 @@ const Wallet = {
   selected: Storage.get(),
   index: 0,
 
-  // update() {
-  //   Wallet.all[Wallet.index] = Wallet.selected;
-  //   Storage.set(Wallet.all);
-  // },
-
   add(wallet) {
     if (!wallet == "") {
       Wallet.all.push(wallet);
@@ -178,14 +173,18 @@ const Wallet = {
   },
 
   select(index) {
-    // Modal.toggle("modal-wallets");
     document.querySelector("#js-month").value = "jan";
-    Wallet.selected = Wallet.all[index];
+    document.querySelector("#wallet-selected-name").innerHTML = walletName;
     walletName = Wallet.all[index];
+    Wallet.selected = Wallet.all[index];
     Transaction.all = Storage.get(Wallet.selected);
     Wallet.index = index;
 
+    WalletModal.close();
     App.reload();
+  },
+  total(wallet) {
+    return wallet.reduce((total, { amount }) => amount + total, 0);
   },
 };
 
@@ -246,38 +245,6 @@ const Transaction = {
   },
 };
 
-const TransactionWallet = {
-  all: Wallet.selected || [],
-
-  add(transaction) {
-    Transaction.all.transactions.push(transaction);
-    App.reload();
-  },
-
-  remove(index) {
-    Transaction.all.transactions.splice(index, 1);
-    App.reload();
-  },
-
-  incomes(transactions = Transaction.all.transactions) {
-    return transactions?.reduce(
-      (total, { amount }) => (amount > 0 ? amount + total : total),
-      0
-    );
-  },
-
-  expenses(transactions = Transaction.all.transactions) {
-    return transactions?.reduce(
-      (total, { amount }) => (amount < 0 ? amount + total : total),
-      0
-    );
-  },
-
-  total(wallet) {
-    return wallet.reduce((total, { amount }) => amount + total, 0);
-  },
-};
-
 const DOM = {
   //Substituir os dados do html com os dados do js
   transactionsContainer: document.querySelector(
@@ -329,6 +296,7 @@ const DOM = {
     DOM.transactionsContainer.innerHTML = "";
   },
 
+  // WALLET AREA
   walletsContainer: document.querySelector("#js-wallets-table tbody"),
   addWallet(wallet, index) {
     const tr = document.createElement("tr");
@@ -343,10 +311,8 @@ const DOM = {
     const name = wallet;
 
     let amount = Utils.calcTotal(wallet);
-    amount = TransactionWallet.total(amount);
-
+    amount = Wallet.total(amount);
     const CSSClass = amount > 0 ? "table__income" : "table__expense";
-
     const newAmount = Utils.formatCurrency(amount);
 
     const html = `
@@ -367,7 +333,6 @@ const Utils = {
   //Formatação dos valores dos inputs
   formatAmount(value) {
     value = value * 100;
-
     return Math.round(value);
   },
 
@@ -432,7 +397,6 @@ const Utils = {
         }
       }
 
-      console.log(total);
       return total;
     }
   },
@@ -548,6 +512,7 @@ const WalletForm = {
       DOM.clearWallets();
 
       Wallet.all.forEach(DOM.addWallet);
+      Ordination.organizeName();
     } catch (error) {
       alert(error.message);
     }
@@ -615,7 +580,7 @@ const Ordination = {
   },
 
   // Organiza as datas em específico. Chamado ao carregar o site
-  organize() {
+  organizeDate() {
     // Organiza a data automaticamente ao implementar algo ou atualizar a página
     var date = document.querySelector(".js-date");
 
@@ -632,6 +597,62 @@ const Ordination = {
       headerIndex,
       !currentIsAscending
     );
+  },
+
+  // Organiza os nomes em específico.
+  organizeName() {
+    // Organiza a data automaticamente ao implementar algo ou atualizar a página
+    var date = document.querySelector(".js-Name");
+
+    const tableElement = date.parentElement.parentElement.parentElement;
+    const headerIndex = Array.prototype.indexOf.call(
+      date.parentElement.children,
+      date
+    );
+    // const currentIsAscending = date.classList.contains("th-sort-asc");
+    const currentIsAscending = false;
+
+    Ordination.sortTableByColumn(
+      tableElement,
+      headerIndex,
+      !currentIsAscending
+    );
+  },
+};
+
+const lastMonth = {
+  updateBalance() {
+    document.getElementById(
+      "js-incomeDisplay"
+    ).innerHTML = Utils.formatCurrency(Transaction.incomes());
+    document.getElementById(
+      "js-expensesDisplay"
+    ).innerHTML = Utils.formatCurrency(Transaction.expenses());
+    document.getElementById("js-totalDisplay").innerHTML = Utils.formatCurrency(
+      Transaction.total()
+    );
+  },
+  active() {
+    let pastMonth = document.querySelectorAll(".js-past-month");
+    document.querySelector(".up-arrow").classList.add("u-sr-only");
+    document.querySelector(".down-arrow").classList.remove("u-sr-only");
+    let container = document.querySelectorAll(".js-container__card");
+
+    for (let n = 0; n < 3; n++) {
+      container[n].classList.add("is-active");
+      pastMonth[n].classList.remove("u-sr-only");
+    }
+  },
+  desactive() {
+    let pastMonth = document.querySelectorAll(".js-past-month");
+    document.querySelector(".up-arrow").classList.remove("u-sr-only");
+    document.querySelector(".down-arrow").classList.add("u-sr-only");
+    let container = document.querySelectorAll(".js-container__card");
+
+    for (let n = 0; n < 3; n++) {
+      container[n].classList.remove("is-active");
+      pastMonth[n].classList.add("u-sr-only");
+    }
   },
 };
 
@@ -666,7 +687,8 @@ const App = {
     // Resumo pq a função esta recebendo os mesmos parâmetros e não está acontecendo mais nada
     // pode se resumir assim. Passando a função como um atalho ( pesquisar se quiser entender mais).
 
-    Ordination.organize();
+    Ordination.organizeDate();
+    Ordination.organizeName();
     DOM.updateBalance();
 
     Storage.set(Transaction.all);
@@ -696,7 +718,7 @@ const App = {
     $html.classList.toggle("dark-mode");
   },
 };
-
+document.querySelector("#wallet-selected-name").innerHTML = Wallet.all[0];
 Storage.get();
 App.init();
 

@@ -32,7 +32,7 @@
       <div id="wallet-selected" class="c-wallet-selected">
         <span>Carteira :</span>
         <a
-          class="c-button c-wallet"
+          class="c-button__wallet c-wallet"
           id="wallet-selected-name"
           onclick="WalletModal.open()"
           >Nome</a
@@ -42,7 +42,14 @@
       <section class="c-container__balance">
         <h2 class="u-sr-only">Balanço</h2>
         <!-- Entradas -->
-        <div class="c-container__card">
+        <div class="c-container__card js-container__card">
+          <div class="c-past-total js-past-month u-sr-only">
+            <h3>
+              <span> Total </span>
+              <p id="js-pastEntrada">R$ 0,00</p>
+              <img src="./assets/total.svg" alt="Imagem do total" />
+            </h3>
+          </div>
           <h3>
             <span> Entradas </span>
             <img src="./assets/income.svg" alt="Image de entradas" />
@@ -50,7 +57,14 @@
           <p id="js-incomeDisplay">R$ 0,00</p>
         </div>
         <!-- Saídas -->
-        <div class="c-container__card">
+        <div class="c-container__card js-container__card">
+          <div class="c-past-total js-past-month u-sr-only">
+            <h3>
+              <span> Total </span>
+              <p id="js-pastSaida">R$ 0,00</p>
+              <img src="./assets/total.svg" alt="Imagem do total" />
+            </h3>
+          </div>
           <h3>
             <span> Saídas </span>
             <img src="./assets/expense.svg" alt="Image de saída" />
@@ -58,7 +72,29 @@
           <p id="js-expensesDisplay">R$ 0,00</p>
         </div>
         <!-- Total -->
-        <div id="js-container__total" class="c-container__card total">
+        <div
+          id="js-container__total"
+          class="c-container__card total js-container__card"
+        >
+          <div class="c-past-total js-past-month u-sr-only">
+            <h3>
+              <span> Total </span>
+              <p id="js-pastTotal">R$ 0,00</p>
+              <img src="./assets/total.svg" alt="Imagem do total" />
+            </h3>
+          </div>
+          <img
+            src="./assets/up-arrow.svg"
+            alt="seta pra cima"
+            class="up-arrow"
+            onclick="lastMonth.active()"
+          />
+          <img
+            src="./assets/down-arrow.svg"
+            alt="seta pra baixo"
+            class="down-arrow u-sr-only"
+            onclick="lastMonth.desactive()"
+          />
           <h3>
             <span> Total </span>
             <img src="./assets/total.svg" alt="Imagem do total" />
@@ -71,7 +107,7 @@
       <section id="transaction" class="c-transaction">
         <h2 class="u-sr-only">Transações</h2>
 
-        <div class="inputs-tabela">
+        <div class="c-inputs-table">
           <a href="#" onclick="Modal.open()" class="button new"
             >Novas Transações</a
           >
@@ -173,7 +209,7 @@
     <!-- Modal Wallet adicionar trocar de carteira -->
     <div
       onclick="WalletModal.closeOut()"
-      class="c-modal-overlay js-wallets-overlay is-active"
+      class="c-modal-overlay js-wallets-overlay"
     >
       <div class="c-modal c-modal-wallets">
         <div class="c-form-wallets">
@@ -200,7 +236,7 @@
           >
             <thead>
               <tr>
-                <th>Name</th>
+                <th class="js-Name">Name</th>
                 <th>Total</th>
                 <th class="c-remove-wallet"></th>
               </tr>

@@ -199,8 +199,19 @@ label:active:after {
 /* ======================== cards ======================== */
 
 .c-container__card {
+  position: relative;
   background: var(--cards);
   padding: 1.5rem 2rem;
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
+  color: var(--letters);
+  transition: all 500ms ease 0s;
+}
+
+.c-container__card.is-active {
+  position: relative;
+  background: var(--cards);
+  padding: 5rem 2rem 1.5rem 2rem;
   border-radius: 0.25rem;
   margin-bottom: 2rem;
   color: var(--letters);
@@ -224,6 +235,50 @@ label:active:after {
 .c-container__card.total {
   background: var(--green);
   color: white;
+}
+.c-container__card.total .up-arrow {
+  position: absolute;
+  width: 15px;
+  right: 5px;
+  top: 5px;
+  fill: white;
+}
+
+.c-container__card.total .down-arrow {
+  position: absolute;
+  width: 15px;
+  right: 5px;
+  top: 55px;
+  fill: white;
+}
+
+.c-past-total {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--red);
+  color: white;
+  width: 100%;
+  height: 29%;
+}
+.c-past-total h3 {
+  padding: 0 10px;
+  font-weight: normal;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.c-past-total img {
+  width: 20px;
+}
+
+.c-past-total p {
+  font-size: 1rem;
+  line-height: 3rem;
+  margin-top: 0;
 }
 
 /* ======================== Table ======================== */
@@ -309,7 +364,7 @@ td.table__expense {
 }
 
 /* ======================== Input Tabela ======================== */
-.inputs-tabela {
+.c-inputs-table {
   display: flex;
   justify-content: space-between;
 }
@@ -369,7 +424,7 @@ small {
   font-weight: 200;
 }
 
-.c-wallet-selected .c-button {
+.c-wallet-selected .c-button__wallet {
   font-weight: 700;
   color: #fff;
 
@@ -383,7 +438,7 @@ small {
   transition: 0.2s;
 }
 
-.c-wallet-selected .c-button:hover {
+.c-wallet-selected .c-button__wallet:hover {
   color: var(--light-green);
   border: 1px solid var(--light-green);
 
