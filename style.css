@@ -560,6 +560,11 @@ small {
   margin-top: 0.8rem;
 }
 
+.c-checkbox-number {
+  /* background: #000; */
+  display: flex;
+}
+
 .c-input-group .help {
   color: var(--letters);
   opacity: 0.4;

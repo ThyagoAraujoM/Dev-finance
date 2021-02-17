@@ -768,8 +768,7 @@ const App = {
     DOM.clearTransactions();
     DOM.clearWallets();
     App.init();
-    DOM.clearWallets();
-    Wallet.all.forEach(DOM.addWallet);
+    // Wallet.all.forEach(DOM.addWallet);
   },
 
   // Atualiza a tabela com o mês selecionado.
