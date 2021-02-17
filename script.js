@@ -205,10 +205,19 @@ const Transaction = {
     App.reload();
   },
 
-  incomes() {
+  incomes(lastMonth) {
     //Soma as entradas
     let income = 0;
 
+    if (lastMonth != undefined) {
+      lastMonth.forEach((transaction) => {
+        if (transaction.amount > 0) {
+          income += transaction.amount;
+        }
+      });
+
+      return income;
+    }
     Transaction.all.forEach((transaction) => {
       if (transaction.amount > 0) {
         income += transaction.amount;
@@ -217,10 +226,19 @@ const Transaction = {
     return income;
   },
 
-  expenses() {
+  expenses(lastMonth) {
     //Soma as despesas, devolve o valor total de despesas do mês.
     let expenses = 0;
 
+    if (lastMonth != undefined) {
+      lastMonth.forEach((transaction) => {
+        if (transaction.amount < 0) {
+          expenses += transaction.amount;
+        }
+      });
+
+      return expenses;
+    }
     Transaction.all.forEach((transaction) => {
       if (transaction.amount < 0) {
         expenses += transaction.amount;
@@ -229,8 +247,21 @@ const Transaction = {
     return expenses;
   },
 
-  total() {
+  total(lastMonth) {
     //Soma o total das duas
+
+    if (lastMonth != undefined) {
+      let total =
+        Transaction.incomes(lastMonth) + Transaction.expenses(lastMonth);
+      let container = document.querySelectorAll(".js-past-month");
+      if (total < 0) {
+        container[2].style.backgroundColor = "#e92929";
+      } else {
+        container[2].style.backgroundColor = "#49aa26";
+      }
+      return total;
+    }
+
     // Retorna a soma dos incomes e expenses e devolve o valor desse mês. Dependendo do valor positivo ou negativo o bg muda de cor.
     let total = Transaction.incomes() + Transaction.expenses();
     if (total < 0) {
@@ -620,33 +651,70 @@ const Ordination = {
   },
 };
 
+let actualMonth = "jan";
+
 const lastMonth = {
-  updateBalance() {
-    document.getElementById(
-      "js-incomeDisplay"
-    ).innerHTML = Utils.formatCurrency(Transaction.incomes());
-    document.getElementById(
-      "js-expensesDisplay"
-    ).innerHTML = Utils.formatCurrency(Transaction.expenses());
-    document.getElementById("js-totalDisplay").innerHTML = Utils.formatCurrency(
-      Transaction.total()
+  updateLastMonth() {
+    const months = [
+      "jan",
+      "fev",
+      "mar",
+      "abr",
+      "mai",
+      "jun",
+      "jul",
+      "ago",
+      "set",
+      "out",
+      "nov",
+      "dez",
+    ];
+    let month;
+    for (let n = 0; n < months.length - 1; n++) {
+      if (actualMonth == months[n]) {
+        let name;
+        if (walletName == undefined) {
+          name = Wallet.all[0];
+        } else {
+          name = walletName;
+        }
+        document.querySelector(".js-past-month-text").innerHTML = months[n - 1];
+        month =
+          JSON.parse(
+            localStorage.getItem(
+              `dev.finances:transactions-${name}-${months[n - 1]}`
+            )
+          ) || [];
+      }
+    }
+
+    document.getElementById("js-lastIncome").innerHTML = Utils.formatCurrency(
+      Transaction.incomes(month)
+    );
+    document.getElementById("js-lastExpense").innerHTML = Utils.formatCurrency(
+      Transaction.expenses(month)
+    );
+    document.getElementById("js-lastTotal").innerHTML = Utils.formatCurrency(
+      Transaction.total(month)
     );
   },
   active() {
-    let pastMonth = document.querySelectorAll(".js-past-month");
-    document.querySelector(".up-arrow").classList.add("u-sr-only");
-    document.querySelector(".down-arrow").classList.remove("u-sr-only");
-    let container = document.querySelectorAll(".js-container__card");
+    if (actualMonth != "jan" && actualMonth != "total") {
+      let pastMonth = document.querySelectorAll(".js-past-month");
+      document.querySelector(".js-up-arrow").classList.add("u-sr-only");
+      document.querySelector(".js-down-arrow").classList.remove("u-sr-only");
+      let container = document.querySelectorAll(".js-container__card");
 
-    for (let n = 0; n < 3; n++) {
-      container[n].classList.add("is-active");
-      pastMonth[n].classList.remove("u-sr-only");
+      for (let n = 0; n < 3; n++) {
+        container[n].classList.add("is-active");
+        pastMonth[n].classList.remove("u-sr-only");
+      }
     }
   },
   desactive() {
     let pastMonth = document.querySelectorAll(".js-past-month");
-    document.querySelector(".up-arrow").classList.remove("u-sr-only");
-    document.querySelector(".down-arrow").classList.add("u-sr-only");
+    document.querySelector(".js-up-arrow").classList.remove("u-sr-only");
+    document.querySelector(".js-down-arrow").classList.add("u-sr-only");
     let container = document.querySelectorAll(".js-container__card");
 
     for (let n = 0; n < 3; n++) {
@@ -710,6 +778,15 @@ const App = {
     Transaction.all = Storage.get();
     Transaction.all.forEach(DOM.addTransaction);
     DOM.updateBalance();
+    actualMonth = document.getElementById("js-month").value;
+    if (
+      document.getElementById("js-month").value == "jan" ||
+      document.getElementById("js-month").value == "total"
+    ) {
+      lastMonth.desactive();
+    } else {
+      lastMonth.updateLastMonth();
+    }
   },
 
   // Ativa ou desativa o dark-mode
@@ -737,3 +814,75 @@ App.init();
  aColText = aColText.replace(/(R\$|\ +)/gi, "");
  bColText = bColText.replace(/(R\$|\ +)/gi, "");
 */
+
+google.charts.load("current", { packages: ["corechart"] });
+// google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  let total = Storage.get();
+  const months = [
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
+  ];
+  let graphicData = [["Meses", "Total"]];
+  for (let n = 0; n < months.length - 1; n++) {
+    let amount =
+      JSON.parse(
+        localStorage.getItem(
+          `dev.finances:transactions-${walletName}-${months[n]}`
+        )
+      ) || [];
+
+    let data = [months[n], 0];
+    if (amount[0] != undefined) {
+      amount = Utils.unFormartCurrency(Wallet.total(amount));
+      data = [months[n], amount];
+    }
+
+    graphicData.push(data);
+  }
+
+  const container = document.querySelector(".c-graphic");
+  const data = new google.visualization.arrayToDataTable(graphicData);
+  const options = {
+    title: "Gráfico Total dos meses",
+    height: 400,
+    width: 720,
+    legend: "right",
+    pointSize: 5,
+  };
+
+  // const chart = new google.visualization.ColumnChart(container)
+  // const chart = new google.visualization.BarChart(container)
+  const chart = new google.visualization.LineChart(container);
+  // const chart = new google.visualization.ColumnChart(container);
+  chart.draw(data, options);
+}
+
+const Graphic = {
+  open() {
+    google.charts.setOnLoadCallback(drawChart);
+    document.querySelector(".js-graphic-overlay").classList.add("is-active");
+  },
+  close() {
+    document.querySelector(".js-graphic-overlay").classList.remove("is-active");
+  },
+  closeOut() {
+    // Fecha se clicar fora do moda.
+
+    let modal = document.querySelector(".js-graphic-overlay");
+    modal.addEventListener("click", function (e) {
+      if (e.target == this) Graphic.close();
+    });
+  },
+};

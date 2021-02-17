@@ -114,6 +114,20 @@ button:hover {
   opacity: 1;
 }
 
+.c-graphic-button {
+  position: absolute;
+  width: 50px;
+  right: 0px;
+  top: -50px;
+  padding: 5px;
+  transition: all 500ms ease 0s;
+}
+
+.c-graphic-button:hover {
+  border: 1px solid var(--light-green);
+  cursor: pointer;
+}
+
 /* ======================== Title ======================== */
 .c-form h2 {
   margin-top: 3.2rem;
@@ -211,7 +225,7 @@ label:active:after {
 .c-container__card.is-active {
   position: relative;
   background: var(--cards);
-  padding: 5rem 2rem 1.5rem 2rem;
+  padding: 6rem 2rem 1.5rem 2rem;
   border-radius: 0.25rem;
   margin-bottom: 2rem;
   color: var(--letters);
@@ -248,7 +262,7 @@ label:active:after {
   position: absolute;
   width: 15px;
   right: 5px;
-  top: 55px;
+  top: 73px;
   fill: white;
 }
 
@@ -256,10 +270,22 @@ label:active:after {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: var(--red);
-  color: white;
+  color: var(--letters);
   width: 100%;
-  height: 29%;
+  height: 35%;
+  border-radius: 0.25rem;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.548);
+}
+
+.c-past-total.u-total {
+  color: white;
+}
+
+.c-past-total .c-past-month-text {
+  font-size: 13px;
+  position: absolute;
+  top: -10px;
+  left: 5px;
 }
 .c-past-total h3 {
   padding: 0 10px;

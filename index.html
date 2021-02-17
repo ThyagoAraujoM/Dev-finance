@@ -38,16 +38,26 @@
           >Nome</a
         >
       </div>
+
+      <!-- Graphic Button -->
+      <img
+        src="./assets/graphic.svg"
+        alt="Graphic Button"
+        class="c-graphic-button"
+        onclick="Graphic.open()"
+      />
+
       <!-- Primeiras 3 caixas: Entrada, Saída e Total -->
       <section class="c-container__balance">
         <h2 class="u-sr-only">Balanço</h2>
         <!-- Entradas -->
         <div class="c-container__card js-container__card">
           <div class="c-past-total js-past-month u-sr-only">
+            <p class="js-past-month-text c-past-month-text">Jan</p>
             <h3>
-              <span> Total </span>
-              <p id="js-pastEntrada">R$ 0,00</p>
-              <img src="./assets/total.svg" alt="Imagem do total" />
+              <span> Entradas </span>
+              <p id="js-lastIncome">R$ 0,00</p>
+              <img src="./assets/income.svg" alt="Imagem do total" />
             </h3>
           </div>
           <h3>
@@ -60,9 +70,9 @@
         <div class="c-container__card js-container__card">
           <div class="c-past-total js-past-month u-sr-only">
             <h3>
-              <span> Total </span>
-              <p id="js-pastSaida">R$ 0,00</p>
-              <img src="./assets/total.svg" alt="Imagem do total" />
+              <span> Saídas </span>
+              <p id="js-lastExpense">R$ 0,00</p>
+              <img src="./assets/expense.svg" alt="Imagem do total" />
             </h3>
           </div>
           <h3>
@@ -71,28 +81,29 @@
           </h3>
           <p id="js-expensesDisplay">R$ 0,00</p>
         </div>
+
         <!-- Total -->
         <div
           id="js-container__total"
           class="c-container__card total js-container__card"
         >
-          <div class="c-past-total js-past-month u-sr-only">
+          <div class="c-past-total u-total js-past-month u-sr-only">
             <h3>
               <span> Total </span>
-              <p id="js-pastTotal">R$ 0,00</p>
+              <p id="js-lastTotal">R$ 0,00</p>
               <img src="./assets/total.svg" alt="Imagem do total" />
             </h3>
           </div>
           <img
             src="./assets/up-arrow.svg"
             alt="seta pra cima"
-            class="up-arrow"
+            class="up-arrow js-up-arrow"
             onclick="lastMonth.active()"
           />
           <img
             src="./assets/down-arrow.svg"
             alt="seta pra baixo"
-            class="down-arrow u-sr-only"
+            class="down-arrow js-down-arrow u-sr-only"
             onclick="lastMonth.desactive()"
           />
           <h3>
@@ -246,11 +257,46 @@
         </div>
       </div>
     </div>
+    <div
+      class="c-modal-overlay js-graphic-overlay"
+      onclick="Graphic.closeOut()"
+    >
+      <div class="c-graphic"></div>
+    </div>
+
     <footer id="footer">
       <a href="https://github.com/Pluto-ty/Maratona-Discover"> dev.finance$</a>
     </footer>
 
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
+    <!-- <script type="text/javascript">
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        const container = document.querySelector(".c-graphic");
+        const data = new google.visualization.arrayToDataTable([
+          ["Character", "Ki"],
+          ["Goku", 10000],
+          ["Vegeta", 9000],
+          ["Gohan", 8000],
+          ["Freeza", 5000],
+          ["Piccolo", 2000],
+        ]);
+        const options = {
+          title: "Dragon Ball Z - Characters Ki",
+          height: 400,
+          width: 720,
+        };
+
+        // const chart = new google.visualization.ColumnChart(container)
+        // const chart = new google.visualization.BarChart(container)
+        // const chart = new google.visualization.LineChart(container)
+        const chart = new google.visualization.ColumnChart(container);
+        chart.draw(data, options);
+      }
+    </script> -->
   </body>
 </html>
 
