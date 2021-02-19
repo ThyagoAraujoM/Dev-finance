@@ -157,7 +157,7 @@ header {
   margin-right: 1rem;
 }
 
-input[type="checkbox"] {
+#switch[type="checkbox"] {
   height: 0;
   width: 0;
   visibility: hidden;

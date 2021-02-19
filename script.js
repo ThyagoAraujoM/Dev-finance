@@ -798,25 +798,9 @@ document.querySelector("#wallet-selected-name").innerHTML = Wallet.all[0];
 Storage.get();
 App.init();
 
-// Comentários avulsos.
-/*
-   Transaction.add({
-      id: 39,
-      description: "Alo",
-      amount: 200,
-      date: "23/01/2021",
- });
-
- Transaction.remove(0); */
-
-/*Tirar o R$ para o sort conseguir ordenar corretamente
- aColText = aColText.replace(/(R\$|\ +)/gi, "");
- bColText = bColText.replace(/(R\$|\ +)/gi, "");
-*/
-
+// Sistema do gráfico
 google.charts.load("current", { packages: ["corechart"] });
 // google.charts.setOnLoadCallback(drawChart);
-
 function drawChart() {
   let total = Storage.get();
   const months = [
@@ -885,3 +869,19 @@ const Graphic = {
     });
   },
 };
+
+// Comentários avulsos.
+/*
+   Transaction.add({
+      id: 39,
+      description: "Alo",
+      amount: 200,
+      date: "23/01/2021",
+ });
+
+ Transaction.remove(0); */
+
+/*Tirar o R$ para o sort conseguir ordenar corretamente
+ aColText = aColText.replace(/(R\$|\ +)/gi, "");
+ bColText = bColText.replace(/(R\$|\ +)/gi, "");
+*/
