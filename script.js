@@ -61,6 +61,7 @@ const Modal = {
   close() {
     // Fecha o modal e limpa os valores nele inseridos.
     document.querySelector(".js-modal-overlay").classList.remove("is-active");
+    document.querySelector("#js-checkbox").checked = false;
     Form.clearFields();
   },
 
@@ -96,7 +97,6 @@ const WalletModal = {
 };
 
 let walletName;
-
 const Storage = {
   // Sistema de Storage
 
@@ -138,6 +138,17 @@ const Storage = {
     ) || ["Padrão"];
     return test;
   },
+  getFixed(wallet) {
+    let name = walletName;
+    if (wallet != undefined) {
+      name = wallet;
+    }
+    return (
+      JSON.parse(
+        localStorage.getItem(`dev.finances:${name}-fixedTransactions`)
+      ) || []
+    );
+  },
   set(transaction) {
     // Cria um LocalStorage ou reescreve um existente com os valores do mês em questão.
 
@@ -150,6 +161,12 @@ const Storage = {
   setWallet(transaction) {
     localStorage.setItem(
       `dev.finances:transactions-wallets`,
+      JSON.stringify(transaction)
+    );
+  },
+  setFixed(transaction) {
+    localStorage.setItem(
+      `dev.finances:${walletName}-fixedTransactions`,
       JSON.stringify(transaction)
     );
   },
@@ -174,8 +191,8 @@ const Wallet = {
 
   select(index) {
     document.querySelector("#js-month").value = "jan";
-    document.querySelector("#wallet-selected-name").innerHTML = walletName;
     walletName = Wallet.all[index];
+    document.querySelector("#wallet-selected-name").innerHTML = walletName;
     Wallet.selected = Wallet.all[index];
     Transaction.all = Storage.get(Wallet.selected);
     Wallet.index = index;
@@ -192,16 +209,24 @@ const Transaction = {
   // Sistema das transações ( add, remove, incomes, expenses, total)
   // pega o LocalStorage do mês selecionado e deposita no objeto para depois colocar na tabela no HTML.
   all: Wallet.selected,
-
+  fixed: Storage.getFixed(),
   add(transaction) {
     //Adiciona a transação no objeto e depois recarrega a tabela com os novos valores.
     Transaction.all.push(transaction);
+    App.reload();
+  },
+  addFixed(transaction) {
+    Transaction.fixed.push(transaction);
     App.reload();
   },
 
   remove(index) {
     //função de remover os valores ao clicar no botam de - na tabela pelo usuário. E reinicia a aplicação.
     Transaction.all.splice(index, 1);
+    App.reload();
+  },
+  removeFixed(index) {
+    Transaction.fixed.splice(index, 1);
     App.reload();
   },
 
@@ -215,10 +240,19 @@ const Transaction = {
           income += transaction.amount;
         }
       });
-
+      Transaction.fixed.forEach((transaction) => {
+        if (transaction.amount > 0) {
+          income += transaction.amount;
+        }
+      });
       return income;
     }
     Transaction.all.forEach((transaction) => {
+      if (transaction.amount > 0) {
+        income += transaction.amount;
+      }
+    });
+    Transaction.fixed.forEach((transaction) => {
       if (transaction.amount > 0) {
         income += transaction.amount;
       }
@@ -276,11 +310,13 @@ const Transaction = {
   },
 };
 
+let fixed = false;
 const DOM = {
   //Substituir os dados do html com os dados do js
   transactionsContainer: document.querySelector(
     ".js-transaction__data-table tbody"
   ),
+  fixedContainer: document.querySelector(".js-fixed__data-table tbody"),
 
   //Função para adicionar uma transação a tabela.
   addTransaction(transaction, index) {
@@ -290,6 +326,14 @@ const DOM = {
 
     DOM.transactionsContainer.appendChild(tr);
   },
+  addFixed(transaction, index) {
+    fixed = true;
+    const tr = document.createElement("tr");
+    tr.innerHTML = DOM.innerHTMLTransaction(transaction, index);
+    tr.dataset.index = index;
+
+    DOM.fixedContainer.appendChild(tr);
+  },
 
   //criação da transação
   innerHTMLTransaction(transaction, index) {
@@ -297,7 +341,20 @@ const DOM = {
       transaction.amount > 0 ? "table__income" : "table__expense";
 
     const amount = Utils.formatCurrency(transaction.amount);
-    const html = `
+
+    let html;
+    if (fixed == true) {
+      html = `
+   
+      <td class="table__description">${transaction.description}</td>
+      <td class="${CSSClass}"> ${amount}</td>
+      <td class="table__date">${transaction.date}</td>
+      <td>
+         <img onclick="Transaction.removeFixed(${index})" src="./assets/minus.svg" alt="Remove transação" />
+      </td>`;
+      fixed = false;
+    } else {
+      html = `
    
       <td class="table__description">${transaction.description}</td>
       <td class="${CSSClass}"> ${amount}</td>
@@ -305,6 +362,7 @@ const DOM = {
       <td>
          <img onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remove transação" />
       </td>`;
+    }
 
     return html;
   },
@@ -325,6 +383,7 @@ const DOM = {
   //limpa  a tabela
   clearTransactions() {
     DOM.transactionsContainer.innerHTML = "";
+    DOM.fixedContainer.innerHTML = "";
   },
 
   // WALLET AREA
@@ -342,7 +401,7 @@ const DOM = {
     const name = wallet;
 
     let amount = Utils.calcTotal(wallet);
-    amount = Wallet.total(amount);
+    amount = Wallet.total(amount) + Wallet.total(Storage.getFixed(wallet));
     const CSSClass = amount > 0 ? "table__income" : "table__expense";
     const newAmount = Utils.formatCurrency(amount);
 
@@ -476,6 +535,9 @@ const Form = {
   saveTransaction(transaction) {
     Transaction.add(transaction);
   },
+  saveFixedTransactions(transaction) {
+    Transaction.addFixed(transaction);
+  },
 
   clearFields() {
     Form.description.value = "";
@@ -486,18 +548,30 @@ const Form = {
     event.preventDefault();
 
     try {
-      // Verificar se todas as informações foram preenchidas.
-      Form.validateField();
-      // formatar os dados para salvar
-      const transaction = Form.formatValues();
-      // salvar
-      Form.saveTransaction(transaction);
-      // apagar os dados do Formulário
-      Form.clearFields();
-      // modal feche
-      Modal.close();
-      // Atualizar a aplicação
-      // App.reload(); //Não precisa pq no add ja tem um reload.
+      if (document.querySelector("#js-checkbox").checked == true) {
+        Form.validateField();
+
+        const transaction = Form.formatValues();
+
+        Form.saveFixedTransactions(transaction);
+
+        Form.clearFields();
+        document.querySelector("#js-checkbox").checked = false;
+        Modal.close();
+      } else {
+        // Verificar se todas as informações foram preenchidas.
+        Form.validateField();
+        // formatar os dados para salvar
+        const transaction = Form.formatValues();
+        // salvar
+        Form.saveTransaction(transaction);
+        // apagar os dados do Formulário
+        Form.clearFields();
+        // modal feche
+        Modal.close();
+        // Atualizar a aplicação
+        // App.reload(); //Não precisa pq no add ja tem um reload.
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -651,8 +725,79 @@ const Ordination = {
   },
 };
 
-let actualMonth = "jan";
+// Sistema do gráfico
+google.charts.load("current", { packages: ["corechart"] });
+function drawChart() {
+  let total = Storage.get();
+  const months = [
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
+  ];
+  let graphicData = [["Meses", "Total"]];
+  for (let n = 0; n <= months.length - 1; n++) {
+    let amount =
+      JSON.parse(
+        localStorage.getItem(
+          `dev.finances:transactions-${walletName}-${months[n]}`
+        )
+      ) || [];
+    let amountFixed = Utils.unFormartCurrency(Wallet.total(Storage.getFixed()));
 
+    let data = [months[n], 0];
+    if (amount[0] != undefined) {
+      amount = Utils.unFormartCurrency(Wallet.total(amount)) + amountFixed;
+      data = [months[n], amount];
+    }
+
+    graphicData.push(data);
+  }
+
+  const container = document.querySelector(".c-graphic");
+  const data = new google.visualization.arrayToDataTable(graphicData);
+  const options = {
+    title: "Gráfico Total dos meses",
+    height: 400,
+    width: 720,
+    legend: "right",
+    pointSize: 5,
+  };
+
+  // const chart = new google.visualization.ColumnChart(container)
+  // const chart = new google.visualization.BarChart(container)
+  const chart = new google.visualization.LineChart(container);
+  // const chart = new google.visualization.ColumnChart(container);
+  chart.draw(data, options);
+}
+const Graphic = {
+  open() {
+    google.charts.setOnLoadCallback(drawChart);
+    document.querySelector(".js-graphic-overlay").classList.add("is-active");
+  },
+  close() {
+    document.querySelector(".js-graphic-overlay").classList.remove("is-active");
+  },
+  closeOut() {
+    // Fecha se clicar fora do moda.
+
+    let modal = document.querySelector(".js-graphic-overlay");
+    modal.addEventListener("click", function (e) {
+      if (e.target == this) Graphic.close();
+    });
+  },
+};
+
+// Sistema mês anterior.
+let actualMonth = "jan";
 const lastMonth = {
   updateLastMonth() {
     const months = [
@@ -669,15 +814,11 @@ const lastMonth = {
       "nov",
       "dez",
     ];
+
     let month;
     for (let n = 0; n < months.length - 1; n++) {
       if (actualMonth == months[n]) {
-        let name;
-        if (walletName == undefined) {
-          name = Wallet.all[0];
-        } else {
-          name = walletName;
-        }
+        let name = walletName;
         document.querySelector(".js-past-month-text").innerHTML = months[n - 1];
         month =
           JSON.parse(
@@ -724,24 +865,6 @@ const lastMonth = {
   },
 };
 
-document.querySelectorAll(".js-table-sortable th").forEach((headerCell) => {
-  // Ativa a Ordenação da tabela que for clicada
-  headerCell.addEventListener("click", () => {
-    const tableElement = headerCell.parentElement.parentElement.parentElement;
-    const headerIndex = Array.prototype.indexOf.call(
-      headerCell.parentElement.children,
-      headerCell
-    );
-    const currentIsAscending = headerCell.classList.contains("th-sort-asc");
-
-    Ordination.sortTableByColumn(
-      tableElement,
-      headerIndex,
-      !currentIsAscending
-    );
-  });
-});
-
 const App = {
   //Inicia, recarrega, atualiza e ativa ou desativa o dark-mode da aplicação.
   //Inicia o app
@@ -751,6 +874,7 @@ const App = {
     // });
 
     Transaction.all.forEach(DOM.addTransaction);
+    Transaction.fixed.forEach(DOM.addFixed);
     Wallet.all.forEach(DOM.addWallet);
     // Resumo pq a função esta recebendo os mesmos parâmetros e não está acontecendo mais nada
     // pode se resumir assim. Passando a função como um atalho ( pesquisar se quiser entender mais).
@@ -761,6 +885,7 @@ const App = {
 
     Storage.set(Transaction.all);
     Storage.setWallet(Wallet.all);
+    Storage.setFixed(Transaction.fixed);
   },
 
   //recarrega apagando a tabela antiga e carregando com a nova
@@ -776,6 +901,8 @@ const App = {
     DOM.clearTransactions();
     Transaction.all = Storage.get();
     Transaction.all.forEach(DOM.addTransaction);
+    Transaction.fixed = Storage.getFixed();
+    Transaction.fixed.forEach(DOM.addFixed);
     DOM.updateBalance();
     actualMonth = document.getElementById("js-month").value;
     if (
@@ -794,81 +921,26 @@ const App = {
     $html.classList.toggle("dark-mode");
   },
 };
+
+document.querySelectorAll(".js-table-sortable th").forEach((headerCell) => {
+  // Ativa a Ordenação da tabela que for clicada
+  headerCell.addEventListener("click", () => {
+    const tableElement = headerCell.parentElement.parentElement.parentElement;
+    const headerIndex = Array.prototype.indexOf.call(
+      headerCell.parentElement.children,
+      headerCell
+    );
+    const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+
+    Ordination.sortTableByColumn(
+      tableElement,
+      headerIndex,
+      !currentIsAscending
+    );
+  });
+});
 document.querySelector("#wallet-selected-name").innerHTML = Wallet.all[0];
-Storage.get();
 App.init();
-
-// Sistema do gráfico
-google.charts.load("current", { packages: ["corechart"] });
-// google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-  let total = Storage.get();
-  const months = [
-    "jan",
-    "fev",
-    "mar",
-    "abr",
-    "mai",
-    "jun",
-    "jul",
-    "ago",
-    "set",
-    "out",
-    "nov",
-    "dez",
-  ];
-  let graphicData = [["Meses", "Total"]];
-  for (let n = 0; n < months.length - 1; n++) {
-    let amount =
-      JSON.parse(
-        localStorage.getItem(
-          `dev.finances:transactions-${walletName}-${months[n]}`
-        )
-      ) || [];
-
-    let data = [months[n], 0];
-    if (amount[0] != undefined) {
-      amount = Utils.unFormartCurrency(Wallet.total(amount));
-      data = [months[n], amount];
-    }
-
-    graphicData.push(data);
-  }
-
-  const container = document.querySelector(".c-graphic");
-  const data = new google.visualization.arrayToDataTable(graphicData);
-  const options = {
-    title: "Gráfico Total dos meses",
-    height: 400,
-    width: 720,
-    legend: "right",
-    pointSize: 5,
-  };
-
-  // const chart = new google.visualization.ColumnChart(container)
-  // const chart = new google.visualization.BarChart(container)
-  const chart = new google.visualization.LineChart(container);
-  // const chart = new google.visualization.ColumnChart(container);
-  chart.draw(data, options);
-}
-
-const Graphic = {
-  open() {
-    google.charts.setOnLoadCallback(drawChart);
-    document.querySelector(".js-graphic-overlay").classList.add("is-active");
-  },
-  close() {
-    document.querySelector(".js-graphic-overlay").classList.remove("is-active");
-  },
-  closeOut() {
-    // Fecha se clicar fora do moda.
-
-    let modal = document.querySelector(".js-graphic-overlay");
-    modal.addEventListener("click", function (e) {
-      if (e.target == this) Graphic.close();
-    });
-  },
-};
 
 // Comentários avulsos.
 /*

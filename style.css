@@ -163,7 +163,7 @@ header {
   visibility: hidden;
 }
 
-label {
+.c-darkmode-label {
   cursor: pointer;
   text-indent: -9999px;
   width: 52px;
@@ -174,7 +174,7 @@ label {
   position: relative;
 }
 
-label::after {
+.c-darkmode-label::after {
   content: "";
   position: absolute;
   top: 3px;
@@ -186,16 +186,16 @@ label::after {
   transition: 0.3s;
 }
 
-input:checked + label {
+input:checked + .c-darkmode-label {
   background-color: var(--toggle-bg);
 }
 
-input:checked + label::after {
+input:checked + .c-darkmode-label::after {
   left: calc(100% - 5px);
   transform: translateX(-100%);
 }
 
-label:active:after {
+.c-darkmode-label:active:after {
   width: 45px;
 }
 
@@ -313,6 +313,11 @@ label:active:after {
   display: block;
   width: 100%;
   overflow-x: auto;
+}
+
+.c-table-title {
+  text-align: center;
+  color: rgb(107, 100, 100);
 }
 
 .c-transaction__data-table {
@@ -561,8 +566,20 @@ small {
 }
 
 .c-checkbox-number {
-  /* background: #000; */
   display: flex;
+}
+
+.c-form form .c-container-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  padding: 5px;
+}
+.c-form form .c-container-checkbox .c-checkbox {
+  min-height: 12px;
+  min-width: 12px;
+  margin: 5px;
 }
 
 .c-input-group .help {
