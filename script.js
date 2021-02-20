@@ -96,6 +96,21 @@ const WalletModal = {
   },
 };
 
+const helpModal = {
+  open() {
+    document.querySelector(".js-help-overlay").classList.add("is-active");
+  },
+  close() {
+    document.querySelector(".js-help-overlay").classList.remove("is-active");
+  },
+  closeOut() {
+    let modal = document.querySelector(".js-help-overlay");
+    modal.addEventListener("click", function (e) {
+      if (e.target == this) helpModal.close();
+    });
+  },
+};
+
 let walletName;
 const Storage = {
   // Sistema de Storage

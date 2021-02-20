@@ -15,6 +15,12 @@
     <!-- Logo -->
     <header>
       <nav class="c-navbar">
+        <img
+          src="./assets/help.svg"
+          alt="help image"
+          class="c-help-img"
+          onclick="helpModal.open()"
+        />
         <img class="c-logo" src="./assets/logo.svg" alt="Logo Dev Finance" />
         <div class="c-toggle">
           <input
@@ -171,125 +177,151 @@
       </section>
     </main>
 
-    <!-- Modal para adicionar novo transação -->
-    <div
-      onclick="Modal.closeOut()"
-      id="c-modal-overlay"
-      class="c-modal-overlay js-modal-overlay"
-    >
-      <div class="c-modal">
-        <div class="c-form">
-          <h2>Nova Transação</h2>
-          <form action="" onsubmit="Form.submit(event)">
-            <!-- Descrição -->
-            <div class="c-input-group">
-              <label for="description" class="u-sr-only">Descrição</label>
-              <input
-                type="text"
-                id="js-description"
-                name="description"
-                placeholder="Descrição"
-                required
-              />
-            </div>
-            <!-- Valor -->
-            <div class="c-input-group">
-              <label for="amount" class="u-sr-only">Valor</label>
-              <div class="c-checkbox-number">
-                <div class="c-container-checkbox">
-                  <label for="Fixo">Fixo</label>
+    <section>
+      <!-- Modal para adicionar novo transação -->
+      <div
+        onclick="Modal.closeOut()"
+        id="c-modal-overlay"
+        class="c-modal-overlay js-modal-overlay"
+      >
+        <div class="c-modal">
+          <div class="c-form">
+            <h2>Nova Transação</h2>
+            <form action="" onsubmit="Form.submit(event)">
+              <!-- Descrição -->
+              <div class="c-input-group">
+                <label for="description" class="u-sr-only">Descrição</label>
+                <input
+                  type="text"
+                  id="js-description"
+                  name="description"
+                  placeholder="Descrição"
+                  required
+                />
+              </div>
+              <!-- Valor -->
+              <div class="c-input-group">
+                <label for="amount" class="u-sr-only">Valor</label>
+                <div class="c-checkbox-number">
+                  <div class="c-container-checkbox">
+                    <label for="Fixo">Fixo</label>
+                    <input
+                      type="checkbox"
+                      class="c-checkbox"
+                      id="js-checkbox"
+                      name="Fixo"
+                    />
+                  </div>
                   <input
-                    type="checkbox"
-                    class="c-checkbox"
-                    id="js-checkbox"
-                    name="Fixo"
+                    type="number"
+                    step="0.01"
+                    class="c-input-amount"
+                    id="js-amount"
+                    name="amount"
+                    placeholder="0,00"
+                    required
                   />
                 </div>
+
+                <small class="help">
+                  Use o sinal - (negativo) para despesas e , (vírgula) para
+                  casas decimais
+                </small>
+              </div>
+              <!-- Date -->
+              <div class="c-input-group">
+                <label for="date" class="u-sr-only">Data</label>
                 <input
-                  type="number"
-                  step="0.01"
-                  class="c-input-amount"
-                  id="js-amount"
-                  name="amount"
-                  placeholder="0,00"
+                  type="date"
+                  id="js-date"
+                  name="date"
+                  placeholder="01/01/2021"
                   required
                 />
               </div>
 
-              <small class="help">
-                Use o sinal - (negativo) para despesas e , (vírgula) para casas
-                decimais
-              </small>
-            </div>
-            <!-- Date -->
-            <div class="c-input-group">
-              <label for="date" class="u-sr-only">Data</label>
-              <input
-                type="date"
-                id="js-date"
-                name="date"
-                placeholder="01/01/2021"
-                required
-              />
-            </div>
-
-            <div class="c-input-group actions">
-              <a href="#" onclick="Modal.close()" class="button cancel"
-                >Cancel</a
-              >
-              <button>Salvar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- Modal Wallet adicionar trocar de carteira -->
-    <div
-      onclick="WalletModal.closeOut()"
-      class="c-modal-overlay js-wallets-overlay"
-    >
-      <div class="c-modal c-modal-wallets">
-        <div class="c-form-wallets">
-          <h2>Carteiras:</h2>
-          <div>
-            <form onsubmit="WalletForm.submit(event)">
-              <label for="wallet-name" class="u-sr-only"
-                >Nome da carteira</label
-              >
-              <input
-                type="text"
-                id="wallet-name"
-                placeholder="Nome para Carteira"
-              />
-              <button>Adicionar</button>
+              <div class="c-input-group actions">
+                <a href="#" onclick="Modal.close()" class="button cancel"
+                  >Cancel</a
+                >
+                <button>Salvar</button>
+              </div>
             </form>
           </div>
         </div>
-        <hr />
-        <div id="js-wallets" class="c-wallets">
-          <table
-            id="js-wallets-table"
-            class="c-wallets-table js-table-sortable c-table-sortable"
-          >
-            <thead>
-              <tr>
-                <th class="js-Name">Name</th>
-                <th>Total</th>
-                <th class="c-remove-wallet"></th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+      </div>
+      <!-- Modal Wallet adicionar trocar de carteira -->
+      <div
+        onclick="WalletModal.closeOut()"
+        class="c-modal-overlay js-wallets-overlay"
+      >
+        <div class="c-modal c-modal-wallets">
+          <div class="c-form-wallets">
+            <h2>Carteiras:</h2>
+            <div>
+              <form onsubmit="WalletForm.submit(event)">
+                <label for="wallet-name" class="u-sr-only"
+                  >Nome da carteira</label
+                >
+                <input
+                  type="text"
+                  id="wallet-name"
+                  placeholder="Nome para Carteira"
+                />
+                <button>Adicionar</button>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div id="js-wallets" class="c-wallets">
+            <table
+              id="js-wallets-table"
+              class="c-wallets-table js-table-sortable c-table-sortable"
+            >
+              <thead>
+                <tr>
+                  <th class="js-Name">Name</th>
+                  <th>Total</th>
+                  <th class="c-remove-wallet"></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Gráfico -->
-    <div
-      class="c-modal-overlay js-graphic-overlay"
-      onclick="Graphic.closeOut()"
-    >
-      <div class="c-graphic"></div>
-    </div>
+      <!-- Modal Gráfico -->
+      <div
+        class="c-modal-overlay js-graphic-overlay"
+        onclick="Graphic.closeOut()"
+      >
+        <div class="c-graphic"></div>
+      </div>
+
+      <!-- Modal Ajuda -->
+      <div
+        class="c-help-overlay js-help-overlay"
+        onclick="helpModal.closeOut()"
+      >
+        <di class="c-helpIcon-darkmod">
+          <img src="./assets/help.svg" alt="help image" class="c-help-img" />
+          <a class="c-darkmode-help"></a>
+        </di>
+        <div class="c-help">
+          <div class="c-wallet-graphic">
+            <a class="c-wallet-help"></a>
+            <a class="c-graphic-help"></a>
+            <a class="c-lastMonth-help"></a>
+          </div>
+          <div class="c-transactions-months">
+            <a class="c-transactions-help"></a>
+            <a class="c-months-help"></a>
+          </div>
+
+          <a href=""></a>
+        </div>
+      </div>
+    </section>
 
     <footer id="footer">
       <a href="https://github.com/Pluto-ty/Maratona-Discover"> dev.finance$</a>
