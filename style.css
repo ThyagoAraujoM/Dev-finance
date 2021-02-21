@@ -44,7 +44,7 @@ body {
 
 html,
 body {
-  transition: all 500ms ease 0s !important;
+  transition: all 500ms ease 0s;
 }
 
 .u-sr-only {
@@ -91,8 +91,12 @@ button:hover {
 }
 
 .button.new {
+  background: var(--green);
   display: inline-block;
-  margin-bottom: 0.8rem;
+  /* margin-bottom: 0.8rem; */
+  padding: 8px;
+  border-radius: 0.25rem;
+  color: white;
 }
 
 .button.cancel {
@@ -121,14 +125,13 @@ button:hover {
   top: -50px;
   padding: 5px;
   transition: all 500ms ease 0s;
+  border-color: rgba(255, 255, 255, 0);
 }
 
 .c-graphic-button:hover {
-  border: 1px solid var(--light-green);
+  border: 1px solid rgba(255, 255, 255, 0);
   cursor: pointer;
 }
-
-/* ======================== Title ======================== */
 
 /* ======================== Header & Dark-Mode ======================== */
 header {
@@ -140,9 +143,11 @@ header {
 }
 
 .c-navbar {
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1540px;
 }
 
 .c-help-img {
@@ -154,9 +159,41 @@ header {
 }
 
 .c-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
   margin-right: 1rem;
+  max-width: 40px;
 }
 
+.c-lightMode.on,
+.c-darkMode.on {
+  width: 100%;
+  right: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+}
+.c-lightMode {
+  transition: 0.5s;
+  position: absolute;
+  right: 40px;
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+}
+
+.c-darkMode {
+  transition: 0.5s;
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+}
+
+/* 
 #switch[type="checkbox"] {
   height: 0;
   width: 0;
@@ -197,7 +234,7 @@ input:checked + .c-darkmode-label::after {
 
 .c-darkmode-label:active:after {
   width: 45px;
-}
+} */
 
 /* ======================== Balance ======================== */
 
@@ -249,21 +286,25 @@ input:checked + .c-darkmode-label::after {
 .c-container__card.total {
   background: var(--green);
   color: white;
-}
-.c-container__card.total .up-arrow {
-  position: absolute;
-  width: 15px;
-  right: 5px;
-  top: 5px;
-  fill: white;
+  border-top-right-radius: 0rem;
 }
 
-.c-container__card.total .down-arrow {
+.c-container__card.total .c-container-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0px;
+  top: -30px;
+  background: rgb(56, 155, 43);
+  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+}
+
+.c-container__card.total .arrow {
   width: 15px;
-  right: 5px;
-  top: 73px;
-  fill: white;
 }
 
 .c-past-total {
@@ -279,6 +320,7 @@ input:checked + .c-darkmode-label::after {
 
 .c-past-total.u-total {
   color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.582);
 }
 
 .c-past-total .c-past-month-text {
@@ -312,12 +354,20 @@ input:checked + .c-darkmode-label::after {
 .c-transaction {
   display: block;
   width: 100%;
+}
+
+.u-overflow {
   overflow-x: auto;
 }
 
 .c-table-title {
   text-align: center;
   color: rgb(107, 100, 100);
+}
+.c-table-title-2 {
+  text-align: center;
+  color: rgb(107, 100, 100);
+  padding-top: 20px;
 }
 
 .c-transaction__data-table {
@@ -398,7 +448,57 @@ td.table__expense {
 .c-inputs-table {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
+
+.c-container-input-months {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.styled-select {
+  width: 65px;
+  height: 18px;
+  overflow: hidden;
+  background: url(./assets/down-arrow.svg) no-repeat right #ddd;
+  border: 1px solid #ccc;
+}
+
+.styled-select .c-input-months {
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.c-input-months:focus {
+  box-shadow: 0 0 0 0;
+  border: 1px solid #ddd;
+  outline: 0;
+}
+
+/* .c-input-months {
+  border: none;
+  padding: 0px;
+
+  overflow: hidden;
+  background: #ddd; 
+  border: 0px solid rgba(221, 221, 221, 0);
+}
+
+.c-input-months {
+  background: transparent;
+}
+
+.c-input-months:focus {
+  
+}
+
+.c-input-months:hover {
+  background: #000;
+  border: none;
+} */
 
 /* ======================== Modal ======================== */
 
@@ -458,7 +558,7 @@ small {
 .c-wallet-selected .c-button__wallet {
   font-weight: 700;
   color: #fff;
-
+  cursor: pointer;
   font-size: 16px;
 
   padding: 0 10px;
@@ -688,17 +788,18 @@ footer {
 .c-lastMonth-help {
   position: absolute;
   cursor: pointer;
-  right: 2px;
-  top: 500px;
-  width: 20px;
-  height: 20px;
+  right: 0;
+  top: 375px;
+  width: 25px;
+  height: 25px;
   background: rgba(0, 47, 255, 0.418);
+  border-radius: 0.25rem;
 }
 
 .c-transactions-months {
   width: 100%;
   height: 60px;
-  margin-top: 145px;
+  margin-top: 485px;
   /* background: rgba(0, 0, 0, 0.459); */
   display: flex;
   justify-content: space-between;
@@ -708,7 +809,7 @@ footer {
   display: inline-block;
   cursor: pointer;
   background: rgba(0, 47, 255, 0.253);
-  width: 130px;
+  width: 138px;
   height: 40px;
   border-radius: 0.25rem;
 }
@@ -717,7 +818,7 @@ footer {
   display: inline-block;
   cursor: pointer;
   background: rgba(0, 47, 255, 0.253);
-  width: 150px;
+  width: 155px;
   height: 40px;
   border-radius: 0.25rem;
 }
@@ -736,20 +837,59 @@ footer {
   }
   .c-help {
     position: relative;
-    background-color: rgba(156, 69, 69, 0.356);
+    /* background-color: rgba(156, 69, 69, 0.356); */
     width: min(90vw, 800px);
     max-width: 805px;
     max-height: 500px;
     height: 100%;
-    margin: 30px auto 0 auto;
+    margin: 25px auto 0 auto;
   }
   .c-lastMonth-help {
     position: absolute;
     cursor: pointer;
-    right: 2px;
-    top: 49px;
-    width: 20px;
-    height: 20px;
+    right: 0;
+    top: 45px;
+    width: 25px;
+    height: 25px;
     background: rgba(0, 47, 255, 0.418);
+    border-radius: 0.25rem;
+  }
+  .c-transactions-months {
+    width: 100%;
+    height: 60px;
+    margin-top: 145px;
+    /* background: rgba(0, 0, 0, 0.459); */
+    display: flex;
+    justify-content: space-between;
+  }
+  .c-transactions-help {
+    display: inline-block;
+    cursor: pointer;
+    background: rgba(0, 47, 255, 0.253);
+    width: 130px;
+    height: 40px;
+    border-radius: 0.25rem;
+  }
+  .c-months-help {
+    display: inline-block;
+    cursor: pointer;
+    background: rgba(0, 47, 255, 0.253);
+    width: 150px;
+    height: 40px;
+    border-radius: 0.25rem;
+  }
+  .c-container__card.total .c-container-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: -30px;
+    top: 0px;
+    background: rgb(56, 155, 43);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
   }
 }

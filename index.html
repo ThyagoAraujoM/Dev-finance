@@ -23,13 +23,25 @@
         />
         <img class="c-logo" src="./assets/logo.svg" alt="Logo Dev Finance" />
         <div class="c-toggle">
-          <input
+          <img
+            src="./assets/sun.svg"
+            alt="Imagem LightMode On"
+            class="c-lightMode js-lightMode"
+            onclick="App.darkMode()"
+          />
+          <img
+            src="./assets/moon.svg"
+            alt="Imagem DarkMode On"
+            class="c-darkMode js-darkMode on"
+            onclick="App.darkMode()"
+          />
+          <!-- <input
             onclick="App.darkMode()"
             type="checkbox"
             name="theme"
             id="switch"
           />
-          <label class="c-darkmode-label" for="switch">Toggle</label>
+          <label class="c-darkmode-label" for="switch">Toggle</label> -->
         </div>
       </nav>
     </header>
@@ -98,18 +110,21 @@
               <img src="./assets/total.svg" alt="Imagem do total" />
             </h3>
           </div>
-          <img
-            src="./assets/up-arrow.svg"
-            alt="seta pra cima"
-            class="up-arrow js-up-arrow"
-            onclick="lastMonth.active()"
-          />
-          <img
-            src="./assets/down-arrow.svg"
-            alt="seta pra baixo"
-            class="down-arrow js-down-arrow u-sr-only"
-            onclick="lastMonth.desactive()"
-          />
+          <div class="c-container-arrow">
+            <img
+              src="./assets/up-arrow.svg"
+              alt="seta pra cima"
+              class="arrow js-up-arrow"
+              onclick="lastMonth.active()"
+            />
+            <img
+              src="./assets/down-arrow.svg"
+              alt="seta pra baixo"
+              class="arrow js-down-arrow u-sr-only"
+              onclick="lastMonth.desactive()"
+            />
+          </div>
+
           <h3>
             <span> Total </span>
             <img src="./assets/total.svg" alt="Imagem do total" />
@@ -126,54 +141,63 @@
           <a href="#" onclick="Modal.open()" class="button new"
             >Novas Transações</a
           >
-          <div>
-            <select name="Mês" id="js-month">
-              <option value="jan">Janeiro</option>
-              <option value="fev">Fevereiro</option>
-              <option value="mar">Março</option>
-              <option value="abr">Abril</option>
-              <option value="mai">Maio</option>
-              <option value="jun">Junho</option>
-              <option value="jul">Julho</option>
-              <option value="ago">Agosto</option>
-              <option value="set">Setembro</option>
-              <option value="out">Outubro</option>
-              <option value="nov">Novembro</option>
-              <option value="dez">Dezembro</option>
-              <option value="total">Total</option>
-            </select>
+          <div class="c-container-input-months">
+            <div class="styled-select">
+              <select name="Mês" class="c-input-months" id="js-month">
+                <option value="jan">Janeiro</option>
+                <option value="fev">Fevereiro</option>
+                <option value="mar">Março</option>
+                <option value="abr">Abril</option>
+                <option value="mai">Maio</option>
+                <option value="jun">Junho</option>
+                <option value="jul">Julho</option>
+                <option value="ago">Agosto</option>
+                <option value="set">Setembro</option>
+                <option value="out">Outubro</option>
+                <option value="nov">Novembro</option>
+                <option value="dez">Dezembro</option>
+                <option value="total">Total</option>
+              </select>
+            </div>
             <a href="#" onclick="App.update()">Atualizar</a>
           </div>
         </div>
+
         <!-- Transações Fixos -->
         <h2 class="c-table-title">Fixos</h2>
-        <table
-          class="c-transaction__data-table c-table-sortable js-fixed__data-table js-table-sortable"
-        >
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th class="js-date">Data</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <div class="u-overflow">
+          <table
+            class="u-overflow c-transaction__data-table c-table-sortable js-fixed__data-table js-table-sortable"
+          >
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th class="js-date">Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
         <!-- Transações Normais -->
-        <table
-          class="c-transaction__data-table c-table-sortable js-transaction__data-table js-table-sortable"
-        >
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th class="js-date">Data</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <h2 class="c-table-title-2">Gerais</h2>
+        <div class="u-overflow">
+          <table
+            class="c-transaction__data-table c-table-sortable js-transaction__data-table js-table-sortable"
+          >
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th class="js-date">Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </section>
     </main>
 
@@ -304,16 +328,21 @@
         onclick="helpModal.closeOut()"
       >
         <di class="c-helpIcon-darkmod">
-          <img src="./assets/help.svg" alt="help image" class="c-help-img" />
+          <img
+            src="./assets/help.svg"
+            alt="help image"
+            class="c-help-img"
+            onclick="helpModal.close()"
+          />
           <a class="c-darkmode-help"></a>
         </di>
-        <div class="c-help">
-          <div class="c-wallet-graphic">
+        <div class="c-help js-help-overlay" onclick="helpModal.closeOut()">
+          <div class="c-wallet-graphic js-help-overlay">
             <a class="c-wallet-help"></a>
             <a class="c-graphic-help"></a>
             <a class="c-lastMonth-help"></a>
           </div>
-          <div class="c-transactions-months">
+          <div class="c-transactions-months js-help-overlay">
             <a class="c-transactions-help"></a>
             <a class="c-months-help"></a>
           </div>
@@ -329,33 +358,6 @@
 
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
-    <!-- <script type="text/javascript">
-      google.charts.load("current", { packages: ["corechart"] });
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        const container = document.querySelector(".c-graphic");
-        const data = new google.visualization.arrayToDataTable([
-          ["Character", "Ki"],
-          ["Goku", 10000],
-          ["Vegeta", 9000],
-          ["Gohan", 8000],
-          ["Freeza", 5000],
-          ["Piccolo", 2000],
-        ]);
-        const options = {
-          title: "Dragon Ball Z - Characters Ki",
-          height: 400,
-          width: 720,
-        };
-
-        // const chart = new google.visualization.ColumnChart(container)
-        // const chart = new google.visualization.BarChart(container)
-        // const chart = new google.visualization.LineChart(container)
-        const chart = new google.visualization.ColumnChart(container);
-        chart.draw(data, options);
-      }
-    </script> -->
   </body>
 </html>
 

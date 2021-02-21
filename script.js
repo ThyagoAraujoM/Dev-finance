@@ -104,10 +104,13 @@ const helpModal = {
     document.querySelector(".js-help-overlay").classList.remove("is-active");
   },
   closeOut() {
-    let modal = document.querySelector(".js-help-overlay");
-    modal.addEventListener("click", function (e) {
-      if (e.target == this) helpModal.close();
-    });
+    let modal = document.querySelectorAll(".js-help-overlay");
+
+    for (let n = 0; n < modal.length; n++) {
+      modal[n].addEventListener("click", function (e) {
+        if (e.target == this) helpModal.close();
+      });
+    }
   },
 };
 
@@ -210,6 +213,7 @@ const Wallet = {
     document.querySelector("#wallet-selected-name").innerHTML = walletName;
     Wallet.selected = Wallet.all[index];
     Transaction.all = Storage.get(Wallet.selected);
+    Transaction.fixed = Storage.getFixed(Wallet.selected);
     Wallet.index = index;
 
     WalletModal.close();
@@ -857,6 +861,8 @@ const lastMonth = {
   active() {
     if (actualMonth != "jan" && actualMonth != "total") {
       let pastMonth = document.querySelectorAll(".js-past-month");
+      // document.querySelector(".c-container-arrow").classList.remove("u-up");
+      // document.querySelector(".c-container-arrow").classList.add("u-down");
       document.querySelector(".js-up-arrow").classList.add("u-sr-only");
       document.querySelector(".js-down-arrow").classList.remove("u-sr-only");
       let container = document.querySelectorAll(".js-container__card");
@@ -869,6 +875,8 @@ const lastMonth = {
   },
   desactive() {
     let pastMonth = document.querySelectorAll(".js-past-month");
+    // document.querySelector(".c-container-arrow").classList.add("u-up");
+    // document.querySelector(".c-container-arrow").classList.remove("u-down");
     document.querySelector(".js-up-arrow").classList.remove("u-sr-only");
     document.querySelector(".js-down-arrow").classList.add("u-sr-only");
     let container = document.querySelectorAll(".js-container__card");
@@ -888,6 +896,10 @@ const App = {
     //    DOM.addTransaction(transaction, index);
     // });
 
+    Storage.set(Transaction.all);
+    Storage.setWallet(Wallet.all);
+    Storage.setFixed(Transaction.fixed);
+
     Transaction.all.forEach(DOM.addTransaction);
     Transaction.fixed.forEach(DOM.addFixed);
     Wallet.all.forEach(DOM.addWallet);
@@ -897,10 +909,6 @@ const App = {
     Ordination.organizeDate();
     Ordination.organizeName();
     DOM.updateBalance();
-
-    Storage.set(Transaction.all);
-    Storage.setWallet(Wallet.all);
-    Storage.setFixed(Transaction.fixed);
   },
 
   //recarrega apagando a tabela antiga e carregando com a nova
@@ -934,6 +942,8 @@ const App = {
   darkMode() {
     let $html = document.querySelector("html");
     $html.classList.toggle("dark-mode");
+    document.querySelector(".js-lightMode").classList.toggle("on");
+    document.querySelector(".js-darkMode").classList.toggle("on");
   },
 };
 
