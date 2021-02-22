@@ -74,17 +74,18 @@ $ git clone https://github.com/Pluto-ty/Maratona-Discover.git
 
 <h4 align="center"> Mobile </h4>
   <p align="center";>
-   <img alt="Header/Main" title="Header/Main" src="./assets/mobile.png" width="400px">
+   <img alt="Header/Main" title="Mobile Home" src="./assets/mobile.png" width="400px">
+   <img alt="Header/Main" title="Mohile Home Dark Mode" src="./assets/mobile-dm.png" width="400px">
   </p>
 
 <h4 align="center"> Web </h4>
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web.png" width="900px">
+  <img alt="NextLevelWeek" title="Home" src="./assets/web.png" width="900px">
 </p>
 
 <h4 align="center"> Web - Dark Mode </h4>
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="NextLevelWeek" title="#NextLevelWeek" src="./assets/web-dm.png" width="900px">
+  <img alt="NextLevelWeek" title="Home Dark Mode" src="./assets/web-dm.png" width="900px">
 </p>
 
 <h2 id="-autor">Autor</h2>
