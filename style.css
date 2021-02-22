@@ -154,7 +154,6 @@ header {
   width: 40px;
   height: 40px;
   margin-left: 10px;
-  background-color: #2b802b;
   border-radius: 50%;
 }
 
@@ -176,65 +175,24 @@ header {
   opacity: 0;
 }
 .c-lightMode {
+  cursor: pointer;
   transition: 0.5s;
   position: absolute;
-  right: 40px;
+  right: 0px;
   width: 40px;
   height: 40px;
   opacity: 1;
 }
 
 .c-darkMode {
+  cursor: pointer;
   transition: 0.5s;
   position: absolute;
   right: 0;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   opacity: 1;
 }
-
-/* 
-#switch[type="checkbox"] {
-  height: 0;
-  width: 0;
-  visibility: hidden;
-}
-
-.c-darkmode-label {
-  cursor: pointer;
-  text-indent: -9999px;
-  width: 52px;
-  height: 27px;
-  background: grey;
-  float: right;
-  border-radius: 100px;
-  position: relative;
-}
-
-.c-darkmode-label::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 20px;
-  height: 20px;
-  background-color: var(--toggle);
-  border-radius: 90px;
-  transition: 0.3s;
-}
-
-input:checked + .c-darkmode-label {
-  background-color: var(--toggle-bg);
-}
-
-input:checked + .c-darkmode-label::after {
-  left: calc(100% - 5px);
-  transform: translateX(-100%);
-}
-
-.c-darkmode-label:active:after {
-  width: 45px;
-} */
 
 /* ======================== Balance ======================== */
 
@@ -305,6 +263,7 @@ input:checked + .c-darkmode-label::after {
 
 .c-container__card.total .arrow {
   width: 15px;
+  cursor: pointer;
 }
 
 .c-past-total {
@@ -458,23 +417,31 @@ td.table__expense {
 }
 
 .styled-select {
-  width: 65px;
-  height: 18px;
+  width: 80px;
+  height: 20px;
   overflow: hidden;
-  background: url(./assets/down-arrow.svg) no-repeat right #ddd;
+  background: no-repeat right rgb(255, 255, 255);
   border: 1px solid #ccc;
+  display: flex;
+}
+
+.c-months-img {
+  cursor: pointer;
+  padding-left: 5px;
+  width: 20px;
 }
 
 .styled-select .c-input-months {
   background: transparent;
-  border: 1px solid #ddd;
+  border: 0px solid #ddd;
   border-radius: 0;
   -webkit-appearance: none;
+  margin: 0 auto;
 }
 
 .c-input-months:focus {
   box-shadow: 0 0 0 0;
-  border: 1px solid #ddd;
+  border: 0px solid #ddd;
   outline: 0;
 }
 
@@ -596,6 +563,10 @@ small {
   justify-content: space-between;
 }
 
+.c-form-wallets h2 {
+  color: var(--letters);
+}
+
 .c-form-wallets input {
   border: none;
   border-radius: 0.2rem;
@@ -712,15 +683,20 @@ footer {
   color: var(--letters);
 }
 
-/* ======================== Help ======================== */
+/* ======================== Help - Icons ======================== */
+
+body.u-help-active {
+  overflow: hidden;
+}
 
 .c-help-overlay {
   width: 100%;
   height: 100%;
 
-  background-color: rgba(0, 0, 0, 0.7);
+  background-attachment: fixed;
+  /* background-color: rgba(0, 0, 0, 0.774); */
 
-  position: absolute;
+  position: fixed;
   top: 0;
 
   opacity: 0;
@@ -733,34 +709,39 @@ footer {
   opacity: 1;
   visibility: visible;
 }
-
-.c-helpIcon-darkmod {
-  margin-top: 28px;
-  display: flex;
-  justify-content: space-between;
+.c-container-helps-icons.off {
+  display: none;
 }
 
-.c-darkmode-help {
-  display: block;
+.c-helpIcon-darkmod {
+  margin-top: 18px;
+  display: flex;
+  max-width: 1550px;
+  width: 100%;
+  align-content: flex-end;
+}
+
+.c-darkmodeIcon-help {
   cursor: pointer;
-  background: rgba(0, 47, 255, 0.253);
-  width: 80px;
-  height: 40px;
+  margin-left: auto;
+  margin-right: 3px;
+  background: rgba(14, 180, 202, 0.466);
+  width: 60px;
+  height: 60px;
   border-radius: 0.25rem;
 }
 .c-help {
   position: relative;
-  background-color: rgba(156, 69, 69, 0.356);
+  /* background-color: rgba(156, 69, 69, 0.356); */
   width: min(90vw, 800px);
   max-width: 805px;
   max-height: 500px;
   height: 100%;
-  margin: 35px auto 0 auto;
+  margin: 23px auto 0 auto;
 }
 .c-wallet-graphic {
   height: 50px;
   width: 100%;
-  /* background: rgba(0, 0, 0, 0.459); */
   display: flex;
   justify-content: space-between;
 }
@@ -769,7 +750,7 @@ footer {
   display: inline-block;
   cursor: pointer;
   margin-top: 5px;
-  background: rgba(0, 47, 255, 0.418);
+  background: rgba(14, 180, 202, 0.466);
   width: 188px;
   height: 40px;
   border-radius: 0.25rem;
@@ -779,7 +760,7 @@ footer {
   display: inline-block;
   cursor: pointer;
   margin-right: 5px;
-  background: rgba(0, 47, 255, 0.418);
+  background: rgba(14, 180, 202, 0.466);
   width: 45px;
   height: 40px;
   border-radius: 0.25rem;
@@ -789,18 +770,17 @@ footer {
   position: absolute;
   cursor: pointer;
   right: 0;
-  top: 375px;
-  width: 25px;
-  height: 25px;
-  background: rgba(0, 47, 255, 0.418);
+  top: 345px;
+  width: 30px;
+  height: 30px;
+  background: rgba(14, 180, 202, 0.466);
   border-radius: 0.25rem;
 }
 
 .c-transactions-months {
   width: 100%;
   height: 60px;
-  margin-top: 485px;
-  /* background: rgba(0, 0, 0, 0.459); */
+  margin-top: 490px;
   display: flex;
   justify-content: space-between;
 }
@@ -808,19 +788,74 @@ footer {
 .c-transactions-help {
   display: inline-block;
   cursor: pointer;
-  background: rgba(0, 47, 255, 0.253);
-  width: 138px;
-  height: 40px;
+  background: rgba(14, 180, 202, 0.466);
+
+  width: 155px;
+  height: 50px;
   border-radius: 0.25rem;
 }
 
 .c-months-help {
   display: inline-block;
   cursor: pointer;
-  background: rgba(0, 47, 255, 0.253);
-  width: 155px;
+  background: rgba(14, 180, 202, 0.466);
+  width: 110px;
   height: 40px;
   border-radius: 0.25rem;
+}
+
+/* ======================== Help-Texts ======================== */
+
+.c-container-help-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.c-closeText-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  cursor: pointer;
+}
+.c-cards-text {
+  position: relative;
+  display: none;
+  visibility: hidden;
+}
+.c-cards-text p {
+  font-size: 1em;
+}
+
+.c-cards-text h2 {
+  padding: 10px;
+  font-size: 2em;
+}
+
+.c-cards-text .c-img-text {
+  margin-top: 20px;
+  max-width: 700px;
+  width: 100%;
+}
+.c-darkmode-Text.on,
+.c-wallet-text.on,
+.c-graphic-text.on,
+.c-lastMonth-text.on,
+.c-transactions-text.on,
+.c-months-text.on {
+  display: block;
+  visibility: visible;
+  max-width: 750px;
+  max-height: 600px;
+  width: 100%;
+  height: 100%;
+  background: rgb(197, 196, 196);
+  text-align: center;
+  padding: 10px;
+  border-radius: 0.25rem;
+  margin: 10px;
 }
 
 /* ======================== Responsive ======================== */
@@ -828,6 +863,23 @@ footer {
 @media (min-width: 800px) {
   html {
     font-size: 87.5%;
+  }
+  .c-help-overlay {
+    width: 100%;
+    height: 100%;
+
+    background-attachment: fixed;
+    background-position: top left;
+    background-size: 100%;
+    /* background-color: rgba(0, 0, 0, 0.342); */
+
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 999;
   }
 
   .c-container__balance {
@@ -837,44 +889,47 @@ footer {
   }
   .c-help {
     position: relative;
-    /* background-color: rgba(156, 69, 69, 0.356); */
     width: min(90vw, 800px);
     max-width: 805px;
     max-height: 500px;
     height: 100%;
-    margin: 25px auto 0 auto;
+    margin: 15px auto 0 auto;
+  }
+
+  .c-help-icon {
+    margin-left: 20px;
   }
   .c-lastMonth-help {
     position: absolute;
     cursor: pointer;
-    right: 0;
+    right: -30px;
     top: 45px;
-    width: 25px;
-    height: 25px;
-    background: rgba(0, 47, 255, 0.418);
+    width: 30px;
+    height: 30px;
+    background: rgba(14, 180, 202, 0.466);
     border-radius: 0.25rem;
   }
   .c-transactions-months {
     width: 100%;
     height: 60px;
-    margin-top: 145px;
-    /* background: rgba(0, 0, 0, 0.459); */
+    margin-top: 150px;
+
     display: flex;
     justify-content: space-between;
   }
   .c-transactions-help {
     display: inline-block;
     cursor: pointer;
-    background: rgba(0, 47, 255, 0.253);
-    width: 130px;
+    background: rgba(14, 180, 202, 0.466);
+    width: 145px;
     height: 40px;
     border-radius: 0.25rem;
   }
   .c-months-help {
     display: inline-block;
     cursor: pointer;
-    background: rgba(0, 47, 255, 0.253);
-    width: 150px;
+    background: rgba(14, 180, 202, 0.466);
+    width: 110px;
     height: 40px;
     border-radius: 0.25rem;
   }
@@ -891,5 +946,28 @@ footer {
     border-top-left-radius: 0;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
+  }
+
+  .c-cards-text p {
+    font-size: 1.5em;
+  }
+
+  .c-darkmode-Text.on,
+  .c-wallet-text.on,
+  .c-graphic-text.on,
+  .c-lastMonth-text.on,
+  .c-transactions-text.on,
+  .c-months-text.on {
+    display: block;
+    visibility: visible;
+    max-width: 750px;
+    max-height: 600px;
+    width: 100%;
+    height: 100%;
+    background: rgb(197, 196, 196);
+    text-align: center;
+    padding: 10px;
+    border-radius: 0.25rem;
+    margin: 10px;
   }
 }

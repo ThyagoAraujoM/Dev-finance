@@ -16,7 +16,7 @@
     <header>
       <nav class="c-navbar">
         <img
-          src="./assets/help.svg"
+          src="./assets/pergunta.svg"
           alt="help image"
           class="c-help-img"
           onclick="helpModal.open()"
@@ -24,13 +24,13 @@
         <img class="c-logo" src="./assets/logo.svg" alt="Logo Dev Finance" />
         <div class="c-toggle">
           <img
-            src="./assets/sun.svg"
+            src="./assets/sol.svg"
             alt="Imagem LightMode On"
             class="c-lightMode js-lightMode"
             onclick="App.darkMode()"
           />
           <img
-            src="./assets/moon.svg"
+            src="./assets/lua.svg"
             alt="Imagem DarkMode On"
             class="c-darkMode js-darkMode on"
             onclick="App.darkMode()"
@@ -58,7 +58,7 @@
       </div>
       <!-- Graphic Button -->
       <img
-        src="./assets/graphic.svg"
+        src="./assets/grafico.svg"
         alt="Graphic Button"
         class="c-graphic-button"
         onclick="Graphic.open()"
@@ -159,7 +159,9 @@
                 <option value="total">Total</option>
               </select>
             </div>
-            <a href="#" onclick="App.update()">Atualizar</a>
+            <a onclick="App.update()"
+              ><img class="c-months-img" src="./assets/reset.svg" alt=""
+            /></a>
           </div>
         </div>
 
@@ -324,30 +326,158 @@
 
       <!-- Modal Ajuda -->
       <div
-        class="c-help-overlay js-help-overlay"
+        class="c-help-overlay js-help-overlay is-active"
         onclick="helpModal.closeOut()"
       >
-        <di class="c-helpIcon-darkmod">
-          <img
-            src="./assets/help.svg"
-            alt="help image"
-            class="c-help-img"
-            onclick="helpModal.close()"
-          />
-          <a class="c-darkmode-help"></a>
-        </di>
-        <div class="c-help js-help-overlay" onclick="helpModal.closeOut()">
-          <div class="c-wallet-graphic js-help-overlay">
-            <a class="c-wallet-help"></a>
-            <a class="c-graphic-help"></a>
-            <a class="c-lastMonth-help"></a>
-          </div>
-          <div class="c-transactions-months js-help-overlay">
-            <a class="c-transactions-help"></a>
-            <a class="c-months-help"></a>
-          </div>
+        <!-- ícones para cara funcionalidade -->
+        <div
+          class="c-container-helps-icons js-container-helps-icons js-help-overlay"
+          onclick="helpModal.closeOut()"
+        >
+          <di
+            class="c-helpIcon-darkmod js-help-overlay"
+            onclick="helpModal.closeOut()"
+          >
+            <!-- <img
+              src="./assets/pergunta.svg"
+              alt="help image"
+              class="c-help-img c-help-icon"
+              onclick="helpModal.close()"
+            /> -->
+            <a
+              class="c-darkmodeIcon-help js-darkmode-help"
+              onclick="helpModal.iconsOff(1)"
+            ></a>
+          </di>
+          <div class="c-help js-help-overlay" onclick="helpModal.closeOut()">
+            <div class="c-wallet-graphic js-help-overlay">
+              <a class="c-wallet-help" onclick="helpModal.iconsOff(2)"></a>
+              <a class="c-graphic-help" onclick="helpModal.iconsOff(3)"></a>
+              <a class="c-lastMonth-help" onclick="helpModal.iconsOff(4)"></a>
+            </div>
+            <div class="c-transactions-months js-help-overlay">
+              <a class="c-transactions-help" onclick="helpModal.iconsOff(5)">
+              </a>
+              <a class="c-months-help" onclick="helpModal.iconsOff(6)"></a>
+            </div>
 
-          <a href=""></a>
+            <a href=""></a>
+          </div>
+        </div>
+
+        <!-- Textos de cada ícone  -->
+        <div
+          class="c-container-help-text js-help-overlay"
+          onclick="helpModal.closeOut()"
+        >
+          <!-- darkmodr -->
+          <div class="c-darkmode-Text c-cards-text js-darkmode-text">
+            <img
+              src="./assets/error.svg"
+              class="c-closeText-button"
+              onclick="helpModal.iconsOff(1)"
+            />
+            <h2>Tema Escuro / Tema Claro</h2>
+            <p>
+              Essa opção permite que você alterne entre as versões
+              <em>Dark</em> e <em>Light</em> do site.
+            </p>
+            <img
+              src="./assets/darkmod-gif.gif"
+              alt="Gif Dark Mode"
+              class="c-img-text"
+            />
+          </div>
+          <!-- wallet -->
+          <div class="c-cards-text c-wallet-text js-wallet-text">
+            <img
+              src="./assets/error.svg"
+              class="c-closeText-button"
+              onclick="helpModal.iconsOff(2)"
+            />
+            <h2>Carteira</h2>
+            <p>
+              Essa opção permite que você possa ter controle financeiro para
+              mais de um usuário.
+            </p>
+            <img
+              src="./assets/wallet-gif.gif"
+              alt="Gif Carteira"
+              class="c-img-text"
+            />
+          </div>
+          <!-- graphic -->
+          <div class="c-cards-text c-graphic-text js-graphic-text">
+            <img
+              src="./assets/error.svg"
+              class="c-closeText-button"
+              onclick="helpModal.iconsOff(3)"
+            />
+            <h2>Gráfico</h2>
+            <p>
+              Permitira que você analise os gastos de todos os meses em um
+              gráfico.
+            </p>
+            <img
+              src="./assets/graphic-gif.gif"
+              alt="Gif Gráfico"
+              class="c-img-text"
+            />
+          </div>
+          <!-- latMonth -->
+          <div class="c-cards-text c-lastMonth-text js-lastMonth-text">
+            <img
+              src="./assets/error.svg"
+              class="c-closeText-button"
+              onclick="helpModal.iconsOff(4)"
+            />
+            <h2>Gastos do mês passado</h2>
+            <p>
+              Permite você ter uma analise rápida dos gastos do mês anterior.
+            </p>
+            <img
+              src="./assets/lastmonth-gif.gif"
+              alt="Gif Gastos mês anterior"
+              class="c-img-text"
+            />
+          </div>
+          <!-- Transactions -->
+          <div class="c-cards-text c-transactions-text js-transactions-text">
+            <img
+              src="./assets/error.svg"
+              class="c-closeText-button"
+              onclick="helpModal.iconsOff(5)"
+            />
+            <h2>Novas Transações</h2>
+            <p>
+              Permite adicionar novas transações/gastos a tabela, escolhendo se
+              é um gasto fixo ou não.
+            </p>
+            <img
+              src="./assets/transactions-gif.gif"
+              alt="Gif Novas Transações"
+              class="c-img-text"
+            />
+          </div>
+          <!-- Months -->
+          <div class="c-cards-text c-months-text js-months-text">
+            <img
+              src="./assets/error.svg"
+              class="c-closeText-button"
+              onclick="helpModal.iconsOff(6)"
+            />
+            <h2>Meses e Total</h2>
+            <p>
+              Permite você navegar entre os meses e ir adicionando transações
+              para cada mês de escolha, ou ir para o Total e ter uma visão geral
+              de todos os gastos em uma tabela única.
+            </p>
+            <img
+              src="./assets/months-gif.gif"
+              alt="Gif Meses e Total"
+              class="c-img-text"
+            />
+          </div>
         </div>
       </div>
     </section>

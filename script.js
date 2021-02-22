@@ -99,9 +99,11 @@ const WalletModal = {
 const helpModal = {
   open() {
     document.querySelector(".js-help-overlay").classList.add("is-active");
+    document.querySelector("body").classList.add("u-help-active");
   },
   close() {
     document.querySelector(".js-help-overlay").classList.remove("is-active");
+    document.querySelector("body").classList.remove("u-help-active");
   },
   closeOut() {
     let modal = document.querySelectorAll(".js-help-overlay");
@@ -110,6 +112,30 @@ const helpModal = {
       modal[n].addEventListener("click", function (e) {
         if (e.target == this) helpModal.close();
       });
+    }
+  },
+  iconsOff(number) {
+    document.querySelector(".js-container-helps-icons").classList.toggle("off");
+
+    switch (number) {
+      case 1:
+        document.querySelector(".js-darkmode-text").classList.toggle("on");
+        break;
+      case 2:
+        document.querySelector(".js-wallet-text").classList.toggle("on");
+        break;
+      case 3:
+        document.querySelector(".js-graphic-text").classList.toggle("on");
+        break;
+      case 4:
+        document.querySelector(".js-lastMonth-text").classList.toggle("on");
+        break;
+      case 5:
+        document.querySelector(".js-transactions-text").classList.toggle("on");
+        break;
+      case 6:
+        document.querySelector(".js-months-text").classList.toggle("on");
+        break;
     }
   },
 };
