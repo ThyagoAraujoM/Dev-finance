@@ -311,6 +311,7 @@ header {
 /* ======================== Table ======================== */
 
 .c-transaction {
+  position: relative;
   display: block;
   width: 100%;
 }
@@ -693,7 +694,6 @@ body.u-help-active {
   width: 100%;
   height: 100%;
 
-  background-attachment: fixed;
   /* background-color: rgba(0, 0, 0, 0.774); */
 
   position: fixed;
@@ -709,99 +709,74 @@ body.u-help-active {
   opacity: 1;
   visibility: visible;
 }
-.c-container-helps-icons.off {
-  display: none;
-}
-
-.c-helpIcon-darkmod {
-  margin-top: 18px;
-  display: flex;
-  max-width: 1550px;
-  width: 100%;
-  align-content: flex-end;
-}
 
 .c-darkmodeIcon-help {
   cursor: pointer;
-  margin-left: auto;
-  margin-right: 3px;
-  background: rgba(14, 180, 202, 0.466);
-  width: 60px;
-  height: 60px;
-  border-radius: 0.25rem;
-}
-.c-help {
-  position: relative;
-  /* background-color: rgba(156, 69, 69, 0.356); */
-  width: min(90vw, 800px);
-  max-width: 805px;
-  max-height: 500px;
-  height: 100%;
-  margin: 23px auto 0 auto;
-}
-.c-wallet-graphic {
-  height: 50px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+  position: absolute;
+  top: -18px;
+  right: 45px;
+  width: 20px;
+  height: 20px;
+  display: none;
 }
 
 .c-wallet-help {
-  display: inline-block;
+  position: absolute;
   cursor: pointer;
-  margin-top: 5px;
-  background: rgba(14, 180, 202, 0.466);
-  width: 188px;
-  height: 40px;
-  border-radius: 0.25rem;
+  top: 5px;
+  left: 190px;
+  width: 20px;
+  height: 20px;
+  display: none;
 }
 
 .c-graphic-help {
-  display: inline-block;
+  position: absolute;
   cursor: pointer;
-  margin-right: 5px;
-  background: rgba(14, 180, 202, 0.466);
-  width: 45px;
-  height: 40px;
-  border-radius: 0.25rem;
+  right: 50px;
+  top: -45px;
+  width: 20px;
+  height: 20px;
+  display: none;
 }
 
 .c-lastMonth-help {
   position: absolute;
   cursor: pointer;
-  right: 0;
-  top: 345px;
-  width: 30px;
-  height: 30px;
-  background: rgba(14, 180, 202, 0.466);
-  border-radius: 0.25rem;
-}
-
-.c-transactions-months {
-  width: 100%;
-  height: 60px;
-  margin-top: 490px;
-  display: flex;
-  justify-content: space-between;
+  right: 5px;
+  top: 32px;
+  width: 20px;
+  height: 20px;
+  display: none;
 }
 
 .c-transactions-help {
-  display: inline-block;
+  position: absolute;
   cursor: pointer;
-  background: rgba(14, 180, 202, 0.466);
-
-  width: 155px;
-  height: 50px;
-  border-radius: 0.25rem;
+  top: 10px;
+  left: 150px;
+  width: 20px;
+  height: 20px;
+  display: none;
 }
 
 .c-months-help {
-  display: inline-block;
+  position: absolute;
   cursor: pointer;
-  background: rgba(14, 180, 202, 0.466);
-  width: 110px;
-  height: 40px;
-  border-radius: 0.25rem;
+  right: 105px;
+  top: 6px;
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
+.c-darkmodeIcon-help.u-visible,
+.c-wallet-help.u-visible,
+.c-graphic-help.u-visible,
+.c-lastMonth-help.u-visible,
+.c-transactions-help.u-visible,
+.c-months-help.u-visible {
+  display: block;
 }
 
 /* ======================== Help-Texts ======================== */
@@ -839,7 +814,7 @@ body.u-help-active {
   max-width: 700px;
   width: 100%;
 }
-.c-darkmode-Text.on,
+.c-darkmode-text.on,
 .c-wallet-text.on,
 .c-graphic-text.on,
 .c-lastMonth-text.on,
@@ -868,14 +843,11 @@ body.u-help-active {
     width: 100%;
     height: 100%;
 
-    background-attachment: fixed;
-    background-position: top left;
-    background-size: 100%;
     /* background-color: rgba(0, 0, 0, 0.342); */
 
     position: fixed;
     top: 0;
-    overflow: hidden;
+
     opacity: 0;
     visibility: hidden;
 
@@ -886,52 +858,6 @@ body.u-help-active {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-  }
-  .c-help {
-    position: relative;
-    width: min(90vw, 800px);
-    max-width: 805px;
-    max-height: 500px;
-    height: 100%;
-    margin: 15px auto 0 auto;
-  }
-
-  .c-help-icon {
-    margin-left: 20px;
-  }
-  .c-lastMonth-help {
-    position: absolute;
-    cursor: pointer;
-    right: -30px;
-    top: 45px;
-    width: 30px;
-    height: 30px;
-    background: rgba(14, 180, 202, 0.466);
-    border-radius: 0.25rem;
-  }
-  .c-transactions-months {
-    width: 100%;
-    height: 60px;
-    margin-top: 150px;
-
-    display: flex;
-    justify-content: space-between;
-  }
-  .c-transactions-help {
-    display: inline-block;
-    cursor: pointer;
-    background: rgba(14, 180, 202, 0.466);
-    width: 145px;
-    height: 40px;
-    border-radius: 0.25rem;
-  }
-  .c-months-help {
-    display: inline-block;
-    cursor: pointer;
-    background: rgba(14, 180, 202, 0.466);
-    width: 110px;
-    height: 40px;
-    border-radius: 0.25rem;
   }
   .c-container__card.total .c-container-arrow {
     display: flex;
@@ -952,7 +878,7 @@ body.u-help-active {
     font-size: 1.5em;
   }
 
-  .c-darkmode-Text.on,
+  .c-darkmode-text.on,
   .c-wallet-text.on,
   .c-graphic-text.on,
   .c-lastMonth-text.on,

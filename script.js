@@ -97,13 +97,15 @@ const WalletModal = {
 };
 
 const helpModal = {
-  open() {
-    document.querySelector(".js-help-overlay").classList.add("is-active");
-    document.querySelector("body").classList.add("u-help-active");
-  },
   close() {
     document.querySelector(".js-help-overlay").classList.remove("is-active");
-    document.querySelector("body").classList.remove("u-help-active");
+    // document.querySelector("body").classList.remove("u-help-active");
+    document.querySelector(".js-darkmode-text").classList.remove("on");
+    document.querySelector(".js-wallet-text").classList.remove("on");
+    document.querySelector(".js-graphic-text").classList.remove("on");
+    document.querySelector(".js-lastMonth-text").classList.remove("on");
+    document.querySelector(".js-transactions-text").classList.remove("on");
+    document.querySelector(".js-months-text").classList.remove("on");
   },
   closeOut() {
     let modal = document.querySelectorAll(".js-help-overlay");
@@ -114,9 +116,14 @@ const helpModal = {
       });
     }
   },
+  seeIcons() {
+    let icons = document.querySelectorAll(".js-icon-help");
+    icons.forEach((icons) => {
+      icons.classList.toggle("u-visible");
+    });
+  },
   iconsOff(number) {
-    document.querySelector(".js-container-helps-icons").classList.toggle("off");
-
+    document.querySelector(".js-help-overlay").classList.add("is-active");
     switch (number) {
       case 1:
         document.querySelector(".js-darkmode-text").classList.toggle("on");

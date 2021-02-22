@@ -19,7 +19,7 @@
           src="./assets/pergunta.svg"
           alt="help image"
           class="c-help-img"
-          onclick="helpModal.open()"
+          onclick="helpModal.seeIcons()"
         />
         <img class="c-logo" src="./assets/logo.svg" alt="Logo Dev Finance" />
         <div class="c-toggle">
@@ -35,6 +35,13 @@
             class="c-darkMode js-darkMode on"
             onclick="App.darkMode()"
           />
+          <img
+            src="./assets/pergunta.svg"
+            alt="Imagem de Ajuda DarkMode"
+            class="c-darkmodeIcon-help js-icon-help"
+            onclick="helpModal.iconsOff(1)"
+          />
+
           <!-- <input
             onclick="App.darkMode()"
             type="checkbox"
@@ -48,6 +55,11 @@
 
     <main id="container" class="c-container">
       <div id="wallet-selected" class="c-wallet-selected">
+        <img
+          src="./assets/pergunta.svg"
+          class="c-wallet-help js-icon-help"
+          onclick="helpModal.iconsOff(2)"
+        />
         <span>Carteira :</span>
         <a
           class="c-button__wallet c-wallet"
@@ -62,6 +74,11 @@
         alt="Graphic Button"
         class="c-graphic-button"
         onclick="Graphic.open()"
+      />
+      <img
+        src="./assets/pergunta.svg"
+        class="c-graphic-help js-icon-help"
+        onclick="helpModal.iconsOff(3)"
       />
       <!-- Primeiras 3 caixas: Entrada, Saída e Total -->
       <section class="c-container__balance">
@@ -112,6 +129,11 @@
           </div>
           <div class="c-container-arrow">
             <img
+              src="./assets/pergunta.svg"
+              class="c-lastMonth-help js-icon-help"
+              onclick="helpModal.iconsOff(4)"
+            />
+            <img
               src="./assets/up-arrow.svg"
               alt="seta pra cima"
               class="arrow js-up-arrow"
@@ -138,9 +160,19 @@
         <h2 class="u-sr-only">Transações</h2>
 
         <div class="c-inputs-table">
-          <a href="#" onclick="Modal.open()" class="button new"
-            >Novas Transações</a
-          >
+          <a href="#" onclick="Modal.open()" class="button new">
+            Novas Transações
+          </a>
+          <img
+            src="./assets/pergunta.svg"
+            class="c-transactions-help js-icon-help"
+            onclick="helpModal.iconsOff(5)"
+          />
+          <img
+            src="./assets/pergunta.svg"
+            class="c-months-help js-icon-help"
+            onclick="helpModal.iconsOff(6)"
+          />
           <div class="c-container-input-months">
             <div class="styled-select">
               <select name="Mês" class="c-input-months" id="js-month">
@@ -329,58 +361,22 @@
         class="c-help-overlay js-help-overlay"
         onclick="helpModal.closeOut()"
       >
-        <!-- ícones para cara funcionalidade -->
-        <div
-          class="c-container-helps-icons js-container-helps-icons js-help-overlay"
-          onclick="helpModal.closeOut()"
-        >
-          <di
-            class="c-helpIcon-darkmod js-help-overlay"
-            onclick="helpModal.closeOut()"
-          >
-            <!-- <img
-              src="./assets/pergunta.svg"
-              alt="help image"
-              class="c-help-img c-help-icon"
-              onclick="helpModal.close()"
-            /> -->
-            <a
-              class="c-darkmodeIcon-help js-darkmode-help"
-              onclick="helpModal.iconsOff(1)"
-            ></a>
-          </di>
-          <div class="c-help js-help-overlay" onclick="helpModal.closeOut()">
-            <div class="c-wallet-graphic js-help-overlay">
-              <a class="c-wallet-help" onclick="helpModal.iconsOff(2)"></a>
-              <a class="c-graphic-help" onclick="helpModal.iconsOff(3)"></a>
-              <a class="c-lastMonth-help" onclick="helpModal.iconsOff(4)"></a>
-            </div>
-            <div class="c-transactions-months js-help-overlay">
-              <a class="c-transactions-help" onclick="helpModal.iconsOff(5)">
-              </a>
-              <a class="c-months-help" onclick="helpModal.iconsOff(6)"></a>
-            </div>
-
-            <a href=""></a>
-          </div>
-        </div>
-
         <!-- Textos de cada ícone  -->
         <div
           class="c-container-help-text js-help-overlay"
           onclick="helpModal.closeOut()"
         >
           <!-- darkmodr -->
-          <div class="c-darkmode-Text c-cards-text js-darkmode-text">
+          <div class="c-darkmode-text c-cards-text js-darkmode-text">
             <img
               src="./assets/error.svg"
               class="c-closeText-button"
-              onclick="helpModal.iconsOff(1)"
+              onclick="helpModal.close()"
             />
             <h2>Tema Escuro / Tema Claro</h2>
             <p>
-              Essa opção permite que você alterne entre as versões
-              <em>Dark</em> e <em>Light</em> do site.
+              Essa opção permite que você alterne entre as temas
+              <em>Clara</em> e <em>Escura</em> do site.
             </p>
             <img
               src="./assets/darkmod-gif.gif"
@@ -393,7 +389,7 @@
             <img
               src="./assets/error.svg"
               class="c-closeText-button"
-              onclick="helpModal.iconsOff(2)"
+              onclick="helpModal.close()"
             />
             <h2>Carteira</h2>
             <p>
@@ -411,11 +407,11 @@
             <img
               src="./assets/error.svg"
               class="c-closeText-button"
-              onclick="helpModal.iconsOff(3)"
+              onclick="helpModal.close()"
             />
             <h2>Gráfico</h2>
             <p>
-              Permitira que você analise os gastos de todos os meses em um
+              Permitira que você analise os gastos de todos os meses em um único
               gráfico.
             </p>
             <img
@@ -429,7 +425,7 @@
             <img
               src="./assets/error.svg"
               class="c-closeText-button"
-              onclick="helpModal.iconsOff(4)"
+              onclick="helpModal.close()"
             />
             <h2>Gastos do mês passado</h2>
             <p>
@@ -446,7 +442,7 @@
             <img
               src="./assets/error.svg"
               class="c-closeText-button"
-              onclick="helpModal.iconsOff(5)"
+              onclick="helpModal.close()"
             />
             <h2>Novas Transações</h2>
             <p>
@@ -464,13 +460,13 @@
             <img
               src="./assets/error.svg"
               class="c-closeText-button"
-              onclick="helpModal.iconsOff(6)"
+              onclick="helpModal.close()"
             />
             <h2>Meses e Total</h2>
             <p>
-              Permite você navegar entre os meses e ir adicionando transações
-              para cada mês de escolha, ou ir para o Total e ter uma visão geral
-              de todos os gastos em uma tabela única.
+              Permite você navegar e adicionar transações ao mês de escolha. O
+              Total serve para ter uma visão geral de todos os gastos em uma
+              tabela única, mas não é possível adicionar transações nele.
             </p>
             <img
               src="./assets/months-gif.gif"
@@ -490,29 +486,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-
-<!-- Lista para teste. Se coloca dentro do tbody -->
-<!-- <tr>
-                     <td class="table__description">Luz</td>
-                     <td class="table__expense">- R$500,00</td>
-                     <td class="table__date">23/01/2021</td>
-                     <td>
-                        <img src="./assets/minus.svg" alt="Remove transação" />
-                     </td>
-                  </tr>
-                  <tr>
-                     <td class="table__description">Criação website</td>
-                     <td class="table__income">R$5.000,00</td>
-                     <td class="table__date">23/01/2021</td>
-                     <td>
-                        <img src="./assets/minus.svg" alt="Remove transação" />
-                     </td>
-                  </tr>
-                  <tr>
-                     <td class="table__description">Internet</td>
-                     <td class="table__expense">- R$200,00</td>
-                     <td class="table__date">23/01/2021</td>
-                     <td>
-                        <img src="./assets/minus.svg" alt="Remove transação" />
-                     </td>
-                  </tr> -->
