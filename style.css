@@ -429,7 +429,9 @@ td.table__expense {
 .c-months-img {
   cursor: pointer;
   padding-left: 5px;
-  width: 20px;
+  margin-top: -3px;
+
+  width: 30px;
 }
 
 .styled-select .c-input-months {
