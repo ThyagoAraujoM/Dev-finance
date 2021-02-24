@@ -470,6 +470,10 @@ td.table__expense {
   border: none;
 } */
 
+.c-checkbox-text {
+  color: var(--letters);
+}
+
 /* ======================== Modal ======================== */
 
 .c-modal-overlay {

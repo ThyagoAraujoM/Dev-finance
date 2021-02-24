@@ -999,19 +999,3 @@ document.querySelectorAll(".js-table-sortable th").forEach((headerCell) => {
 });
 document.querySelector("#wallet-selected-name").innerHTML = Wallet.all[0];
 App.init();
-
-// Comentários avulsos.
-/*
-   Transaction.add({
-      id: 39,
-      description: "Alo",
-      amount: 200,
-      date: "23/01/2021",
- });
-
- Transaction.remove(0); */
-
-/*Tirar o R$ para o sort conseguir ordenar corretamente
- aColText = aColText.replace(/(R\$|\ +)/gi, "");
- bColText = bColText.replace(/(R\$|\ +)/gi, "");
-*/
