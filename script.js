@@ -998,4 +998,21 @@ document.querySelectorAll(".js-table-sortable th").forEach((headerCell) => {
   });
 });
 document.querySelector("#wallet-selected-name").innerHTML = Wallet.all[0];
+
+document
+  .querySelector(".js-fixo-action")
+  .addEventListener("mouseover", function (event) {
+    document.querySelector(".js-fixo-tex").classList.remove("off");
+  });
+document
+  .querySelector(".js-fixo-action")
+  .addEventListener("mouseout", function (event) {
+    document.querySelector(".js-fixo-tex").classList.add("off");
+  });
+document
+  .querySelector(".js-fixo-action")
+  .addEventListener("click", function (event) {
+    document.querySelector(".js-fixo-tex").classList.toggle("off");
+  });
+
 App.init();

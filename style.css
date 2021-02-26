@@ -448,30 +448,39 @@ td.table__expense {
   outline: 0;
 }
 
-/* .c-input-months {
-  border: none;
-  padding: 0px;
-
-  overflow: hidden;
-  background: #ddd; 
-  border: 0px solid rgba(221, 221, 221, 0);
-}
-
-.c-input-months {
-  background: transparent;
-}
-
-.c-input-months:focus {
-  
-}
-
-.c-input-months:hover {
-  background: #000;
-  border: none;
-} */
-
 .c-checkbox-text {
   color: var(--letters);
+}
+
+.c-fixo-info {
+  position: relative;
+
+  max-width: 430px;
+}
+
+.c-fixo-info .c-fixo-action {
+  position: absolute;
+  left: 0px;
+  top: -13px;
+  color: red;
+}
+
+.c-fixo-text {
+  position: absolute;
+  top: -95px;
+  font-size: 0.85rem;
+  left: 40px;
+  height: 120px;
+  max-width: 180px;
+
+  width: 80vw;
+  padding: 10px;
+  background: #e7e8eb;
+  border-radius: 0.25rem;
+}
+
+.c-fixo-text.off {
+  display: none;
 }
 
 /* ======================== Modal ======================== */
@@ -652,6 +661,7 @@ small {
 }
 
 .c-form form .c-container-checkbox {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -661,7 +671,7 @@ small {
 .c-form form .c-container-checkbox .c-checkbox {
   min-height: 12px;
   min-width: 12px;
-  margin: 5px;
+  margin: 5px 5px 5px 10px;
 }
 
 .c-input-group .help {
@@ -901,5 +911,19 @@ body.u-help-active {
     padding: 10px;
     border-radius: 0.25rem;
     margin: 10px;
+  }
+
+  .c-fixo-text {
+    font-size: 1rem;
+    position: absolute;
+    top: -75px;
+    left: -40px;
+    max-width: 450px;
+    /* min-width: 300px; */
+    height: 65px;
+    width: 80vw;
+    padding: 10px;
+    background: #e7e8eb;
+    border-radius: 0.25rem;
   }
 }
