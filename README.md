@@ -24,7 +24,7 @@
 </p>
 
 <h4 align="center">
-	🚧 Em andamento 🚧
+	🎉 Completo 🎉
 </h4>
 
 <p align="center">
