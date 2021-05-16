@@ -54,9 +54,9 @@ Esse repositório é baseado na primeira Maratona Discover com Mayk Brito, utili
    -  [x] Delete - Excluir
    -  [x] Gasto Fixo
 -  [x] Dark Mode
--  [x]Filtro para Transações
-   -  [x]Data
-   -  [x]Descrição
+-  [x] Filtro para Transações
+   -  [x] Data
+   -  [x] Descrição
    -  [x] Valor
 -  [x] Ícone de dúvida
 -  [x] Sistema de Carteira
