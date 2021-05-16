@@ -29,8 +29,11 @@
 
 <p align="center">
  <a href="#---sobre-o-repositório-">Sobre o projeto</a> •
+ <a href="#--features"> Recursos </a> •
+ <a href="#--functions"> Funcionalidades</a> •
  <a href="#--como-executar-o-projeto-">Como executar o projeto</a> •
- <a href="#-autor">Autor</a> • 
+ <a href="#--Contributing"> Contribuição</a> •  
+ <a href="#-autor">Autor</a> •
  <a href="#user-content--licença">Licença</a>
 </p>
 
@@ -42,15 +45,24 @@ Esse repositório é baseado na primeira Maratona Discover com Mayk Brito, utili
 
 ---
 
-<h2> Features </h2>
+<h2 id="--features"> Recursos </h2>
 
--  [x] Sistema de Novas transações.
--  [x] Sistema de Gasto fixo
+-  [x] CRUD das Transações ( Local Storage )
+   -  [x] Create - Criar
+   -  [x] Read -Ler
+   -  [x] Update - Atualizar
+   -  [x] Delete - Excluir
+   -  [x] Gasto Fixo
+-  [x] Dark Mode
+-  [x]Filtro para Transações
+   -  [x]Data
+   -  [x]Descrição
+   -  [x] Valor
 -  [x] Ícone de dúvida
 -  [x] Sistema de Carteira
--  [x] Sistema de Múltiplas carteiras.
--  [x] Sistema de Gráfico anual.
--  [x] Sistema de saldo do mês passado.
+-  [x] Múltiplas Carteiras.
+-  [x] Gráfico anual.
+-  [x] Saldo do mês passado.
 -  [x] Meses separados e total com todos os meses.
 
 ---
