@@ -38,19 +38,13 @@
 
 <h2 id="---sobre-o-repositório-"> 💻  Sobre o repositório </h2>
 
-Esse repositório é baseado na Maratona Discover com Mayk Brito, utilizando o básico de HTML, CSS e Javascript para fazer a base do projeto porém estou implementando várias funcionalidades e deixar essa aplicação bem melhor, e aprendendo bastante com isso.
-
-<h4 align="center">🚧 Aviso 🚧</h4>
-
-<p>
-Códigos comentados para minha própria revisão se precisar, se houver algo que acha que pode ser melhorado, não tenha medo de me comunicar isso me ajuda no meu crescimento profissional.
-</p>
+Esse repositório é baseado na primeira Maratona Discover com Mayk Brito, utilizando o básico e algumas coisas mais avançadas de HTML, CSS e Javascript para fazer a base do projeto, com mais algumas funcionalidades adicionais ao projeto que implementei para aprendizado próprio.
 
 ---
 
 <h2 id="--como-executar-o-projeto-"> 🚀 Como executar o projeto </h2>
 
-Este projeto só usa de tem Front-end. Clique no link abaixo para ver a aplicação rodando no seu navegador.
+Este projeto só usa Front-end ( Html, Css, Js ). Clique no link abaixo para ver a aplicação rodando no seu navegador.
 
 <a href="https://pluto-ty.github.io/Maratona-Discover/" target="_blank" > Dev.Finances$</a> 
 
