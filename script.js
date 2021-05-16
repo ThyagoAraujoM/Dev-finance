@@ -425,15 +425,12 @@ const DOM = {
 
    //Atualiza as caixas de entrada, saída e total
    updateBalance() {
-      document.getElementById(
-         "js-incomeDisplay"
-      ).innerHTML = Utils.formatCurrency(Transaction.incomes());
-      document.getElementById(
-         "js-expensesDisplay"
-      ).innerHTML = Utils.formatCurrency(Transaction.expenses());
-      document.getElementById(
-         "js-totalDisplay"
-      ).innerHTML = Utils.formatCurrency(Transaction.total());
+      document.getElementById("js-incomeDisplay").innerHTML =
+         Utils.formatCurrency(Transaction.incomes());
+      document.getElementById("js-expensesDisplay").innerHTML =
+         Utils.formatCurrency(Transaction.expenses());
+      document.getElementById("js-totalDisplay").innerHTML =
+         Utils.formatCurrency(Transaction.total());
    },
 
    //limpa  a tabela
@@ -893,9 +890,8 @@ const lastMonth = {
       document.getElementById("js-lastIncome").innerHTML = Utils.formatCurrency(
          Transaction.incomes(month)
       );
-      document.getElementById(
-         "js-lastExpense"
-      ).innerHTML = Utils.formatCurrency(Transaction.expenses(month));
+      document.getElementById("js-lastExpense").innerHTML =
+         Utils.formatCurrency(Transaction.expenses(month));
       document.getElementById("js-lastTotal").innerHTML = Utils.formatCurrency(
          Transaction.total(month)
       );
