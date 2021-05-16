@@ -42,16 +42,16 @@ Esse repositório é baseado na primeira Maratona Discover com Mayk Brito, utili
 
 ---
 
-### Features
+<h2> Features </h2>
 
--  [ x ] Sistema de Novas transações
--  [ x ] Sistema de Gasto fixo
--  [ x ] Ícone de dúvida
--  [ x ] Sistema de Carteira
--  [ x ] Sistema de Múltiplas carteiras.
--  [ x ] Sistema de Gráfico anual.
--  [ x ] Sistema de saldo do mês passado.
--  [ x ] Meses separados e total com todos os meses.
+-  [x] Sistema de Novas transações.
+-  [x] Sistema de Gasto fixo
+-  [x] Ícone de dúvida
+-  [x] Sistema de Carteira
+-  [x] Sistema de Múltiplas carteiras.
+-  [x] Sistema de Gráfico anual.
+-  [x] Sistema de saldo do mês passado.
+-  [x] Meses separados e total com todos os meses.
 
 ---
 
