@@ -3,5 +3,9 @@
     "sync.autoDownload": true,
     "sync.autoUpload": true,
     "editor.formatOnSave": true,
-    "liveServer.settings.port": 5501
+   "liveServer.settings.port": 5501,
+   "cSpell.language": "en,pt,pt_PT",
+   "cSpell.enableFiletypes": [
+      "markdown"
+   ]
 }

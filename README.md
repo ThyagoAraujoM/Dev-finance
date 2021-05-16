@@ -42,11 +42,24 @@ Esse repositório é baseado na primeira Maratona Discover com Mayk Brito, utili
 
 ---
 
+### Features
+
+-  [ x ] Sistema de Novas transações
+-  [ x ] Sistema de Gasto fixo
+-  [ x ] Ícone de dúvida
+-  [ x ] Sistema de Carteira
+-  [ x ] Sistema de Múltiplas carteiras.
+-  [ x ] Sistema de Gráfico anual.
+-  [ x ] Sistema de saldo do mês passado.
+-  [ x ] Meses separados e total com todos os meses.
+
+---
+
 <h2 id="--como-executar-o-projeto-"> 🚀 Como executar o projeto </h2>
 
 Este projeto só usa Front-end ( Html, Css, Js ). Clique no link abaixo para ver a aplicação rodando no seu navegador.
 
-<a href="https://pluto-ty.github.io/Maratona-Discover/" target="_blank" > Dev.Finances$</a> 
+<a href="https://pluto-ty.github.io/Maratona-Discover/" target="_blank" > Dev.Finances$</a>
 
 ### Pré-requisitos
 
