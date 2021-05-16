@@ -81,8 +81,7 @@ $ git clone https://github.com/Pluto-ty/Maratona-Discover.git
 
 <h4 align="center"> Mobile </h4>
   <p align="center";>
-   <img alt="Header/Main" title="Mobile Home" src="./assets/mobile.png" width="400px">
-   <img alt="Header/Main" title="Mohile Home Dark Mode" src="./assets/mobile-dm.png" width="400px">
+   <img alt="Header/Main" title="Mobile Home" src="./assets/demonstration-mobile.gif" >
   </p>
 
 <h4 align="center"> Web </h4>
