@@ -7,17 +7,17 @@
 </h3>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Pluto-ty/Maratona-Discover?style=flat-square">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/thyagoaraujom/Maratona-Discover?style=flat-square">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Pluto-ty/Maratona-Discover">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/thyagoaraujom/Maratona-Discover">
   
-  <a href="https://github.com/Pluto-ty/README/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Pluto-ty/Maratona-Discover">
+  <a href="https://github.com/thyagoaraujom/README/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/thyagoaraujom/Maratona-Discover">
   </a>
     
    <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
-   <a href="https://github.com/Pluto-ty/Maratona-Discover/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/Pluto-ty/Maratona-Discover?style=social">
+   <a href="https://github.com/thyagoaraujom/Maratona-Discover/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/thyagoaraujom/Maratona-Discover?style=social">
   </a>
   
  
@@ -71,7 +71,7 @@ Esse repositório é baseado na primeira Maratona Discover com Mayk Brito, utili
 
 Este projeto só usa Front-end ( Html, Css, Js ). Clique no link abaixo para ver a aplicação rodando no seu navegador.
 
-<a href="https://pluto-ty.github.io/Maratona-Discover/" target="_blank" > Dev.Finances$</a>
+<a href="https://thyagoaraujom.github.io/Maratona-Discover/" target="_blank" > Dev.Finances$</a>
 
 ### Pré-requisitos
 
@@ -81,7 +81,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 1. Faça clone do projeto:
 
 ```bash
-$ git clone https://github.com/Pluto-ty/Maratona-Discover.git
+$ git clone https://github.com/thyagoaraujom/Maratona-Discover.git
 
 ```
 
@@ -124,7 +124,7 @@ Todos os tipos de contribuições são muito bem-vindos e apreciados!
 
 <h2 id="-autor">Autor</h2>
 
-<a href="https://github.com/Pluto-ty">
+<a href="https://github.com/thyagoaraujom">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/51569984" width="100px;" alt=""/>
 </br>
 <p> Thyago Araujo <p>
