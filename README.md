@@ -69,9 +69,7 @@ Esse repositório é baseado na primeira Maratona Discover com Mayk Brito, utili
 
 <h2 id="--como-executar-o-projeto-"> 🚀 Como executar o projeto </h2>
 
-Este projeto só usa Front-end ( Html, Css, Js ). Clique no link abaixo para ver a aplicação rodando no seu navegador.
-
-<a href="https://thyagoaraujom.github.io/Maratona-Discover/" target="_blank" > Dev.Finances$</a>
+Clique no link para ver a aplicação rodando no seu navegador. <a href="https://thyagoaraujom.github.io/Maratona-Discover/" target="_blank" > Dev.Finances$</a>
 
 ### Pré-requisitos
 
